@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { PireditService } from 'src/app/services/piredit.service';
@@ -17,6 +17,9 @@ import { RolesService } from 'src/app/services/roles.service';
 export class ChaptereditComponent implements OnInit {
   @ViewChild(WordpaireditComponent)
   private wordpaireditComponent: WordpaireditComponent;
+
+  @ViewChild('chapterContent') chapterContent: ElementRef;
+
   retrieveChapterForm: FormGroup;
   createChapterForm: FormGroup;
   updateChapterForm: FormGroup;
@@ -97,6 +100,7 @@ export class ChaptereditComponent implements OnInit {
       chapterContent: ['', Validators.required],
       selectEditor: ['', Validators.required]
     });
+
     // fullfilling the select tag on FormGroup
     this.users_updateform = []
     this.userservice.retrieveAllUsersOfTheGroup(this.selectedGroupId).subscribe({
@@ -167,6 +171,15 @@ export class ChaptereditComponent implements OnInit {
   }
 
   selectChapter(chapter: Chapter) {
+    //modifies the chapter content adding <b> tag to wordpairs
+    for (const wordpair of Object.values(chapter.wordPairs)) {
+
+      chapter.chapterContent = chapter.chapterContent.replace(
+        wordpair.word.trim(),
+        `<b>${wordpair.word.trim()}</b>`);
+      this.chapterContent.nativeElement.innerHTML = chapter.chapterContent
+    }
+
     this.updateChapterForm = this.fb.group({
       chapterId: [chapter.chapterId],
       chapterName: [chapter.chapterName, Validators.required],
@@ -176,6 +189,8 @@ export class ChaptereditComponent implements OnInit {
       createDate: [chapter.createDate, Validators.required],
       selectEditor: [chapter.editorId]
     });
+
+
   }
 
   updateChapter() {
