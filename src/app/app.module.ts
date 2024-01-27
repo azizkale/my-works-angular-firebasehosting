@@ -54,7 +54,7 @@ import { GroupsidebarComponent } from './groupsidebar/groupsidebar.component';
 import { GroupinfoComponent } from './group/groupinfo/groupinfo.component';
 import { GroupsettingsComponent } from './settings/adminsettings/groupsettings/groupsettings.component';
 import { UsersettingsComponent } from './settings/adminsettings/usersettings/usersettings.component';
-import { GroupService } from './services/group.service';
+import { MarkdownPipe } from './group/piredit/chapteredit/marddown.pipe';
 
 @NgModule({
   declarations: [
@@ -83,7 +83,8 @@ import { GroupService } from './services/group.service';
     GroupsidebarComponent,
     GroupinfoComponent,
     GroupsettingsComponent,
-    UsersettingsComponent
+    UsersettingsComponent,
+    MarkdownPipe
   ],
   imports: [
     BrowserModule,

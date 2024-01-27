@@ -6,7 +6,3 @@ export enum Roles {
     editor_shb = 5
 
 }
-
-//mentor -> it means group admin(abi)
-    // mentor can create a group, create new pir and chapter
-//participant -> member of a group

@@ -17,7 +17,6 @@ import { RolesService } from 'src/app/services/roles.service';
 export class ChaptereditComponent implements OnInit {
   @ViewChild(WordpaireditComponent)
   private wordpaireditComponent: WordpaireditComponent;
-
   @ViewChild('chapterContent') chapterContent: ElementRef;
 
   retrieveChapterForm: FormGroup;
@@ -25,7 +24,9 @@ export class ChaptereditComponent implements OnInit {
   updateChapterForm: FormGroup;
   addWordForm: FormGroup;
   chapters: Chapter[];
+  selectedChapterContentToEdit: string;
   allowedToAdminAndMentor: boolean;
+  allowedToAdmin: boolean;
   uid = localStorage.getItem('uid');
 
   selectedPirId: any;
@@ -81,7 +82,6 @@ export class ChaptereditComponent implements OnInit {
           this.users_createchapter.push(user)
           this.createChapterForm.addControl(ress.uid, new FormControl(user.uid));
         });
-        console.log(this.users_createchapter)
       }
     })
   }
@@ -172,18 +172,24 @@ export class ChaptereditComponent implements OnInit {
 
   selectChapter(chapter: Chapter) {
     //modifies the chapter content adding <b> tag to wordpairs
-    for (const wordpair of Object.values(chapter.wordPairs)) {
+    if (chapter.chapterContent !== null || chapter.chapterContent !== undefined) {
 
-      chapter.chapterContent = chapter.chapterContent.replace(
-        wordpair.word.trim(),
-        `<b>${wordpair.word.trim()}</b>`);
-      this.chapterContent.nativeElement.innerHTML = chapter.chapterContent
+      for (const wordpair of Object.values(chapter.wordPairs)) {
+        this.selectedChapterContentToEdit = chapter.chapterContent.replace(
+          wordpair.word.trim(),
+          `<b>${wordpair.word.trim()}</b>`);
+
+      }
+    } else {
+      this.selectedChapterContentToEdit = chapter.chapterContent
     }
+
+    this.chapterContent.nativeElement.innerHTML = this.selectedChapterContentToEdit;
 
     this.updateChapterForm = this.fb.group({
       chapterId: [chapter.chapterId],
       chapterName: [chapter.chapterName, Validators.required],
-      chapterContent: [chapter.chapterContent, Validators.required],
+      chapterContent: [this.selectedChapterContentToEdit, Validators.required],
       pirId: [chapter.pirId, Validators.required],
       editorId: [chapter.editorId, Validators.required],
       createDate: [chapter.createDate, Validators.required],
@@ -242,6 +248,7 @@ export class ChaptereditComponent implements OnInit {
     this.roleservice.getUserRolesInTheGroup(groupId, userId).subscribe({
       next: (roles) => {
         this.allowedToAdminAndMentor = roles.includes(Roles[1]) || roles.includes(Roles[2])
+        this.allowedToAdmin = roles.includes(Roles[1]);
       }
     })
   }

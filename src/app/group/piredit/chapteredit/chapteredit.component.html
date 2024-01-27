@@ -145,7 +145,8 @@
         />
         <label><b>Bölüm içeriği</b></label>
         <textarea
-          [readOnly]="!allowedToAdminAndMentor"
+          [readOnly]="allowedToAdmin"
+          *ngIf="allowedToAdminAndMentor"
           #chapterContent
           rows="15"
           class="w3-input w3-border w3-margin-bottom"
@@ -154,6 +155,13 @@
           formControlName="chapterContent"
         >
         </textarea>
+        <div
+          *ngIf="!allowedToAdminAndMentor"
+          #chapterContent
+          class="w3-input w3-border w3-margin-bottom"
+          placeholder="Bölüm içeriği giriniz"
+          [innerHTML]="selectedChapterContentToEdit"
+        ></div>
         <select
           *ngIf="allowedToAdminAndMentor"
           class="form-select"
