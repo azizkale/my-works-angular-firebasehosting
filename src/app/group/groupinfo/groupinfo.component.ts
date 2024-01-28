@@ -1,6 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
 import { GroupService } from 'src/app/services/group.service';
 import { PireditService } from 'src/app/services/piredit.service';
 import { RolesService } from 'src/app/services/roles.service';
@@ -29,7 +28,6 @@ export class GroupinfoComponent implements OnInit {
   ngbPopoverUserName: string;//to display the user"s name on delete-popover
 
   constructor(
-    private activeroute: ActivatedRoute,
     private groupservice: GroupService,
     private fb: FormBuilder,
     private userservice: UserService,
@@ -40,13 +38,12 @@ export class GroupinfoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.selectedGroupId = localStorage.getItem('groupId');
     //to create works for the group and to send to chapterComponent
-    this.selectedGroupId = this.activeroute.snapshot.paramMap.get('groupid');
     this.roleControl(this.selectedGroupId, localStorage.getItem('uid'));
     this.retrieveSingleGroupByGroupId();
     this.createRetrieveGroupForm()
     this.createPirRetrieveForm();
-    this.groupservice.setSelectedGroupId(this.selectedGroupId);//to access groupId in another components
 
   }
 
@@ -160,7 +157,6 @@ export class GroupinfoComponent implements OnInit {
   deleteParticipantFromGroup() {
     this.groupservice.deleteParticipantFromGroup(this.selectedGroupId, this.ngbPopoverUserName).subscribe({
       next: (result) => {
-        console.log(result)
       }
     })
   }

@@ -30,13 +30,14 @@ export class WordpaireditComponent implements OnInit {
     private userservice: UserService,
     private roleservice: RolesService,
     private groupservice: GroupService,
-  ) { }
+  ) {
+    this.selectedGroupId = localStorage.getItem('groupId');
+  }
 
   ngOnInit(): void {
     this.retrieveAllWordPairsOfSinglePir()
     this.retrieveWordPairEditForm()
     this.createEditWordPairForm();
-    this.selectedGroupId = this.groupservice.getSelectedGroupId();
     this.roleControll(this.selectedGroupId, this.uid)
 
   }
@@ -114,6 +115,7 @@ export class WordpaireditComponent implements OnInit {
     this.roleservice.getUserRolesInTheGroup(groupId, userId).subscribe({
       next: (roles) => {
         this.allowAllWordPairsToMentor = roles.includes(Roles[2])
+        console.log(this.allowAllWordPairsToMentor)
       }
     })
   }

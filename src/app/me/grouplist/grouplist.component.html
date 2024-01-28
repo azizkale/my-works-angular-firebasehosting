@@ -23,6 +23,7 @@
         [value]="group.groupName"
         [formControlName]="group.groupName"
         [routerLink]="['/group/groupinfo', group.groupId]"
+        (click)="getGroupId(group.groupId)"
       />
     </div>
   </form>

@@ -40,7 +40,6 @@ export class GrouplistComponent implements OnInit {
   retrieveAllGroupsNamesOfTheUserByuserId() {
     this.groupservice.retrieveAllGroupsNamesOfTheUserByuserId(this.uid).subscribe({
       next: (result) => {
-        console.log(result)
         this.retrieveGroupsForm.patchValue(result)
         this.groupsInfo = Object.values(result)
 
@@ -52,5 +51,10 @@ export class GrouplistComponent implements OnInit {
         console.log(error.message)
       }
     })
+  }
+
+  getGroupId(groupId: any) {
+    localStorage.setItem('groupId', groupId.toString());
+    // this.groupservice.setSelectedGroupId(groupId);
   }
 }

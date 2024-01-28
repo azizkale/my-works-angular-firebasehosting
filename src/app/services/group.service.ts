@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Group } from 'src/models/Group';
 
@@ -14,13 +14,15 @@ export class GroupService {
     private http: HttpClient
   ) { }
 
-  setSelectedGroupId(groupId: any) {
-    this.selectedGroupId = groupId
-  }
+  // setSelectedGroupId(groupId: any): Observable<any> {
+  //   localStorage.setItem('groupId', groupId);
+  //   return of(groupId)
+  // }
 
-  getSelectedGroupId(): any {
-    return this.selectedGroupId
-  }
+  // getSelectedGroupId(): Observable<any> {
+  //   let groupId = localStorage.getItem('groupId');
+  //   return of(groupId);
+  // }
 
 
   createGroup(groupName: any, mentorEmail: any): Observable<any> {

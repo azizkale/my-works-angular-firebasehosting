@@ -21,7 +21,7 @@ export class GroupsidebarComponent implements OnInit {
   ) { }
 
   async ngOnInit() {
-    this.selectedGroupId = await this.groupservice.getSelectedGroupId();
+    this.selectedGroupId = localStorage.getItem('groupId');
     await this.roleControll(this.selectedGroupId, this.uid);
 
   }
