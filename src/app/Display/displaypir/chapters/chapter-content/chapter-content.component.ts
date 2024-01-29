@@ -76,8 +76,10 @@ export class ChapterContentComponent implements OnInit {
   }
 
   openDialog(wordpair: WordPair): void {
-    this.dialog.open(DialogComponent, {
-      data: { word: wordpair.word, meaning: wordpair.meaning }
-    });
+    if (wordpair !== undefined) {
+      this.dialog.open(DialogComponent, {
+        data: { word: wordpair.word, meaning: wordpair.meaning }
+      });
+    }
   }
 }
