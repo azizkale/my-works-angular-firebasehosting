@@ -15,3 +15,13 @@ button > span{
 .title > h1 {
     font-size: 27px;
 }
+
+.light-mode{
+background-color: white;
+color: black;
+}
+
+.night-mode{
+background-color: black;
+color: white;
+}
