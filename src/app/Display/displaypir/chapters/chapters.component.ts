@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { DisplaypirService } from 'src/app/services/displaypir.service';
-import { Chapter } from 'src/models/Chapter';
+import { PireditService } from 'src/app/services/piredit.service';
 import { Pir } from 'src/models/Pir';
 
 @Component({
@@ -20,6 +20,7 @@ export class ChaptersComponent implements OnInit {
     public fb: FormBuilder,
     private activeroute: ActivatedRoute,
     private displaypirservice: DisplaypirService,
+    private pirEditService: PireditService
   ) {
     this.formChaptersNames();
   }
@@ -36,6 +37,8 @@ export class ChaptersComponent implements OnInit {
     });
     //formname array is fullfilled in the retrievePirs function (below)
   }
+
+
 
   async retrieveChaptersNamesByPirId() {
     await this.displaypirservice.retrieveChaptersNamesByPirId(this.selectedPirId).subscribe({

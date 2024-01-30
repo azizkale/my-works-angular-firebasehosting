@@ -6,7 +6,6 @@ import { Chapter } from 'src/models/Chapter';
 import { WordPair } from 'src/models/WordPair';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from 'src/app/dialog/dialog.component';
-import { from, of, tap } from 'rxjs';
 
 @Component({
   selector: 'app-chapter-content',

@@ -115,7 +115,6 @@ export class WordpaireditComponent implements OnInit {
     this.roleservice.getUserRolesInTheGroup(groupId, userId).subscribe({
       next: (roles) => {
         this.allowAllWordPairsToMentor = roles.includes(Roles[2])
-        console.log(this.allowAllWordPairsToMentor)
       }
     })
   }

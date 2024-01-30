@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core';
-import { EMPTY, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Pir } from 'src/models/Pir';
 import { Chapter } from 'src/models/Chapter';
 import { WordPair } from 'src/models/WordPair';
-import { RolesService } from './roles.service';
-import { Roles } from 'src/models/Roles';
 @Injectable({
   providedIn: 'root'
 })
@@ -14,7 +12,6 @@ export class PireditService {
 
   constructor(
     private http: HttpClient,
-    private rolesservice: RolesService
   ) { }
 
   createPir(pir: Pir): Observable<any> {
