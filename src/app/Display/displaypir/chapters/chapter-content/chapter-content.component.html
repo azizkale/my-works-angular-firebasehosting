@@ -8,7 +8,14 @@
     <div class="row mt-1">
       <div class="col">
         <div>
-          <p #chapterContent></p>
+          <i class="fa fa-plus" aria-hidden="true"></i>
+          <button (click)="decreaseFontSize()">Küçült</button>
+          <button (click)="increaseFontSize()">Büyüt</button>
+          <p
+            [style.font-size.px]="fontSize"
+            [style.line-height.px]="lineHeight * fontSize"
+            #chapterContent
+          ></p>
         </div>
       </div>
     </div>
