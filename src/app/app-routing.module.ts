@@ -19,7 +19,7 @@ import { GroupComponent } from './group/group.component';
 import { GroupinfoComponent } from './group/groupinfo/groupinfo.component';
 
 const routes: Routes = [
-  { path: '', component: MeComponent, pathMatch: 'full' },
+  { path: '', component: SigninComponent, pathMatch: 'full' },
   { path: 'signin', component: SigninComponent },
   { path: 'register', component: RegisterComponent },
   {
