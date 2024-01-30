@@ -173,13 +173,18 @@ export class ChaptereditComponent implements OnInit {
   selectChapter(chapter: Chapter) {
     //modifies the chapter content adding <b> tag to wordpairs
     if (chapter.chapterContent !== null || chapter.chapterContent !== undefined) {
+      if (chapter.wordPairs !== undefined) {
+        for (const wordpair of Object.values(chapter.wordPairs)) {
+          this.selectedChapterContentToEdit = chapter.chapterContent.replace(
+            wordpair.word.trim(),
+            `<b>${wordpair.word.trim()}</b>`);
 
-      for (const wordpair of Object.values(chapter.wordPairs)) {
-        this.selectedChapterContentToEdit = chapter.chapterContent.replace(
-          wordpair.word.trim(),
-          `<b>${wordpair.word.trim()}</b>`);
-
+        }
       }
+      else {
+        this.selectedChapterContentToEdit = chapter.chapterContent;
+      }
+
     } else {
       this.selectedChapterContentToEdit = chapter.chapterContent
     }
