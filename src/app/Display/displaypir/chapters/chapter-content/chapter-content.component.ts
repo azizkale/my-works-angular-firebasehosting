@@ -53,22 +53,26 @@ export class ChapterContentComponent implements OnInit {
       next: async (chapter: Chapter) => {
         this.selectedChapter = await chapter;
 
+        if (this.selectedChapter.wordPairs !== undefined) {
+          //modifies the chapter content adding <b> tag to wordpairs
+          for (const wordpair of Object.values(this.selectedChapter.wordPairs)) {
+            this.selectedChapter.chapterContent = this.selectedChapter.chapterContent.replace(wordpair.word.trim(), `<b>${wordpair.word.trim()}</b>`);
+            this.chapterContent.nativeElement.innerHTML = this.selectedChapter.chapterContent
+          }
 
-        //modifies the chapter content adding <b> tag to wordpairs
-        for (const wordpair of Object.values(this.selectedChapter.wordPairs)) {
-          this.selectedChapter.chapterContent = this.selectedChapter.chapterContent.replace(wordpair.word.trim(), `<b>${wordpair.word.trim()}</b>`);
-          this.chapterContent.nativeElement.innerHTML = this.selectedChapter.chapterContent
+          // adding mouseover event to the <b> tags
+          Object.values(this.chapterContent.nativeElement.getElementsByTagName('b')).map((el: HTMLElement | any) => {
+            el.addEventListener('click', async () => {
+              // getting meaning from wordPairs
+              const word_: WordPair | any = Object.values(this.selectedChapter.wordPairs).find((pair: WordPair) => pair.word.trim() === el.innerHTML.trim())
+              //popup
+              this.openDialog(word_)
+            });
+          })
         }
-
-        // adding mouseover event to the <b> tags
-        Object.values(this.chapterContent.nativeElement.getElementsByTagName('b')).map((el: HTMLElement | any) => {
-          el.addEventListener('click', async () => {
-            // getting meaning from wordPairs
-            const word_: WordPair | any = Object.values(this.selectedChapter.wordPairs).find((pair: WordPair) => pair.word.trim() === el.innerHTML.trim())
-            //popup
-            this.openDialog(word_)
-          });
-        })
+        else {
+          this.chapterContent.nativeElement.innerHTML = chapter.chapterContent
+        }
 
       }
     })
