@@ -23,6 +23,7 @@ export class ChapterContentComponent implements OnInit {
 
   fontSize: number;
   lineHeight: number;
+  isNightMode: boolean;
 
   constructor(
     public fb: FormBuilder,
@@ -35,7 +36,7 @@ export class ChapterContentComponent implements OnInit {
   }
 
   async ngOnInit() {
-
+    this.initialReadMode();
     this.initialFontSetting();
     this.selectedChapterId = await this.activeroute.snapshot.paramMap.get('contentId');
     this.selectedPirId = await this.activeroute.snapshot.paramMap.get('pirId');
@@ -119,16 +120,42 @@ export class ChapterContentComponent implements OnInit {
     this.lineHeight = lineHeightString ? parseFloat(lineHeightString) : 1.2;
 
     if (isNaN(this.fontSize) || this.fontSize < 1) {
-      // Handle the case where fontSize is not a valid number or less than 1
       console.error('Invalid fontSize in localStorage');
-      this.fontSize = 20; // Set a default value
+      this.fontSize = 20;
     }
 
     if (isNaN(this.lineHeight) || this.lineHeight < 1) {
-      // Handle the case where lineHeight is not a valid number or less than 1
       console.error('Invalid lineHeight in localStorage');
-      this.lineHeight = 1.2; // Set a default value
+      this.lineHeight = 1.2;
     }
   }
 
+  readModeClass(): string {
+    return this.isNightMode ? 'night-mode' : 'light-mode';
+
+  }
+
+  initialReadMode() {
+    const readMode$ = localStorage.getItem('readMode');
+    if (readMode$ === null || readMode$ === undefined) {
+      localStorage.setItem('readMode', 'light-mode')
+      this.isNightMode = false;
+    }
+    else {
+      localStorage.setItem('readMode', 'night-mode')
+      this.isNightMode = true
+    }
+  }
+
+  changeReadMode() {
+    if (this.isNightMode) {
+      this.isNightMode = false
+      localStorage.setItem('readMode', 'light-mode')
+    }
+    else {
+      this.isNightMode = true
+      localStorage.setItem('readMode', 'night-mode')
+    }
+    this.readModeClass();
+  }
 }
