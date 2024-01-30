@@ -1,8 +1,17 @@
-.snackbar {
-    background-color: beige;
-    color: darkblue;
+p{
+    text-align: left;
 }
 
-p{
-    text-align: justify;
+button{
+    margin-right: 10px;
+    background-color: beige !important;
+}
+
+button > span{
+    color: black;
+    padding: 0;
+}
+
+.title > h1 {
+    font-size: 27px;
 }

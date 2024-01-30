@@ -1,16 +1,25 @@
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+/>
 <div class="w3-center mt-3">
   <div class="container">
     <div class="row">
-      <div class="col-sm-12">
-        <h2>{{ selectedChapter?.chapterName }}</h2>
+      <div class="col-sm-12 title">
+        <h1>{{ selectedChapter?.chapterName }}</h1>
       </div>
     </div>
     <div class="row mt-1">
       <div class="col">
         <div>
-          <i class="fa fa-plus" aria-hidden="true"></i>
-          <button (click)="decreaseFontSize()">Küçült</button>
-          <button (click)="increaseFontSize()">Büyüt</button>
+          <div class="btn-font mb-2">
+            <button class="btn btn-primary" (click)="decreaseFontSize()">
+              <span class="material-symbols-outlined"> text_decrease </span>
+            </button>
+            <button class="btn btn-primary" (click)="increaseFontSize()">
+              <span class="material-symbols-outlined"> text_increase </span>
+            </button>
+          </div>
           <p
             [style.font-size.px]="fontSize"
             [style.line-height.px]="lineHeight * fontSize"
