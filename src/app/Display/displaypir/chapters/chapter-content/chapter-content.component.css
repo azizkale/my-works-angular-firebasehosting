@@ -14,13 +14,13 @@ button > span{
 .light-mode{
 background-color: white;
 color: black;
-
+border-radius: 5px;
 }
 
 .night-mode{
 background-color: #282a36;
 color: white;
-
+border-radius: 5px;
 }
 
 
@@ -39,7 +39,7 @@ color: white;
     font-weight: 500;
     font-size: 1em;
     letter-spacing: 1px;
-    box-shadow: 1px 1px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     width: 20%;
     max-width: 80px;
