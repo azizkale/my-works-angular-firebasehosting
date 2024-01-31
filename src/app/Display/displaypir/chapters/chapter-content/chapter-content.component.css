@@ -18,7 +18,7 @@ color: black;
 }
 
 .night-mode{
-background-color: black;
+background-color: #282a36;
 color: white;
 
 }
@@ -31,7 +31,7 @@ color: white;
     -moz-appearance: none;
     -webkit-appearance: none;
     position: relative;
-    padding: 1rem 2rem;
+    padding: 1% 2%;
     margin: 0 2px;
     border: 2px solid #f2f2f24b;
     border-radius: 5px;
@@ -41,4 +41,6 @@ color: white;
     letter-spacing: 1px;
     box-shadow: 1px 1px 20px rgba(0, 0, 0, 0.1);
     overflow: hidden;
+    width: 20%;
+    max-width: 80px;
   }
