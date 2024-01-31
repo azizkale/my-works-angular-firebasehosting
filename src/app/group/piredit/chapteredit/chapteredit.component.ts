@@ -8,6 +8,7 @@ import { Roles } from 'src/models/Roles';
 import { WordPair } from 'src/models/WordPair';
 import { WordpaireditComponent } from '../wordpairedit/wordpairedit.component';
 import { RolesService } from 'src/app/services/roles.service';
+import { DisplaypirService } from 'src/app/services/displaypir.service';
 
 @Component({
   selector: 'app-chapteredit',
@@ -32,6 +33,7 @@ export class ChaptereditComponent implements OnInit {
   selectedPirId: any;
   selectedGroupId: any // to get users of this group
   selectedWord: any; // to edit word on chapter update form
+  selectedChapter: Chapter;
   users_createchapter: any[] = [] // fullfilling the select tag on FormGroup
   users_updateform: any[] = [] // fullfilling the select tag on FormGroup
 
@@ -41,6 +43,7 @@ export class ChaptereditComponent implements OnInit {
     private activeroute: ActivatedRoute,
     public userservice: UserService,
     public roleservice: RolesService,
+    private displayService: DisplaypirService
   ) {
 
   }
@@ -171,6 +174,7 @@ export class ChaptereditComponent implements OnInit {
   }
 
   selectChapter(chapter: Chapter) {
+    this.selectedChapter = chapter;
     //modifies the chapter content adding <b> tag to wordpairs
     if (chapter.chapterContent !== null || chapter.chapterContent !== undefined) {
       if (chapter.wordPairs !== undefined) {
@@ -178,7 +182,6 @@ export class ChaptereditComponent implements OnInit {
           this.selectedChapterContentToEdit = chapter.chapterContent.replace(
             wordpair.word.trim(),
             `<b>${wordpair.word.trim()}</b>`);
-
         }
       }
       else {
@@ -244,6 +247,8 @@ export class ChaptereditComponent implements OnInit {
         this.createAddWordPairForm();// to clear the form
         this.retrieveChapters();
         this.wordpaireditComponent.retrieveAllWordPairsOfSinglePir()
+        this.getChapterByChapterId();
+
       }
     })
 
@@ -256,5 +261,23 @@ export class ChaptereditComponent implements OnInit {
         this.allowedToAdmin = roles.includes(Roles[1]);
       }
     })
+  }
+
+  getChapterByChapterId() {
+    //to updated after saveing wordpair
+    this.displayService.retrieveChapterByChapterId(this.selectedChapter.chapterId, this.selectedPirId).subscribe({
+      next: (chapter: Chapter) => {
+        if (chapter.wordPairs !== undefined) {
+          for (const wordpair of Object.values(chapter.wordPairs)) {
+            this.selectedChapterContentToEdit = chapter.chapterContent.replace(
+              wordpair.word.trim(),
+              `<b>${wordpair.word.trim()}</b>`);
+          }
+        }
+        else {
+          this.selectedChapterContentToEdit = chapter.chapterContent;
+        }
+      }
+    });
   }
 }
