@@ -2,38 +2,36 @@
   rel="stylesheet"
   href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
 />
-<div class="w3-center mt-3" [ngClass]="readModeClass()">
+<div class="text-center mt-3" [ngClass]="readModeClass()">
   <div class="container">
     <div class="row">
-      <div class="col-sm-12 title">
+      <div class="col-sm-12 title my-4">
         <h1>{{ selectedChapter?.chapterName }}</h1>
       </div>
     </div>
     <div class="row mt-1">
       <div class="col">
-        <div>
-          <div class="mb-2">
-            <button class="btn btn-primary" (click)="decreaseFontSize()">
-              <span class="material-symbols-outlined"> text_decrease </span>
-            </button>
-            <button class="btn btn-primary" (click)="increaseFontSize()">
-              <span class="material-symbols-outlined"> text_increase </span>
-            </button>
-            <button class="btn" (click)="changeReadMode()">
-              <span *ngIf="isNightMode" class="material-symbols-outlined">
-                dark_mode
-              </span>
-              <span *ngIf="!isNightMode" class="material-symbols-outlined">
-                light_mode
-              </span>
-            </button>
-          </div>
-          <p
-            [style.font-size.px]="fontSize"
-            [style.line-height.px]="lineHeight * fontSize"
-            #chapterContent
-          ></p>
+        <div class="mb-2 multi-button">
+          <button (click)="decreaseFontSize()">
+            <span class="material-symbols-outlined"> text_decrease </span>
+          </button>
+          <button (click)="increaseFontSize()">
+            <span class="material-symbols-outlined"> text_increase </span>
+          </button>
+          <button (click)="changeReadMode()">
+            <span *ngIf="isNightMode" class="material-symbols-outlined">
+              dark_mode
+            </span>
+            <span *ngIf="!isNightMode" class="material-symbols-outlined">
+              light_mode
+            </span>
+          </button>
         </div>
+        <p
+          [style.font-size.px]="fontSize"
+          [style.line-height.px]="lineHeight * fontSize"
+          #chapterContent
+        ></p>
       </div>
     </div>
   </div>

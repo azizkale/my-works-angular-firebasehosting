@@ -137,25 +137,15 @@ export class ChapterContentComponent implements OnInit {
 
   initialReadMode() {
     const readMode$ = localStorage.getItem('readMode');
-    if (readMode$ === null || readMode$ === undefined) {
-      localStorage.setItem('readMode', 'light-mode')
-      this.isNightMode = false;
-    }
-    else {
-      localStorage.setItem('readMode', 'night-mode')
-      this.isNightMode = true
-    }
+
+    //if readMode$ null or undefined, it would be 'light-mode'
+    localStorage.setItem('readMode', readMode$ ?? 'light-mode');
+    this.isNightMode = readMode$ === 'night-mode';
   }
 
   changeReadMode() {
-    if (this.isNightMode) {
-      this.isNightMode = false
-      localStorage.setItem('readMode', 'light-mode')
-    }
-    else {
-      this.isNightMode = true
-      localStorage.setItem('readMode', 'night-mode')
-    }
+    this.isNightMode = !this.isNightMode;
+    localStorage.setItem('readMode', this.isNightMode ? 'night-mode' : 'light-mode');
     this.readModeClass();
   }
 }

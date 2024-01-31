@@ -2,11 +2,6 @@ p{
     text-align: left;
 }
 
-button{
-    margin-right: 10px;
-    background-color: beige !important;
-}
-
 button > span{
     color: black;
     padding: 0;
@@ -19,9 +14,31 @@ button > span{
 .light-mode{
 background-color: white;
 color: black;
+
 }
 
 .night-mode{
 background-color: black;
 color: white;
+
 }
+
+
+/* ==================== */
+
+  .multi-button button {
+    flex: 1;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    position: relative;
+    padding: 1rem 2rem;
+    margin: 0 2px;
+    border: 2px solid #f2f2f24b;
+    border-radius: 5px;
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 1em;
+    letter-spacing: 1px;
+    box-shadow: 1px 1px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
