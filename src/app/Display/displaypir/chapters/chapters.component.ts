@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { DisplaypirService } from 'src/app/services/displaypir.service';
-import { PireditService } from 'src/app/services/piredit.service';
 import { Pir } from 'src/models/Pir';
 
 @Component({
@@ -19,8 +18,7 @@ export class ChaptersComponent implements OnInit {
   constructor(
     public fb: FormBuilder,
     private activeroute: ActivatedRoute,
-    private displaypirservice: DisplaypirService,
-    private pirEditService: PireditService
+    private displaypirservice: DisplaypirService
   ) {
     this.formChaptersNames();
   }

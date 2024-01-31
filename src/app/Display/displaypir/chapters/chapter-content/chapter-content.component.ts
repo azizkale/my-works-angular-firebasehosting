@@ -6,6 +6,8 @@ import { Chapter } from 'src/models/Chapter';
 import { WordPair } from 'src/models/WordPair';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from 'src/app/dialog/dialog.component';
+import { PireditService } from 'src/app/services/piredit.service';
+import { Pir } from 'src/models/Pir';
 
 @Component({
   selector: 'app-chapter-content',
@@ -19,6 +21,7 @@ export class ChapterContentComponent implements OnInit {
   selectedChapterId: any
   selectedPirId: any;
   selectedChapter: Chapter
+  selectedPirName: String;
   retrieveChapterContentForm: FormGroup
 
   fontSize: number;
@@ -26,10 +29,11 @@ export class ChapterContentComponent implements OnInit {
   isNightMode: boolean;
 
   constructor(
-    public fb: FormBuilder,
+    private fb: FormBuilder,
     private activeroute: ActivatedRoute,
     private displaypirservice: DisplaypirService,
-    public dialog: MatDialog
+    private dialog: MatDialog,
+    private pirService: PireditService
   ) {
     this.formChapterRetrieve()
 
@@ -80,9 +84,17 @@ export class ChapterContentComponent implements OnInit {
         else {
           this.chapterContent.nativeElement.innerHTML = chapter.chapterContent
         }
-
+        this.getPirNameByPirId();
       }
     })
+  }
+
+  getPirNameByPirId() {
+    this.pirService.retrievePirByPirId(this.selectedPirId).subscribe({
+      next: (pir: Pir) => {
+        this.selectedPirName = pir.name
+      }
+    });
   }
 
   openDialog(wordpair: WordPair): void {
