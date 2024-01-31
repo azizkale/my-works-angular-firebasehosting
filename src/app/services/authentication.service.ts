@@ -24,7 +24,11 @@ export class AuthenticationService {
   }
 
   signOut() {
-    localStorage.clear();
+    localStorage.removeItem('token');
+    localStorage.removeItem('displayName');
+    localStorage.removeItem('uid');
+    localStorage.removeItem('photoURL');
+    localStorage.removeItem('roles');
     this.router.navigate(['signin']);
   }
 }

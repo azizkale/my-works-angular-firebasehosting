@@ -37,6 +37,10 @@ export class ChaptereditComponent implements OnInit {
   users_createchapter: any[] = [] // fullfilling the select tag on FormGroup
   users_updateform: any[] = [] // fullfilling the select tag on FormGroup
 
+  fontSize: number;
+  lineHeight: number;
+  isNightMode: boolean;
+
   constructor(
     public fb: FormBuilder,
     private pireditservice: PireditService,
@@ -58,6 +62,8 @@ export class ChaptereditComponent implements OnInit {
     this.createAddWordPairForm();
 
     this.roleControll(this.selectedGroupId, this.uid)
+    this.initialReadMode();
+    this.initialFontSetting();
   }
 
   createChapterRetrieveForm() {
@@ -279,5 +285,60 @@ export class ChaptereditComponent implements OnInit {
         }
       }
     });
+  }
+
+  increaseFontSize() {
+    this.fontSize += 1;
+    this.lineHeight += 0.03;
+    localStorage.setItem('fontSize', this.fontSize.toString());
+    localStorage.setItem('lineHeight', this.lineHeight.toString());
+  }
+
+  decreaseFontSize() {
+    if (this.fontSize > 1) {
+      this.fontSize -= 1;
+      localStorage.setItem('fontSize', this.fontSize.toString());
+    }
+    if (this.lineHeight > 1) {
+      this.lineHeight -= 0.03;
+      localStorage.setItem('lineHeight', this.lineHeight.toString());
+    }
+  }
+
+  initialFontSetting() {
+    const fontSizeString = localStorage.getItem('fontSize');
+    const lineHeightString = localStorage.getItem('lineHeight');
+
+    this.fontSize = fontSizeString ? parseInt(fontSizeString, 10) : 20;
+    this.lineHeight = lineHeightString ? parseFloat(lineHeightString) : 1.2;
+
+    if (isNaN(this.fontSize) || this.fontSize < 1) {
+      console.error('Invalid fontSize in localStorage');
+      this.fontSize = 20;
+    }
+
+    if (isNaN(this.lineHeight) || this.lineHeight < 1) {
+      console.error('Invalid lineHeight in localStorage');
+      this.lineHeight = 1.2;
+    }
+  }
+
+  readModeClass(): string {
+    return this.isNightMode ? 'night-mode' : 'light-mode';
+
+  }
+
+  initialReadMode() {
+    const readMode$ = localStorage.getItem('readMode');
+
+    //if readMode$ null or undefined, it would be 'light-mode'
+    localStorage.setItem('readMode', readMode$ ?? 'light-mode');
+    this.isNightMode = readMode$ === 'night-mode';
+  }
+
+  changeReadMode() {
+    this.isNightMode = !this.isNightMode;
+    localStorage.setItem('readMode', this.isNightMode ? 'night-mode' : 'light-mode');
+    this.readModeClass();
   }
 }

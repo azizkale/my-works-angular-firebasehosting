@@ -10,7 +10,7 @@ button > span{
 .title > h1 {
     font-size: 27px;
 }
-
+/* read mode classes*/
 .light-mode{
 background-color: white;
 color: black;
@@ -24,7 +24,7 @@ border-radius: 5px;
 }
 
 
-/* =========Read mode buttons=========== */
+/* Read mode buttons */
 
   .multi-button button {
     flex: 1;
