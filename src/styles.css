@@ -10,3 +10,10 @@ body {
     font-family: Roboto, "Helvetica Neue", sans-serif;
     min-width: 350px;
 }
+
+*{
+   
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: large;
+
+}

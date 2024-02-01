@@ -26,13 +26,13 @@ input[type="button"],h2{
 .light-mode{
     background-color: white;
     color: black;
-    border-radius: 5px;
+    border-radius: 5px; 
     }
     
     .night-mode{
     background-color: #282a36;
     color: white;
-    border-radius: 5px;
+    border-radius: 5px; 
     }
 
     /* Read mode buttons */
@@ -56,3 +56,10 @@ input[type="button"],h2{
     max-width: 80px;
   }
 
+  hr {
+    height: 5px; 
+    background-color: black; 
+    border: solid; 
+    margin: 8px 0;
+  }
+  

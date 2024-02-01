@@ -49,7 +49,6 @@ export class PireditComponent implements OnInit {
     });
     this.groupservice.retrieveAllGroupsOfTheMentor(localStorage.getItem('uid')).subscribe(({
       next: (groups) => {
-        console.log(groups)
         this.mentorsMetoringGroups = groups
       }
     }))
@@ -97,7 +96,6 @@ export class PireditComponent implements OnInit {
 
         }
       }, complete: () => {
-        console.log(this.pirs)
       }
     })
   }

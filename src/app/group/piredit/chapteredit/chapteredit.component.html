@@ -165,7 +165,7 @@
           placeholder="Bölüm adını giriniz"
           formControlName="chapterName"
         />
-        <label><b>Bölüm içeriği</b></label>
+        <label class="mb-2"><b>Bölüm içeriği</b></label>
         <textarea
           [ngClass]="readModeClass()"
           [style.font-size.px]="fontSize"
@@ -180,6 +180,7 @@
           formControlName="chapterContent"
         >
         </textarea>
+        <hr />
         <div
           [style.font-size.px]="fontSize"
           [style.line-height.px]="lineHeight * fontSize"
