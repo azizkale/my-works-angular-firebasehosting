@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../services/authentication.service';
 import { AlertsService } from '../services/alerts.service';
+import { from, map, of, tap } from 'rxjs';
 
 @Component({
   selector: 'signin',
@@ -36,23 +37,42 @@ export class SigninComponent implements OnInit {
     this.authservice.signin(email, password)
       .subscribe({
         next: async (response) => {
+
           if (response.status === 200) {
-            // If the response status is 200 OK, extract the token from the response
-            await localStorage.setItem('token', response.token);
-            await localStorage.setItem('displayName', response.displayName);
-            await localStorage.setItem('uid', response.uid)
-            await localStorage.setItem('photoURL', response.photoURL)
-            await localStorage.setItem('roles', JSON.stringify(response.roles))
-            this.router.navigate(['me']);
+            from(
+              (async () => {
+                await localStorage.setItem('token', response.token);
+                await localStorage.setItem('displayName', response.displayName);
+                await localStorage.setItem('uid', response.uid);
+                await localStorage.setItem('photoURL', response.photoURL);
+                await localStorage.setItem('roles', JSON.stringify(response.roles));
+
+                return true;
+              })()
+            ).pipe(
+              tap(isSuccess => {
+                if (isSuccess) {
+                  this.router.navigate(['me']);
+                }
+              })
+            ).subscribe(
+              error => {
+                this.alertservice.alert(`Error processing response!`, 'alert-danger', this.alertParent.nativeElement);
+              }
+            );
           }
+
+
           if (response.status === 404) {
-            this.alertservice.alert(`Email or password incorrect!`, 'alert-danger', this.alertParent.nativeElement)
+            this.alertservice.alert(`Email or password incorrect!`, 'alert-danger', this.alertParent.nativeElement);
           }
         },
         error: (err) => {
-          this.alertservice.alert(`Email or password incorrect!`, 'alert-danger', this.alertParent.nativeElement)
+          this.alertservice.alert(`Email or password incorrect!`, 'alert-danger', this.alertParent.nativeElement);
         },
-        complete: () => { }
-      })
+        complete: () => {
+        }
+      });
   }
+
 }
