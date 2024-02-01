@@ -107,19 +107,19 @@ export class ChapterContentComponent implements OnInit {
 
 
   increaseFontSize() {
-    this.fontSize += 1;
-    this.lineHeight += 0.05;
+    this.fontSize += 1.3;
+    this.lineHeight += 0.09;
     localStorage.setItem('fontSize', this.fontSize.toString());
     localStorage.setItem('lineHeight', this.lineHeight.toString());
   }
 
   decreaseFontSize() {
     if (this.fontSize > 1) {
-      this.fontSize -= 1;
+      this.fontSize -= 1.3;
       localStorage.setItem('fontSize', this.fontSize.toString());
     }
     if (this.lineHeight > 1) {
-      this.lineHeight -= 0.05;
+      this.lineHeight -= 0.09;
       localStorage.setItem('lineHeight', this.lineHeight.toString());
     }
   }
@@ -129,7 +129,7 @@ export class ChapterContentComponent implements OnInit {
     const lineHeightString = localStorage.getItem('lineHeight');
 
     this.fontSize = fontSizeString ? parseInt(fontSizeString, 10) : 20;
-    this.lineHeight = lineHeightString ? parseFloat(lineHeightString) : 1.3;
+    this.lineHeight = lineHeightString ? parseFloat(lineHeightString) : 1.7;
 
     if (isNaN(this.fontSize) || this.fontSize < 1) {
       console.error('Invalid fontSize in localStorage');
@@ -138,7 +138,7 @@ export class ChapterContentComponent implements OnInit {
 
     if (isNaN(this.lineHeight) || this.lineHeight < 1) {
       console.error('Invalid lineHeight in localStorage');
-      this.lineHeight = 1.2;
+      this.lineHeight = 1.7;
     }
   }
 

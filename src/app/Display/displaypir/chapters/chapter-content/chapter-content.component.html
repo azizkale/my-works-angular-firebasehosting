@@ -12,11 +12,6 @@
         </div>
       </div>
     </div>
-    <div class="row text-center">
-      <div class="col-sm-12 title mb-4">
-        <h1>{{ selectedChapter?.chapterName }}</h1>
-      </div>
-    </div>
     <div class="row text-center mt-1">
       <div class="col mb-4 multi-button">
         <button (click)="decreaseFontSize()">
@@ -34,11 +29,28 @@
           </span>
         </button>
       </div>
-      <p
-        [style.font-size.px]="fontSize"
-        [style.line-height.px]="lineHeight * fontSize"
-        #chapterContent
-      ></p>
+    </div>
+    <div class="pages" [ngClass]="readModeClass()">
+      <div id="book">
+        <div class="page">
+          <div class="page-header">
+            <span
+              ><b>{{ selectedChapter?.chapterName }}</b></span
+            >
+          </div>
+          <div class="page-body">
+            <p
+              [style.font-size.px]="fontSize"
+              [style.line-height.px]="lineHeight * fontSize"
+              #chapterContent
+            ></p>
+          </div>
+
+          <div class="page-footer">
+            <!-- <span>102</span> -->
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
