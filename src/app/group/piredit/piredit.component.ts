@@ -37,6 +37,7 @@ export class PireditComponent implements OnInit {
     this.addNewPirForm = this.fb.group({
       pirName: ['', Validators.required],
       description: ['', Validators.required],
+      imageUrl: ['', Validators.required]
     });
   }
 
@@ -70,7 +71,8 @@ export class PireditComponent implements OnInit {
       this.addNewPirForm.get('pirName')?.value,
       this.addNewPirForm.get('description')?.value,
       [],
-      []
+      [],
+      this.addNewPirForm.get('imageUrl')?.value
     )
     this.pireditservice.createPir(newPir).subscribe({
       next: (ress) => {

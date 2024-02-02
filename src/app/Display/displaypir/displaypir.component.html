@@ -1,31 +1,30 @@
 <div class="w3-row-padding">
   <div class="my-3">
     <div class="w3-card">
-      <div class="col-sm-12 text-end">
-        <span
-          class="material-symbols-outlined arrow-back m-sm-2 p-lg-4"
-          routerLink="/me/grouplist"
-        >
-          arrow_back_ios_new
-        </span>
-      </div>
       <div class="container">
+        <div class="row">
+          <div class="col-sm-12 text-end">
+            <span
+              class="material-symbols-outlined arrow-back m-sm-2 p-lg-4"
+              routerLink="/me/grouplist"
+            >
+              arrow_back_ios_new
+            </span>
+          </div>
+        </div>
         <div class="row">
           <div class="col-sm-12 text-center">
             <h2>Kitaplık</h2>
           </div>
         </div>
         <div class="row">
-          <div class="col pirs">
+          <div class="col pirs text-center">
             <img
               *ngFor="let pir of pirs; let i = index"
               [routerLink]="['/display/chapter/' + pir.pirId]"
-              class="img-thumbnail m-1"
-              [src]="
-                i % 2 == 0
-                  ? '/assets/imageDisplays/namaz.png'
-                  : '/assets/imageDisplays/sonsuznur.png'
-              "
+              class="img rounded m-1"
+              [src]="pir.imageUrl"
+              sizes="(min-width: 600px) 600px"
             />
           </div>
         </div>
