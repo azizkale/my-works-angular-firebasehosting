@@ -2,43 +2,53 @@
   rel="stylesheet"
   href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
 />
-<div class="mt-3" [ngClass]="readModeClass()">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-sm-12 my-4">
-        <div class="v-badge">
-          {{ selectedPirName }}
-          <span></span>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12 my-4">
+      <div class="v-badge">
+        {{ selectedPirName }}
+        <span></span>
+      </div>
+    </div>
+  </div>
+  <div class="row text-center mt-1">
+    <div class="col mb-4 multi-button">
+      <button (click)="decreaseFontSize()">
+        <span class="material-symbols-outlined"> text_decrease </span>
+      </button>
+      <button (click)="increaseFontSize()">
+        <span class="material-symbols-outlined"> text_increase </span>
+      </button>
+      <button (click)="changeReadMode()">
+        <span *ngIf="isNightMode" class="material-symbols-outlined">
+          dark_mode
+        </span>
+        <span *ngIf="!isNightMode" class="material-symbols-outlined">
+          light_mode
+        </span>
+      </button>
+    </div>
+  </div>
+  <div class="pages" [ngClass]="readModeClass()">
+    <div id="book">
+      <div class="page">
+        <div class="page-header">
+          <span
+            ><b>{{ selectedChapter?.chapterName }}</b></span
+          >
+        </div>
+        <div class="page-body">
+          <p
+            [style.font-size.px]="fontSize"
+            [style.line-height.px]="lineHeight * fontSize"
+            #chapterContent
+          ></p>
+        </div>
+
+        <div class="page-footer">
+          <!-- <span>102</span> -->
         </div>
       </div>
-    </div>
-    <div class="row text-center">
-      <div class="col-sm-12 title mb-4">
-        <h1>{{ selectedChapter?.chapterName }}</h1>
-      </div>
-    </div>
-    <div class="row text-center mt-1">
-      <div class="col mb-4 multi-button">
-        <button (click)="decreaseFontSize()">
-          <span class="material-symbols-outlined"> text_decrease </span>
-        </button>
-        <button (click)="increaseFontSize()">
-          <span class="material-symbols-outlined"> text_increase </span>
-        </button>
-        <button (click)="changeReadMode()">
-          <span *ngIf="isNightMode" class="material-symbols-outlined">
-            dark_mode
-          </span>
-          <span *ngIf="!isNightMode" class="material-symbols-outlined">
-            light_mode
-          </span>
-        </button>
-      </div>
-      <p
-        [style.font-size.px]="fontSize"
-        [style.line-height.px]="lineHeight * fontSize"
-        #chapterContent
-      ></p>
     </div>
   </div>
 </div>

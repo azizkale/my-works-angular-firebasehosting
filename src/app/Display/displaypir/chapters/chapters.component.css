@@ -1,4 +1,13 @@
 .arrow-back{
-    margin-right: 5px;
-    margin-top: 5px;
+    margin-right: 20px;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+input[type="button"]{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow-wrap: break-word;
+    word-wrap: break-word; 
+    max-width: 100%;
+    white-space: normal; 
 }

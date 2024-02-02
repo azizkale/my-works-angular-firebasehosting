@@ -1,4 +1,15 @@
 .arrow-back{
-    margin-right: 5px;
-    margin-top: 5px;
+    margin-right: 20px;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+img{
+    max-width: 200px;
+}
+
+@media (max-width: 769px) {
+    img {
+      width: 150px;
+    } 
 }

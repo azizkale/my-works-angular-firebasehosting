@@ -1,34 +1,29 @@
-<div class="row">
-  <div class="col-sm-12 text-end">
-    <span
-      class="material-symbols-outlined arrow-back m-sm-2 p-lg-4"
-      routerLink="/me/grouplist"
-    >
-      arrow_back_ios_new
-    </span>
-  </div>
-</div>
-<div class="w3-center mt-3">
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-12">
-        <h2>Kitaplar</h2>
+<div class="w3-row-padding">
+  <div class="my-3">
+    <div class="w3-card">
+      <div class="col-sm-12 text-end">
+        <span
+          class="material-symbols-outlined arrow-back m-sm-2 p-lg-4"
+          routerLink="/me/grouplist"
+        >
+          arrow_back_ios_new
+        </span>
       </div>
-    </div>
-    <div class="row justify-content-center">
-      <div class="col">
-        <div>
-          <form [formGroup]="retrievePirForm" novalidate>
-            <div *ngFor="let pir of pirs; let i = index">
-              <input
-                class="w3-button"
-                type="button"
-                [value]="pir.name"
-                [formControlName]="pir.name"
-                [routerLink]="['/display/chapter/' + pir.pirId]"
-              />
-            </div>
-          </form>
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12 text-center">
+            <h2>Kitaplar</h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col text-center">
+            <img
+              *ngFor="let pir of pirs; let i = index"
+              [routerLink]="['/display/chapter/' + pir.pirId]"
+              class="img-thumbnail m-1"
+              src="/assets/imageDisplays/namaz.png"
+            />
+          </div>
         </div>
       </div>
     </div>
