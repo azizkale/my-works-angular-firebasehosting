@@ -1,15 +1,15 @@
-<div class="row">
-  <div class="col-sm-12 text-end">
-    <span
-      class="material-symbols-outlined arrow-back m-sm-2 p-lg-4"
-      routerLink="/display/displaypir"
-    >
-      arrow_back_ios_new
-    </span>
-  </div>
-</div>
 <div class="mt-3">
   <div class="container">
+    <div class="row">
+      <div class="col-sm-12 text-end">
+        <span
+          class="material-symbols-outlined arrow-back m-sm-2 p-lg-4"
+          routerLink="/display/displaypir"
+        >
+          arrow_back_ios_new
+        </span>
+      </div>
+    </div>
     <div class="row">
       <div class="col-sm-12 text-center">
         <h2>Bölümler</h2>
@@ -17,25 +17,23 @@
     </div>
     <div class="row">
       <div class="col">
-        <div>
-          <form [formGroup]="retrieveChaptersNamesForm" novalidate>
+        <form [formGroup]="retrieveChaptersNamesForm" novalidate>
+          <hr />
+          <div *ngFor="let chapter of chaptersNames; let i = index">
+            <input
+              class="w3-button text-start"
+              type="button"
+              [value]="chapter.chapterName"
+              [formControlName]="chapter.chapterName"
+              [routerLink]="[
+                '/display/chapterContent/',
+                chapter.chapterId,
+                chapter.pirId
+              ]"
+            />
             <hr />
-            <div *ngFor="let chapter of chaptersNames; let i = index">
-              <input
-                class="w3-button"
-                type="button"
-                [value]="chapter.chapterName"
-                [formControlName]="chapter.chapterName"
-                [routerLink]="[
-                  '/display/chapterContent/',
-                  chapter.chapterId,
-                  chapter.pirId
-                ]"
-              />
-              <hr />
-            </div>
-          </form>
-        </div>
+          </div>
+        </form>
       </div>
     </div>
   </div>

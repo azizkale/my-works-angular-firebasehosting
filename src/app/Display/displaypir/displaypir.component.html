@@ -12,16 +12,20 @@
       <div class="container">
         <div class="row">
           <div class="col-sm-12 text-center">
-            <h2>Kitaplar</h2>
+            <h2>Kitaplık</h2>
           </div>
         </div>
         <div class="row">
-          <div class="col text-center">
+          <div class="col pirs">
             <img
               *ngFor="let pir of pirs; let i = index"
               [routerLink]="['/display/chapter/' + pir.pirId]"
               class="img-thumbnail m-1"
-              src="/assets/imageDisplays/namaz.png"
+              [src]="
+                i % 2 == 0
+                  ? '/assets/imageDisplays/namaz.png'
+                  : '/assets/imageDisplays/sonsuznur.png'
+              "
             />
           </div>
         </div>

@@ -11,5 +11,11 @@ img{
 @media (max-width: 769px) {
     img {
       width: 150px;
+     
     } 
+}
+@media (max-width: 350px) {
+    .pirs{
+        text-align: center;
+    }
 }
