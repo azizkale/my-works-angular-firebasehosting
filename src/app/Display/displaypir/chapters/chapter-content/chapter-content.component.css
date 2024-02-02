@@ -188,9 +188,9 @@ border-radius: 5px;
   }
 
 
-@media (min-width: 769px) {
-  #book .page .page-body {
-    max-width: 75%;
-  }  
+  @media (min-width: 769px) {
+    #book .page .page-body {
+      max-width: 75%;
+    }  
  
 }

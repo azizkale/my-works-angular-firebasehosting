@@ -4,10 +4,12 @@
     cursor: pointer;
 }
 
-input[type="button"]{
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    overflow-wrap: break-word;
-    word-wrap: break-word; 
-    max-width: 100%;
-    white-space: normal; 
+img{
+    max-width: 200px;
+}
+
+@media (max-width: 769px) {
+    img {
+      width: 150px;
+    } 
 }
