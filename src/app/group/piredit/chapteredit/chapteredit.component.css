@@ -55,11 +55,65 @@ input[type="button"],h2{
     width: 20%;
     max-width: 80px;
   }
-
-  hr {
-    height: 5px; 
-    background-color: black; 
-    border: solid; 
-    margin: 8px 0;
-  }
+    /* ======Book Effect Background===== */
   
+    .pages, .pages2, #book {
+        border-radius: 4px;
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.16), 0 3px 8px rgba(0, 0, 0, 0.23);
+      }
+      
+      .pages{
+        margin: 0 -3px;
+        padding: 0 3px;
+        text-align: -webkit-center;
+      }
+      
+      #book {
+        border-radius: 4px;
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.16), 0 3px 8px rgba(0, 0, 0, 0.23);
+      }
+      
+      #book .page {
+        flex: 1;
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+      
+      #book .page .page-header {
+        flex: 1;
+        font-family: Lato;
+        font-size: 1.5rem;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        color: darken(lightgray, 8%);
+        text-align: center;
+        padding-top: 2rem;
+        line-height: 2rem;
+      }
+    
+    
+      #book .page .page-body {
+        min-height: 720px;
+      }  
+     
+      
+      #book .page .page-body p {
+        font-size: 1.125rem;
+        font-family: 'Georgia';
+        letter-spacing: 0.5px;
+        text-align: justify;
+        line-height: 1.7;
+        margin: 0;
+        padding-top: 1.5rem;
+      }
+      
+      #book .page .page-footer {
+        height: 72px;
+        line-height: 72px;
+        text-align: center;
+        font-family: Lato;
+        font-size: 0.75rem;
+        color: darken(lightgray, 8%);
+      }
+     
+    

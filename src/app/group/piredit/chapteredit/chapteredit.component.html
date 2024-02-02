@@ -110,6 +110,7 @@
     </form>
   </div>
 </div>
+
 <!-- ========== Update Chapter(MODAL) ========== -->
 <div id="id_update_chapter" class="w3-modal" #id_update_chapter>
   <div
@@ -180,15 +181,28 @@
           formControlName="chapterContent"
         >
         </textarea>
-        <hr />
-        <div
-          [style.font-size.px]="fontSize"
-          [style.line-height.px]="lineHeight * fontSize"
-          #chapterContent
-          class="w3-input w3-border w3-margin-bottom"
-          placeholder="Bölüm içeriği giriniz"
-          [innerHTML]="selectedChapterContentToEdit"
-        ></div>
+
+        <!-- ======editor read book style====== -->
+        <div class="pages" [ngClass]="readModeClass()">
+          <div id="book">
+            <div class="page">
+              <div class="page-body">
+                <p
+                  [style.font-size.px]="fontSize"
+                  [style.line-height.px]="lineHeight * fontSize"
+                  #chapterContent
+                  class="w3-input w3-border w3-margin-bottom"
+                  placeholder="Bölüm içeriği giriniz"
+                  [innerHTML]="selectedChapterContentToEdit"
+                ></p>
+              </div>
+
+              <div class="page-footer"></div>
+            </div>
+          </div>
+        </div>
+        <!-- ======editor read book style end====== -->
+
         <select
           [ngClass]="readModeClass()"
           *ngIf="allowedToAdminAndMentor"
@@ -243,6 +257,7 @@
     </form>
   </div>
 </div>
+
 <!-- ===============Add WordPair(MODAL)================= -->
 <div id="addWordPair" class="w3-modal" #addWordPair>
   <div class="w3-modal-content w3-card-4 w3-animate-zoom">
