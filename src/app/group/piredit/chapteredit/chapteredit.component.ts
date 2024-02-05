@@ -14,6 +14,7 @@ import { WordPair } from 'src/models/WordPair';
 import { WordpaireditComponent } from '../wordpairedit/wordpairedit.component';
 import { RolesService } from 'src/app/services/roles.service';
 import { DisplaypirService } from 'src/app/services/displaypir.service';
+import { map, of, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-chapteredit',
@@ -24,6 +25,7 @@ export class ChaptereditComponent implements OnInit {
   @ViewChild(WordpaireditComponent)
   private wordpaireditComponent: WordpaireditComponent;
   @ViewChild('chapterContent') chapterContent: ElementRef;
+  @ViewChild('chapterContentforEditor') chapterContentforEditor: ElementRef;
 
   retrieveChapterForm: FormGroup;
   createChapterForm: FormGroup;
@@ -141,7 +143,7 @@ export class ChaptereditComponent implements OnInit {
       .getUserRolesInTheGroup(this.selectedGroupId, editorId)
       .subscribe({
         next: (roles) => {
-          //if the user the editor, all chapter comes
+          //if the user the mentor, all chapter comes
           if (roles?.includes(Roles[2])) {
             this.pireditservice
               .retrieveAllChapters(this.selectedPirId)
@@ -217,39 +219,58 @@ export class ChaptereditComponent implements OnInit {
   }
 
   selectChapter(chapter: Chapter) {
-    this.selectedChapter = chapter;
-    //modifies the chapter content adding <b> tag to wordpairs
-    if (
-      chapter.chapterContent !== null ||
-      chapter.chapterContent !== undefined
-    ) {
-      if (chapter.wordPairs !== undefined) {
-        for (const wordpair of Object.values(chapter.wordPairs)) {
-          this.selectedChapterContentToEdit = chapter.chapterContent.replace(
-            wordpair.word.trim(),
-            `<b>${wordpair.word.trim()}</b>`
-          );
-        }
-      } else {
-        this.selectedChapterContentToEdit = chapter.chapterContent;
-      }
-    } else {
-      this.selectedChapterContentToEdit =
-        'Bu bölüme henüz bir metin eklenmedi!';
-    }
+    of(chapter)
+      .pipe(
+        map((chapter) => {
+          this.selectedChapter = chapter;
+          return chapter;
+        }),
+        switchMap((chapter) => {
+          if (
+            chapter.chapterContent !== null ||
+            chapter.chapterContent !== undefined
+          ) {
+            if (chapter.wordPairs !== undefined) {
+              for (const wordpair of Object.values(chapter.wordPairs)) {
+                this.selectedChapterContentToEdit =
+                  chapter.chapterContent.replace(
+                    wordpair.word.trim(),
+                    `<b>${wordpair.word.trim()}</b>`
+                  );
+              }
+            } else {
+              this.selectedChapterContentToEdit = chapter.chapterContent;
+            }
+          } else {
+            this.selectedChapterContentToEdit =
+              'Bu bölüme henüz bir metin eklenmedi!';
+          }
 
-    this.chapterContent.nativeElement.innerHTML =
-      this.selectedChapterContentToEdit;
-
-    this.updateChapterForm = this.fb.group({
-      chapterId: [chapter.chapterId],
-      chapterName: [chapter.chapterName, Validators.required],
-      chapterContent: [this.selectedChapterContentToEdit, Validators.required],
-      pirId: [chapter.pirId, Validators.required],
-      editorId: [chapter.editorId, Validators.required],
-      createDate: [chapter.createDate, Validators.required],
-      selectEditor: [chapter.editorId],
-    });
+          return of(chapter);
+        }),
+        map((chapter) => {
+          this.chapterContent.nativeElement.innerHTML =
+            this.selectedChapterContentToEdit;
+          this.chapterContentforEditor.nativeElement.innerHTML =
+            chapter.chapterContent;
+          return chapter;
+        }),
+        map((chapter) => {
+          this.updateChapterForm = this.fb.group({
+            chapterId: [chapter.chapterId],
+            chapterName: [chapter.chapterName, Validators.required],
+            chapterContent: [
+              this.selectedChapterContentToEdit,
+              Validators.required,
+            ],
+            pirId: [chapter.pirId, Validators.required],
+            editorId: [chapter.editorId, Validators.required],
+            createDate: [chapter.createDate, Validators.required],
+            selectEditor: [chapter.editorId],
+          });
+        })
+      )
+      .subscribe();
   }
 
   updateChapter() {
