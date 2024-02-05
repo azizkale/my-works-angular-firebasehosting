@@ -173,7 +173,7 @@
           [style.line-height.px]="lineHeight * fontSize"
           [readOnly]="allowedToAdmin"
           *ngIf="allowedToAdminAndMentor"
-          #chapterContent
+          #chapterContentforEditor
           rows="15"
           class="w3-input w3-border w3-margin-bottom"
           type="text"
@@ -181,9 +181,8 @@
           formControlName="chapterContent"
         >
         </textarea>
-
         <!-- ======editor read book style====== -->
-        <div class="pages" [ngClass]="readModeClass()">
+        <div class="pages my-2" [ngClass]="readModeClass()">
           <div id="book">
             <div class="page">
               <div class="page-body">
@@ -244,7 +243,7 @@
           <button
             *ngIf="allowedToAdminAndMentor"
             type="button"
-            class="btn btn-danger"
+            class="w3-button w3-red w3-section w3-padding mx-1"
             placement="top"
             [ngbPopover]="popDeleteContent"
             popoverTitle="Sil!"
