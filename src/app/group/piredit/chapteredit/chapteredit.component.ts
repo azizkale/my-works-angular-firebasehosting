@@ -298,9 +298,22 @@ export class ChaptereditComponent implements OnInit {
     } else console.log('null editor id');
   }
 
+  //for PC browser
   selectTextToManipulate() {
     const selection: any = window.getSelection();
     this.selectedWord = selection.toString();
+  }
+
+  //for mobile device browser
+  async selectTextToManipulate_Mobile() {
+    try {
+      const text = await navigator.clipboard.readText();
+      this.selectedWord = text;
+      const selection: any = window.getSelection();
+      console.log('Copied Text:', text);
+    } catch (error) {
+      console.error('Error accessing clipboard:', error);
+    }
   }
 
   saveWordPair(meaning: string) {

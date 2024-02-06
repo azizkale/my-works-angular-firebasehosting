@@ -147,6 +147,7 @@
     <form
       class="w3-container"
       [formGroup]="updateChapterForm"
+      (touchend)="selectTextToManipulate_Mobile()"
       (click)="selectTextToManipulate()"
     >
       <div class="w3-section">
