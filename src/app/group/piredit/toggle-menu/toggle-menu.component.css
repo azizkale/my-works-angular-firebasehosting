@@ -51,3 +51,11 @@ body {
 .btn-group-fab .btn-sub:nth-child(5) {
   bottom: 210px;
 }
+
+.btn-danger {
+  transform: rotate(45deg);
+}
+
+button i {
+  color: white;
+}
