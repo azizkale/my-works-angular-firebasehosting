@@ -55,6 +55,7 @@ import { GroupinfoComponent } from './group/groupinfo/groupinfo.component';
 import { GroupsettingsComponent } from './settings/adminsettings/groupsettings/groupsettings.component';
 import { UsersettingsComponent } from './settings/adminsettings/usersettings/usersettings.component';
 import { MarkdownPipe } from './group/piredit/chapteredit/marddown.pipe';
+import { ToggleMenuComponent } from './group/piredit/toggle-menu/toggle-menu.component';
 
 @NgModule({
   declarations: [
@@ -84,7 +85,8 @@ import { MarkdownPipe } from './group/piredit/chapteredit/marddown.pipe';
     GroupinfoComponent,
     GroupsettingsComponent,
     UsersettingsComponent,
-    MarkdownPipe
+    MarkdownPipe,
+    ToggleMenuComponent
   ],
   imports: [
     BrowserModule,
