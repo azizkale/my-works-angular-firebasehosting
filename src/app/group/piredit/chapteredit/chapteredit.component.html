@@ -147,8 +147,9 @@
     <form
       class="w3-container"
       [formGroup]="updateChapterForm"
-      (touchend)="selectTextToManipulate_Mobile()"
       (click)="selectTextToManipulate()"
+      (touchend)="onMouseOrTouchEnd($event)"
+      (mouseup)="onMouseOrTouchEnd($event)"
     >
       <div class="w3-section">
         <input

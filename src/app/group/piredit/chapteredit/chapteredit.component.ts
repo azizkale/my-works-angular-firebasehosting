@@ -1,4 +1,10 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -15,6 +21,7 @@ import { WordpaireditComponent } from '../wordpairedit/wordpairedit.component';
 import { RolesService } from 'src/app/services/roles.service';
 import { DisplaypirService } from 'src/app/services/displaypir.service';
 import { map, of, switchMap } from 'rxjs';
+import { NgZone } from '@angular/core';
 
 @Component({
   selector: 'app-chapteredit',
@@ -26,6 +33,12 @@ export class ChaptereditComponent implements OnInit {
   private wordpaireditComponent: WordpaireditComponent;
   @ViewChild('chapterContent') chapterContent: ElementRef;
   @ViewChild('chapterContentforEditor') chapterContentforEditor: ElementRef;
+
+  @HostListener('touchend', ['$event'])
+  @HostListener('mouseup', ['$event'])
+  onMouseOrTouchEnd(event: Event) {
+    this.captureSelectedText(event);
+  }
 
   retrieveChapterForm: FormGroup;
   createChapterForm: FormGroup;
@@ -54,7 +67,8 @@ export class ChaptereditComponent implements OnInit {
     private activeroute: ActivatedRoute,
     public userservice: UserService,
     public roleservice: RolesService,
-    private displayService: DisplaypirService
+    private displayService: DisplaypirService,
+    private zone: NgZone
   ) {}
 
   ngOnInit(): void {
@@ -305,15 +319,22 @@ export class ChaptereditComponent implements OnInit {
   }
 
   //for mobile device browser
-  async selectTextToManipulate_Mobile() {
-    try {
-      const text = await navigator.clipboard.readText();
-      this.selectedWord = text;
-      const selection: any = window.getSelection();
-      console.log('Copied Text:', text);
-    } catch (error) {
-      console.error('Error accessing clipboard:', error);
-    }
+  captureSelectedText(event: Event) {
+    this.zone.run(() => {
+      const selection = document.getSelection();
+
+      if (selection && selection.rangeCount > 0) {
+        const selectedWord = selection.toString().trim();
+
+        if (selectedWord) {
+          this.selectedWord = selectedWord;
+        } else {
+          console.log('No text selected.');
+        }
+      } else {
+        console.log('Error getting selection.');
+      }
+    });
   }
 
   saveWordPair(meaning: string) {
