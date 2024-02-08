@@ -15,12 +15,12 @@
   border-radius: 5px;
   background: #fff;
   margin: 15px 0;
-  width: 50%;
+  width: 100%;
 }
 
 .todo-list {
   float: left;
-  width: 46%;
+  width: 100%;
 }
 
 ul {
