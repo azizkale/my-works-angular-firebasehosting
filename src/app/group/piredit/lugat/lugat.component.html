@@ -1,0 +1,22 @@
+<section class="container">
+  <div class="todo-list box">
+    <ul>
+      <input
+        #manualWord
+        class="w3-input w3-border w3-margin-bottom"
+        type="text"
+      />
+      <button
+        (click)="getMeaningManuel()"
+        class="btn btn-info"
+        style="margin-bottom: 2%"
+      >
+        Manuel Ara
+      </button>
+    </ul>
+    <hr />
+    <ul *ngFor="let item of listWords">
+      <li [innerHTML]="item.meaning"></li>
+    </ul>
+  </div>
+</section>

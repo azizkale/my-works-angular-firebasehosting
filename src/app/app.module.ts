@@ -56,6 +56,7 @@ import { GroupsettingsComponent } from './settings/adminsettings/groupsettings/g
 import { UsersettingsComponent } from './settings/adminsettings/usersettings/usersettings.component';
 import { MarkdownPipe } from './group/piredit/chapteredit/marddown.pipe';
 import { ToggleMenuComponent } from './group/piredit/toggle-menu/toggle-menu.component';
+import { LugatComponent } from './group/piredit/lugat/lugat.component';
 
 @NgModule({
   declarations: [
@@ -86,7 +87,8 @@ import { ToggleMenuComponent } from './group/piredit/toggle-menu/toggle-menu.com
     GroupsettingsComponent,
     UsersettingsComponent,
     MarkdownPipe,
-    ToggleMenuComponent
+    ToggleMenuComponent,
+    LugatComponent
   ],
   imports: [
     BrowserModule,

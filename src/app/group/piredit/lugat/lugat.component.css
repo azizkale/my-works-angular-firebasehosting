@@ -1,0 +1,35 @@
+.container {
+  overflow: hidden;
+  border-radius: 10px;
+  font-family: sans-serif;
+
+  /* Flexbox kullanarak dikey ortalama */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.box {
+  padding: 10px 15px;
+  border: 2px solid #b1c9bb;
+  border-radius: 5px;
+  background: #fff;
+  margin: 15px 0;
+  width: 50%;
+}
+
+.todo-list {
+  float: left;
+  width: 46%;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  padding: 10px;
+  border-bottom: 1px dotted #ccc;
+}
