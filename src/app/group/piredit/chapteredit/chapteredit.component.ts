@@ -330,7 +330,6 @@ export class ChaptereditComponent implements OnInit {
         if (selectedWord) {
           this.selectedWord = selectedWord;
         } else {
-          console.log('No text selected.');
         }
       } else {
         console.log('Error getting selection.');
@@ -348,7 +347,7 @@ export class ChaptereditComponent implements OnInit {
       this.updateChapterForm.get('pirId')?.value,
       this.uid
     );
-
+    console.log(wordPair);
     //creating wordpair
     this.pireditservice.createWordPair(wordPair).subscribe({
       next: (ress) => {
