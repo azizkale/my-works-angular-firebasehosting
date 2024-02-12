@@ -36,7 +36,6 @@ export class ChaptereditComponent implements OnInit {
 
   //for mobile devices
   @HostListener('touchend', ['$event'])
-  @HostListener('mouseup', ['$event'])
   onMouseOrTouchEnd(event: Event) {
     this.captureSelectedText(event);
   }
@@ -347,8 +346,7 @@ export class ChaptereditComponent implements OnInit {
       this.updateChapterForm.get('pirId')?.value,
       this.uid
     );
-    console.log(wordPair);
-    //creating wordpair
+    // creating wordpair
     this.pireditservice.createWordPair(wordPair).subscribe({
       next: (ress) => {
         this.updateChapter(); // to save (as updated) the word that be made bold
