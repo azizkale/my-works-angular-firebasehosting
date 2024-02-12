@@ -30,10 +30,11 @@ import { NgZone } from '@angular/core';
 })
 export class ChaptereditComponent implements OnInit {
   @ViewChild(WordpaireditComponent)
-  private wordpaireditComponent: WordpaireditComponent;
+  wordpaireditComponent: WordpaireditComponent;
   @ViewChild('chapterContent') chapterContent: ElementRef;
   @ViewChild('chapterContentforEditor') chapterContentforEditor: ElementRef;
 
+  //for mobile devices
   @HostListener('touchend', ['$event'])
   @HostListener('mouseup', ['$event'])
   onMouseOrTouchEnd(event: Event) {
