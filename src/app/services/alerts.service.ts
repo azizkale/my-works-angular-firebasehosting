@@ -1,11 +1,11 @@
-import { Injectable, } from '@angular/core';
+import { Injectable } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AlertsService {
-
-  constructor() { }
+  constructor(private snackBar: MatSnackBar) {}
   alert(text: string, classForColor: string, parentElement: HTMLElement) {
     const alertTemplate = `
     <div #alert id="alert"
@@ -19,4 +19,10 @@ export class AlertsService {
     parentElement.innerHTML = alertTemplate;
   }
 
+  showSuccess(message: string): void {
+    this.snackBar.open(message, '', {
+      duration: 3000,
+      panelClass: ['success-snackbar'],
+    });
+  }
 }

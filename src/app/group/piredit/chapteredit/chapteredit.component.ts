@@ -22,6 +22,7 @@ import { RolesService } from 'src/app/services/roles.service';
 import { DisplaypirService } from 'src/app/services/displaypir.service';
 import { map, of, switchMap } from 'rxjs';
 import { NgZone } from '@angular/core';
+import { AlertsService } from 'src/app/services/alerts.service';
 
 @Component({
   selector: 'app-chapteredit',
@@ -68,7 +69,8 @@ export class ChaptereditComponent implements OnInit {
     public userservice: UserService,
     public roleservice: RolesService,
     private displayService: DisplaypirService,
-    private zone: NgZone
+    private zone: NgZone,
+    private alertservice: AlertsService
   ) {}
 
   ngOnInit(): void {
@@ -348,6 +350,9 @@ export class ChaptereditComponent implements OnInit {
     // creating wordpair
     this.pireditservice.createWordPair(wordPair).subscribe({
       next: (ress) => {
+        this.alertservice.showSuccess(
+          this.selectedWord + ' kelimesi başarı ile kaydedildi şakird!'
+        );
         this.updateChapter(); // to save (as updated) the word that be made bold
       },
       complete: () => {
