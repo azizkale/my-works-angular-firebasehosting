@@ -84,6 +84,33 @@
           placeholder="url giriniz"
           formControlName="imageUrl"
         />
+        <label><b>Yazar:</b></label>
+        <select
+          class="form-select w3-border w3-margin-bottom"
+          #author
+          formControlName="author"
+        >
+          <option value="">Yazar Seçin</option>
+          <option value="M. Fethullah Gülen">M. Fethullah Gülen</option>
+        </select>
+        <label><b>Kitap Türü:</b></label>
+        <select class="form-select" #type formControlName="type">
+          <option value="">Kitap Türü Seçiniz</option>
+          <option value="{{ type }}" *ngFor="let type of pirTypes">
+            {{ type }}
+          </option>
+        </select>
+        <label for=""
+          ><b>İzin:</b>
+          <input
+            class="w3-check"
+            type="checkbox"
+            name="allowed"
+            #allowed
+            formControlName="allowed"
+          />
+        </label>
+
         <button
           onclick="document.getElementById('id_add_pir').style.display='none'"
           (click)="createNewPir()"

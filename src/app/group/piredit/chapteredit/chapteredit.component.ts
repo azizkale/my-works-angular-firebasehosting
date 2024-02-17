@@ -351,7 +351,7 @@ export class ChaptereditComponent implements OnInit {
     this.pireditservice.createWordPair(wordPair).subscribe({
       next: (ress) => {
         this.alertservice.showSuccess(
-          this.selectedWord + ' kelimesi başarı ile kaydedildi şakird!'
+          this.selectedWord + ' kelimesi başarı ile kaydedildi!'
         );
         this.updateChapter(); // to save (as updated) the word that be made bold
       },

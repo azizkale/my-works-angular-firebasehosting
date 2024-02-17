@@ -1,4 +1,5 @@
 import { Chapter } from './Chapter';
+import { PirType } from './PirType';
 import { WordPair } from './WordPair';
 
 export class Pir {
@@ -11,16 +12,18 @@ export class Pir {
   wordPairs: WordPair[];
   imageUrl: string | null;
   allowed: boolean;
+  author: string;
+  type: PirType;
 
   constructor(
     pirId: any,
     editorId: any,
     groupId: any,
     description: string,
-    name?: string | null,
+    name: string | null,
     chapters: Chapter[] = [],
     wordPairs: WordPair[] = [],
-    imageUrl?: string | null,
+    imageUrl: string | null,
     allowed: boolean = true
   ) {
     this.pirId = pirId;
