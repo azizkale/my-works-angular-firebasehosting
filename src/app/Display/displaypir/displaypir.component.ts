@@ -5,30 +5,30 @@ import { Pir } from 'src/models/Pir';
 @Component({
   selector: 'app-displaypir',
   templateUrl: './displaypir.component.html',
-  styleUrls: ['./displaypir.component.css']
+  styleUrls: ['./displaypir.component.css'],
 })
 export class DisplaypirComponent implements OnInit {
   pirs: Pir[] = [];
 
-  constructor(
-    private displaypirservice: DisplaypirService
-  ) { }
+  constructor(private displaypirservice: DisplaypirService) {}
 
   ngOnInit(): void {
-    this.retrievePirsNames()
+    this.retrievePirsNames();
   }
 
   retrievePirsNames() {
-    this.pirs = []
+    this.pirs = [];
     this.displaypirservice.retrievePirsNames().subscribe({
       next: async (ress) => {
         if (ress) {
           await Object.values(ress).map((pir: Pir | any) => {
-            this.pirs.push(pir)
-          })
-          await this.pirs.sort((a, b) => a.name?.localeCompare(b.name));
+            this.pirs.push(pir);
+          });
+          await this.pirs.sort((a: any, b: any) =>
+            a.name?.localeCompare(b.name)
+          );
         }
-      }
-    })
+      },
+    });
   }
 }

@@ -1,5 +1,10 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { GroupService } from 'src/app/services/group.service';
 import { PireditService } from 'src/app/services/piredit.service';
 import { RolesService } from 'src/app/services/roles.service';
@@ -11,21 +16,22 @@ import { Roles } from 'src/models/Roles';
 @Component({
   selector: 'app-groupinfo',
   templateUrl: './groupinfo.component.html',
-  styleUrls: ['./groupinfo.component.css']
+  styleUrls: ['./groupinfo.component.css'],
 })
 export class GroupinfoComponent implements OnInit {
-  @ViewChild('participantemail_', { static: false }) participantemail_: ElementRef
-  @ViewChild('participantid_', { static: false }) participantid_: ElementRef
+  @ViewChild('participantemail_', { static: false })
+  participantemail_: ElementRef;
+  @ViewChild('participantid_', { static: false }) participantid_: ElementRef;
 
-  retrieveGroupForm: FormGroup
-  retrievePirForm: FormGroup
-  selectedGroupId: any
+  retrieveGroupForm: FormGroup;
+  retrievePirForm: FormGroup;
+  selectedGroupId: any;
   usersOfTheGroup: any[];
-  mentorsMetoringGroups: any[] //to display in template
+  mentorsMetoringGroups: any[]; //to display in template
   allowedToAdminAndMentor: boolean;
-  pirsInfo: any[] = [] //{pirName,pirId}
+  pirsInfo: any[] = []; //{pirName,pirId}
 
-  ngbPopoverUserName: string;//to display the user"s name on delete-popover
+  ngbPopoverUserName: string; //to display the user"s name on delete-popover
 
   constructor(
     private groupservice: GroupService,
@@ -33,18 +39,15 @@ export class GroupinfoComponent implements OnInit {
     private userservice: UserService,
     private pirservice: PireditService,
     private roleservice: RolesService
-  ) {
-
-  }
+  ) {}
 
   ngOnInit(): void {
     this.selectedGroupId = localStorage.getItem('groupId');
     //to create works for the group and to send to chapterComponent
     this.roleControl(this.selectedGroupId, localStorage.getItem('uid'));
     this.retrieveSingleGroupByGroupId();
-    this.createRetrieveGroupForm()
+    this.createRetrieveGroupForm();
     this.createPirRetrieveForm();
-
   }
 
   // forms==================
@@ -54,64 +57,75 @@ export class GroupinfoComponent implements OnInit {
       mentorId: ['', Validators.required],
       groupName: ['', Validators.required],
       mentorEmail: ['', Validators.required],
-      works: [], //it is null for now 
-      users: [] //fullfilled below at retrieveSingleGroupByGroupId func.
+      works: [], //it is null for now
+      users: [], //fullfilled below at retrieveSingleGroupByGroupId func.
     });
   }
 
   createPirRetrieveForm() {
-    this.retrievePirForm = this.fb.group({
-    });
+    this.retrievePirForm = this.fb.group({});
     //formname array is fullfilled in the retrievePirsList function (below)
-
   }
 
   //methods ========================
   retrieveSingleGroupByGroupId() {
-    this.groupservice.retrieveSingleGroupOfUserByGroupId(this.selectedGroupId).subscribe({
-      next: async (group: Group | any) => {
+    this.groupservice
+      .retrieveSingleGroupOfUserByGroupId(this.selectedGroupId)
+      .subscribe({
+        next: async (group: Group | any) => {
+          this.usersOfTheGroup = [];
+          this.retrieveGroupForm.patchValue(group);
 
-        this.usersOfTheGroup = []
-        this.retrieveGroupForm.patchValue(group)
+          //{email,role} list
+          this.usersOfTheGroup = Object.values(
+            this.retrieveGroupForm.get('users')?.value
+          );
 
-        //{email,role} list
-        this.usersOfTheGroup = Object.values(this.retrieveGroupForm.get('users')?.value);
+          //list of the id of the users
+          for (const user of this.usersOfTheGroup) {
+            this.userservice.retrieveUserById(user.uid).subscribe({
+              next: (result) => {
+                user.email = result.email;
+                this.retrieveGroupForm.addControl(
+                  user.uid,
+                  new FormControl(user.uid)
+                );
+                this.retrieveGroupForm.addControl(
+                  user.email,
+                  new FormControl(user.email)
+                );
+              },
+            });
+          }
 
-        //list of the id of the users       
-        for (const user of this.usersOfTheGroup) {
-          this.userservice.retrieveUserById(user.uid).subscribe({
-            next: (result) => {
-              user.email = result.email
-              this.retrieveGroupForm.addControl(user.uid, new FormControl(user.uid));
-              this.retrieveGroupForm.addControl(user.email, new FormControl(user.email));
-            }
-          })
-        }
+          //list of pirs of the group
+          this.pirsInfo = [];
+          if (group.works?.pirs) {
+            // Get the keys and values as arrays
+            const arrPirId = Object.keys(group.works.pirs);
+            const arrPirName: any[] = Object.values(group.works.pirs);
 
-        //list of pirs of the group
-        this.pirsInfo = []
-        if (group.works?.pirs) {
-          // Get the keys and values as arrays
-          const arrPirId = Object.keys(group.works.pirs);
-          const arrPirName: any[] = Object.values(group.works.pirs);
+            // Create an object array
+            this.pirsInfo = await arrPirId.map((id, index) => ({
+              pirId: id,
+              pirName: arrPirName[index].pirName,
+            }));
 
-          // Create an object array         
-          this.pirsInfo = await arrPirId.map((id, index) => ({
-            pirId: id,
-            pirName: arrPirName[index].pirName,
-          }));
-
-          // Sort the pirs array in ascending order based on name
-          await this.pirsInfo.sort((a, b) => a.pirName.localeCompare(b.pirName));
-          //create fotmcontrol
-          await this.pirsInfo.forEach((info) => {
-            this.retrievePirForm.addControl(info.pirName, new FormControl(info.pirName));
-          });
-        }
-      }
-    })
+            // Sort the pirs array in ascending order based on name
+            await this.pirsInfo.sort((a, b) =>
+              a.pirName.localeCompare(b.pirName)
+            );
+            //create fotmcontrol
+            await this.pirsInfo.forEach((info) => {
+              this.retrievePirForm.addControl(
+                info.pirName,
+                new FormControl(info.pirName)
+              );
+            });
+          }
+        },
+      });
   }
-
 
   leavePirFromGroup(pir: Pir) {
     //leaves pir from group
@@ -121,43 +135,45 @@ export class GroupinfoComponent implements OnInit {
       next: (pirr) => {
         this.pirservice.leaveThePirFromTheGroup(pirr).subscribe({
           next: (ress) => {
-            this.retrieveSingleGroupByGroupId()
-          }
-        })
-      }
-    })
-
+            this.retrieveSingleGroupByGroupId();
+          },
+        });
+      },
+    });
   }
 
   retrieveSingleUser(email: any) {
-    this.userservice.retrieveUserByEmail(email).subscribe(({
+    this.userservice.retrieveUserByEmail(email).subscribe({
       next: (user) => {
-        this.participantemail_.nativeElement.innerText = user.email
-      }
-    }))
-
+        this.participantemail_.nativeElement.innerText = user.email;
+      },
+    });
   }
 
   addUserToGroup(email: any) {
-    this.userservice.addParticipantToGroup(this.selectedGroupId, email, Roles[3]).subscribe({
-      next: (result) => {
-        this.retrieveSingleGroupByGroupId()
-      }
-    })
+    this.userservice
+      .addParticipantToGroup(this.selectedGroupId, email, Roles[3])
+      .subscribe({
+        next: (result) => {
+          this.retrieveSingleGroupByGroupId();
+        },
+      });
   }
 
   roleControl(groupId: any, uid: any) {
     this.roleservice.getUserRolesInTheGroup(groupId, uid).subscribe({
-      next: (roles => {
-        this.allowedToAdminAndMentor = roles.includes(Roles[1]) || roles.includes(Roles[2])
-      })
-    })
+      next: (roles) => {
+        this.allowedToAdminAndMentor =
+          roles.includes(Roles[1]) || roles.includes(Roles[2]);
+      },
+    });
   }
 
   deleteParticipantFromGroup() {
-    this.groupservice.deleteParticipantFromGroup(this.selectedGroupId, this.ngbPopoverUserName).subscribe({
-      next: (result) => {
-      }
-    })
+    this.groupservice
+      .deleteParticipantFromGroup(this.selectedGroupId, this.ngbPopoverUserName)
+      .subscribe({
+        next: (result) => {},
+      });
   }
 }

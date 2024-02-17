@@ -1,0 +1,49 @@
+Aziz kale
+<div id="id_add_pir">
+  <div
+    class="w3-modal-content w3-card-4 w3-animate-zoom"
+    style="max-width: 800px"
+  >
+    <div class="text-center">
+      <h2>Yeni Kitap Ekle</h2>
+    </div>
+    <form class="w3-container" [formGroup]="formCreateNewPir">
+      <div class="w3-section">
+        <label><b>Kitap adı:</b></label>
+        <input
+          class="w3-input w3-border w3-margin-bottom"
+          type="text"
+          placeholder="Pırlanta adını giriniz"
+          formControlName="pirName"
+        />
+
+        <label><b>Arka Kapak:</b></label>
+        <textarea
+          rows="5"
+          class="w3-input w3-border w3-margin-bottom"
+          type="text"
+          placeholder="Arka kapak içeriğini giriniz"
+          formControlName="description"
+        >
+        </textarea>
+        <label><b>Kapak Resmi Linki:</b></label>
+        <input
+          class="w3-input w3-border w3-margin-bottom"
+          type="text"
+          placeholder="url giriniz"
+          formControlName="imageUrl"
+        />
+        <input class="w3-check" type="checkbox" formControlName="allowed" />
+        <button
+          onclick="document.getElementById('id_add_pir').style.display='none'"
+          (click)="createNewPir()"
+          class="w3-button w3-block w3-green w3-section w3-padding"
+          type="submit"
+          [disabled]="formCreateNewPir.pristine || formCreateNewPir.invalid"
+        >
+          Kaydet
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

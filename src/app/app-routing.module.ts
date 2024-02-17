@@ -17,40 +17,60 @@ import { ChaptersComponent } from './Display/displaypir/chapters/chapters.compon
 import { ChapterContentComponent } from './Display/displaypir/chapters/chapter-content/chapter-content.component';
 import { GroupComponent } from './group/group.component';
 import { GroupinfoComponent } from './group/groupinfo/groupinfo.component';
+import { BonusReadComponent } from './group/bonus-read/bonus-read.component';
+import { CreateBookComponent } from './group/bonus-read/create-book/create-book.component';
 
 const routes: Routes = [
   { path: '', component: SigninComponent, pathMatch: 'full' },
   { path: 'signin', component: SigninComponent },
   { path: 'register', component: RegisterComponent },
   {
-    path: 'me', component: MeComponent, children: [
+    path: 'me',
+    component: MeComponent,
+    children: [
       { path: '', redirectTo: 'booktable', pathMatch: 'full' },
       { path: 'booktable', component: BooktableComponent },
       { path: 'grouplist', component: GrouplistComponent },
-      { path: 'settings', component: SettingsComponent },]
+      { path: 'settings', component: SettingsComponent },
+    ],
   },
   {
-    path: 'group', component: GroupComponent, children: [
+    path: 'group',
+    component: GroupComponent,
+    children: [
       { path: '', redirectTo: 'groupinfo/:groupid', pathMatch: 'full' },
       { path: 'groupinfo/:groupid', component: GroupinfoComponent },
       { path: 'hatim', component: HatimComponent },
       { path: 'shb', component: ShbComponent },
       { path: 'piredit', component: PireditComponent },
       { path: 'chapter/:pirid/:groupid', component: ChaptereditComponent },
-    ]
+    ],
   },
   {
-    path: 'display', component: DisplayComponent, children: [
+    path: 'display',
+    component: DisplayComponent,
+    children: [
       { path: '', redirectTo: 'display', pathMatch: 'full' },
       { path: 'displaypir', component: DisplaypirComponent },
       { path: 'chapter/:id', component: ChaptersComponent },
-      { path: 'chapterContent/:contentId/:pirId', component: ChapterContentComponent },
-    ]
-  }
+      {
+        path: 'chapterContent/:contentId/:pirId',
+        component: ChapterContentComponent,
+      },
+    ],
+  },
+  {
+    path: 'bonusread',
+    component: BonusReadComponent,
+    children: [
+      { path: '', redirectTo: 'bonusread', pathMatch: 'full' },
+      { path: 'create', component: CreateBookComponent },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

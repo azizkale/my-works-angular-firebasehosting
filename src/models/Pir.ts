@@ -1,36 +1,36 @@
-import { Chapter } from "./Chapter";
-import { WordPair } from "./WordPair";
+import { Chapter } from './Chapter';
+import { WordPair } from './WordPair';
 
 export class Pir {
-    pirId: any;
-    editorId: any;
-    name: string | any;
-    description: string;
-    assigned: boolean;
-    chapters: Chapter[];
-    wordPairs: WordPair[];
-    imageUrl: string;
-    groupId: any // which group edits the pir
+  pirId: any;
+  editorId: any;
+  groupId: any;
+  name: string | null;
+  description: string;
+  chapters: Chapter[];
+  wordPairs: WordPair[];
+  imageUrl: string | null;
+  allowed: boolean;
 
-    constructor(
-        pirId: any,
-        editorId: any,
-        groupId: any,
-        name: string | any,
-        description: string,
-        chapters: Chapter[],
-        wordPairs: WordPair[],
-        imageUrl: string
-    ) {
-        this.pirId = pirId
-        this.editorId = editorId
-        this.groupId = groupId
-        this.name = name
-        this.description = description
-        this.chapters = chapters
-        this.wordPairs = wordPairs
-        this.imageUrl = imageUrl
-
-    }
-
-};
+  constructor(
+    pirId: any,
+    editorId: any,
+    groupId: any,
+    description: string,
+    name?: string | null,
+    chapters: Chapter[] = [],
+    wordPairs: WordPair[] = [],
+    imageUrl?: string | null,
+    allowed: boolean = true
+  ) {
+    this.pirId = pirId;
+    this.editorId = editorId;
+    this.groupId = groupId;
+    this.name = name || null;
+    this.description = description;
+    this.chapters = chapters;
+    this.wordPairs = wordPairs;
+    this.imageUrl = imageUrl || null;
+    this.allowed = allowed;
+  }
+}

@@ -57,6 +57,8 @@ import { UsersettingsComponent } from './settings/adminsettings/usersettings/use
 import { MarkdownPipe } from './group/piredit/chapteredit/marddown.pipe';
 import { ToggleMenuComponent } from './group/piredit/toggle-menu/toggle-menu.component';
 import { LugatComponent } from './group/piredit/lugat/lugat.component';
+import { BonusReadComponent } from './group/bonus-read/bonus-read.component';
+import { CreateBookComponent } from './group/bonus-read/create-book/create-book.component';
 
 @NgModule({
   declarations: [
@@ -88,7 +90,9 @@ import { LugatComponent } from './group/piredit/lugat/lugat.component';
     UsersettingsComponent,
     MarkdownPipe,
     ToggleMenuComponent,
-    LugatComponent
+    LugatComponent,
+    BonusReadComponent,
+    CreateBookComponent
   ],
   imports: [
     BrowserModule,
