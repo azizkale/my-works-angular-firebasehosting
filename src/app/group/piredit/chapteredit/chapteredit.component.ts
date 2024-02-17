@@ -131,6 +131,7 @@ export class ChaptereditComponent implements OnInit {
       chapterId: ['', Validators.required],
       chapterName: ['', Validators.required],
       chapterContent: ['', Validators.required],
+      chapterContentforEditor: ['', Validators.required],
       selectEditor: ['', Validators.required],
     });
 
@@ -263,17 +264,14 @@ export class ChaptereditComponent implements OnInit {
           return of(chapter);
         }),
         map((chapter) => {
-          this.chapterContent.nativeElement.innerHTML =
-            this.selectedChapterContentToEdit;
-          this.chapterContentforEditor.nativeElement.innerHTML =
-            chapter.chapterContent;
-          return chapter;
-        }),
-        map((chapter) => {
           this.updateChapterForm = this.fb.group({
             chapterId: [chapter.chapterId],
             chapterName: [chapter.chapterName, Validators.required],
             chapterContent: [
+              this.selectedChapterContentToEdit,
+              Validators.required,
+            ],
+            chapterContentforEditor: [
               this.selectedChapterContentToEdit,
               Validators.required,
             ],
@@ -346,6 +344,7 @@ export class ChaptereditComponent implements OnInit {
       this.updateChapterForm.get('pirId')?.value,
       this.uid
     );
+
     // creating wordpair
     this.pireditservice.createWordPair(wordPair).subscribe({
       next: (ress) => {

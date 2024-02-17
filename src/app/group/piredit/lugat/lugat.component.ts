@@ -17,7 +17,7 @@ export class LugatComponent implements OnInit {
   word$: word = { word: '', meaning: '' };
 
   ngOnInit(): void {
-    this.getWordsMeaning(this.receivedWord);
+    // this.getWordsMeaning(this.receivedWord);
   }
 
   getWordsMeaning(word: string) {
@@ -27,6 +27,8 @@ export class LugatComponent implements OnInit {
       next: (data: any) => {
         if (data && data.length > 0) {
           data.forEach((d: any) => {
+            console.log(d);
+
             const newWord: word = { word: d.Kelime, meaning: d.Mana };
             this.listWords.push(newWord);
           });
@@ -34,6 +36,9 @@ export class LugatComponent implements OnInit {
       },
       error: (err) => {
         console.error('Error:', err);
+      },
+      complete: () => {
+        this.receivedWord = '';
       },
     });
   }
