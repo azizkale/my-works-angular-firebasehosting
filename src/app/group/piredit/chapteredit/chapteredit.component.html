@@ -80,6 +80,16 @@
           formControlName="chapterContent"
         >
         </textarea>
+        <label for=""
+          ><b>İzin:</b>
+          <input
+            class="w3-check"
+            type="checkbox"
+            name="allowed"
+            #allowed
+            formControlName="allowed"
+          />
+        </label>
         <select
           class="form-select"
           name="selectEditor"
@@ -203,7 +213,16 @@
           </div>
         </div>
         <!-- ======editor read book style end====== -->
-
+        <label for=""
+          ><b>İzin:</b>
+          <input
+            class="w3-check"
+            type="checkbox"
+            name="allowed"
+            #allowed
+            formControlName="allowed"
+          />
+        </label>
         <select
           [ngClass]="readModeClass()"
           *ngIf="allowedToAdminAndMentor"

@@ -94,6 +94,7 @@ export class ChaptereditComponent implements OnInit {
       editorId: ['', Validators.required],
       createDate: ['', Validators.required],
       chapterContent: ['', Validators.required],
+      allowed: ['', Validators.required],
     });
   }
 
@@ -102,6 +103,7 @@ export class ChaptereditComponent implements OnInit {
       chapterName: ['', Validators.required],
       chapterContent: ['', Validators.required],
       selectEditor: ['', Validators.required],
+      allowed: [true, Validators.required],
     });
 
     // fullfilling the select tag on FormGroup
@@ -200,6 +202,7 @@ export class ChaptereditComponent implements OnInit {
 
   addChapter(chapterName: string, chapterContent: string) {
     const editorId = this.createChapterForm.get('selectEditor')?.value;
+    const allowed = this.createChapterForm.get('allowed')?.value;
 
     //chapterId will be given in server-side
     const chapter = new Chapter(
@@ -209,8 +212,10 @@ export class ChaptereditComponent implements OnInit {
       editorId,
       this.selectedPirId,
       new Date(),
-      []
+      [],
+      allowed
     );
+
     this.pireditservice.addChapter(chapter).subscribe({
       next: (ress) => {
         console.log(ress);
