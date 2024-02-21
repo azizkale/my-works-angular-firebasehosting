@@ -94,7 +94,6 @@ export class ChaptereditComponent implements OnInit {
       editorId: ['', Validators.required],
       createDate: ['', Validators.required],
       chapterContent: ['', Validators.required],
-      allowed: ['', Validators.required],
     });
   }
 
@@ -137,6 +136,7 @@ export class ChaptereditComponent implements OnInit {
       chapterContent: ['', Validators.required],
       chapterContentforEditor: ['', Validators.required],
       selectEditor: ['', Validators.required],
+      allowed: [Validators.required],
     });
 
     // fullfilling the select tag on FormGroup
@@ -286,6 +286,7 @@ export class ChaptereditComponent implements OnInit {
             editorId: [chapter.editorId, Validators.required],
             createDate: [chapter.createDate, Validators.required],
             selectEditor: [chapter.editorId],
+            allowed: [chapter.allowed],
           });
         })
       )

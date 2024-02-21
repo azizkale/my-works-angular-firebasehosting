@@ -59,6 +59,7 @@ import { ToggleMenuComponent } from './group/piredit/toggle-menu/toggle-menu.com
 import { LugatComponent } from './group/piredit/lugat/lugat.component';
 import { BonusReadComponent } from './group/bonus-read/bonus-read.component';
 import { CreateBookComponent } from './group/bonus-read/create-book/create-book.component';
+import { QuizComponent } from './group/piredit/quiz/quiz.component';
 
 @NgModule({
   declarations: [
@@ -92,7 +93,8 @@ import { CreateBookComponent } from './group/bonus-read/create-book/create-book.
     ToggleMenuComponent,
     LugatComponent,
     BonusReadComponent,
-    CreateBookComponent
+    CreateBookComponent,
+    QuizComponent
   ],
   imports: [
     BrowserModule,
