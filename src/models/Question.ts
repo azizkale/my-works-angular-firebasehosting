@@ -1,4 +1,5 @@
 export class Question {
+  questionId: any;
   question: string;
   answer1: string;
   answer2: string;
@@ -8,9 +9,9 @@ export class Question {
   editorId: any;
   pirId: any;
   chapterId: any;
-  
 
   constructor(
+    questionId: any,
     question: string,
     answer1: string,
     answer2: string,
@@ -21,6 +22,7 @@ export class Question {
     pirId: any,
     chapterId: any
   ) {
+    this.questionId = questionId;
     this.question = question;
     this.answer1 = answer1;
     this.answer2 = answer2;

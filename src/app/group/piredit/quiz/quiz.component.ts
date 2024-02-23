@@ -1,5 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { QuizService } from 'src/app/services/quiz.service';
+import { Chapter } from 'src/models/Chapter';
+import { Question } from 'src/models/Question';
 
 @Component({
   selector: 'app-quiz',
@@ -7,17 +10,17 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./quiz.component.css'],
 })
 export class QuizComponent implements OnInit {
-  @Input() chapter: any;
+  @Input() chapter: Chapter;
 
-  addQuizQuestion: FormGroup;
-  constructor(private fb: FormBuilder) {}
+  questionForm: FormGroup;
+  constructor(private fb: FormBuilder, private quizService: QuizService) {}
 
   ngOnInit(): void {
     this.initiateQuestionForm();
   }
 
   initiateQuestionForm() {
-    this.addQuizQuestion = this.fb.group({
+    this.questionForm = this.fb.group({
       question: ['', Validators.required],
       answer_1: ['', Validators.required],
       answer_2: ['', Validators.required],
@@ -27,8 +30,22 @@ export class QuizComponent implements OnInit {
     });
   }
 
-  save(form: FormGroup) {
-    console.log(form);
-    console.log(this.chapter);
+  save() {
+    const question = new Question(
+      null,
+      this.questionForm.get('question')?.value,
+      this.questionForm.get('answer1')?.value,
+      this.questionForm.get('answer2')?.value,
+      this.questionForm.get('answer3')?.value,
+      this.questionForm.get('answer4')?.value,
+      this.questionForm.get('answer')?.value,
+      this.chapter.editorId,
+      this.chapter.pirId,
+      this.chapter.chapterId
+    );
+
+    if (question !== null) {
+      this.quizService.create(question).subscribe((data: any) => {});
+    }
   }
 }
