@@ -1,20 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-quiz',
   templateUrl: './quiz.component.html',
-  styleUrls: ['./quiz.component.css']
+  styleUrls: ['./quiz.component.css'],
 })
 export class QuizComponent implements OnInit {
-  addQuizQuestion:FormGroup
-  constructor(private fb:FormBuilder) { }
+  @Input() chapter: any;
+
+  addQuizQuestion: FormGroup;
+  constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
-    this.initiateQuestionForm()
+    this.initiateQuestionForm();
   }
 
-  initiateQuestionForm(){
+  initiateQuestionForm() {
     this.addQuizQuestion = this.fb.group({
       question: ['', Validators.required],
       answer_1: ['', Validators.required],
@@ -25,7 +27,8 @@ export class QuizComponent implements OnInit {
     });
   }
 
-  save(form:FormGroup){
-console.log(form)
+  save(form: FormGroup) {
+    console.log(form);
+    console.log(this.chapter);
   }
 }

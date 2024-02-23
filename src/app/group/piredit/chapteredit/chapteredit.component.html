@@ -245,7 +245,7 @@
         >
           Güncelle
         </button>
-        <div class="">        
+        <div class="">
           <button
             *ngIf="allowedToAdminAndMentor"
             type="button"
@@ -273,7 +273,7 @@
 </div>
 
 <div id="quizQuestion" class="w3-modal" #quizQuestion>
-  <app-quiz></app-quiz>
+  <app-quiz [chapter]="selectedChapter"></app-quiz>
 </div>
 
 <!-- ===============Add WordPair(MODAL)================= -->
