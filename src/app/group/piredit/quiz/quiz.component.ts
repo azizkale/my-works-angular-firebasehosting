@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { QuizService } from 'src/app/services/quiz.service';
+import { QuizService } from 'src/app/services/question.service';
 import { Chapter } from 'src/models/Chapter';
 import { Question } from 'src/models/Question';
 
@@ -32,12 +32,12 @@ export class QuizComponent implements OnInit {
 
   save() {
     const question = new Question(
-      null,
+      new Date().getTime().toString(),
       this.questionForm.get('question')?.value,
-      this.questionForm.get('answer1')?.value,
-      this.questionForm.get('answer2')?.value,
-      this.questionForm.get('answer3')?.value,
-      this.questionForm.get('answer4')?.value,
+      this.questionForm.get('answer_1')?.value,
+      this.questionForm.get('answer_2')?.value,
+      this.questionForm.get('answer_3')?.value,
+      this.questionForm.get('answer_4')?.value,
       this.questionForm.get('answer')?.value,
       this.chapter.editorId,
       this.chapter.pirId,

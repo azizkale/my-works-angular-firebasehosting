@@ -12,7 +12,7 @@ export class QuizService {
 
   create(question: Question): Observable<any> {
     const body = { question: question };
-    return this.http.post(environment.url + '/quiz/create', body);
+    return this.http.post(environment.url + '/question/create', body);
   }
 
   retrieve(): Observable<any> {
