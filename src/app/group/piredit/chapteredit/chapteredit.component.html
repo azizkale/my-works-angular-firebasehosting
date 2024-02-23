@@ -245,32 +245,7 @@
         >
           Güncelle
         </button>
-        <div class="">
-          <!-- these butttons are in toggle-menu-component -->
-          <!-- <button
-            onclick="document.getElementById('addWordPair').style.display='block'"
-            class="w3-button w3-green w3-section w3-padding mx-1"
-          >
-            Yeni Kelime
-          </button>
-          <button
-            type="button"
-            class="btn btn-primary"
-            data-bs-toggle="modal"
-            data-bs-target="#displayWordPairs"
-            class="w3-button w3-green w3-section w3-padding"
-          >
-            Kelimeler
-          </button>
-          <button
-            onclick="document.getElementById('id_update_chapter').style.display='none'"
-            type="button"
-            class="w3-button w3-grey w3-section w3-padding mx-1"
-            placement="top"
-            style="margin-right: 10px"
-          >
-            Kapat
-          </button> -->
+        <div class="">        
           <button
             *ngIf="allowedToAdminAndMentor"
             type="button"
@@ -282,10 +257,23 @@
           >
             Sil
           </button>
+          <button
+            *ngIf="allowedToAdminAndMentor"
+            type="button"
+            class="w3-button w3-green w3-section w3-padding mx-1"
+            onclick="document.getElementById('quizQuestion').style.display='block'"
+            style="margin-right: 10px"
+          >
+            Quiz
+          </button>
         </div>
       </div>
     </form>
   </div>
+</div>
+
+<div id="quizQuestion" class="w3-modal" #quizQuestion>
+  <app-quiz></app-quiz>
 </div>
 
 <!-- ===============Add WordPair(MODAL)================= -->
