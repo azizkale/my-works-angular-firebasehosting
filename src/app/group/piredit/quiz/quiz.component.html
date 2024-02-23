@@ -1,65 +1,101 @@
 <div class="w3-modal-content w3-card-4 w3-animate-zoom">
-      <br />
-      <span
-        onclick="document.getElementById('quizQuestion').style.display='none'"
-        class="w3-button w3-xlarge w3-transparent w3-display-topright"
-        title="Close Modal"
-        >×</span
-      >
-      <form class="w3-container" [formGroup]="addQuizQuestion">
-        <div class="w3-section">
-            <label><b>Soru</b></label>
-            <input
-              #question
-              class="w3-input w3-border w3-margin-bottom"
-              type="text"
-              placeholder="Soru giriniz"
-              formControlName="question"
-            />
-            <label><b>1. Şık</b></label>
-          <input
-            #answer_1
-            class="w3-input w3-border w3-margin-bottom"
-            type="text"
-            placeholder="1. şıkkı giriniz."
-            formControlName="answer_1"
-          />
-            <label><b>2. Şık</b></label>
-          <input
-            #answer_2
-            class="w3-input w3-border w3-margin-bottom"
-            type="text"
-            placeholder="2. şıkkı giriniz."
-            formControlName="answer_2"
-          />
-          <label><b>3. Şık</b></label>
-          <input
-            #answer_3
-            class="w3-input w3-border w3-margin-bottom"
-            type="text"
-            placeholder="3. şıkkı giriniz."
-            formControlName="answer_3"
-          />
-          <label><b>4. Şık</b></label>
-          <input
-            #answer_4
-            class="w3-input w3-border w3-margin-bottom"
-            type="text"
-            placeholder="4. şıkkı giriniz."
-            formControlName="answer_4"
-          />
-        </div>
-        <div class="w3-center">
-            <button
-            type="button"
-            class="btn btn-info"
-            style="margin-bottom: 2%"
-            onclick="document.getElementById('quizQuestion').style.display='none'"
-            [disabled]="question.value === '' || answer_1.value === ''|| answer_2.value === ''|| answer_3.value === ''|| answer_4.value === ''"
-          >
-            Kaydet
-          </button>
-        </div>
-       
-      </form>
+  <br />
+  <span
+    onclick="document.getElementById('quizQuestion').style.display='none'"
+    class="w3-button w3-xlarge w3-transparent w3-display-topright"
+    title="Close Modal"
+    >×</span
+  >
+  <form class="w3-container" [formGroup]="addQuizQuestion">
+    <div class="w3-section">
+      <input
+        #question
+        class="w3-input w3-border w3-margin-bottom"
+        type="text"
+        placeholder="Soru giriniz"
+        formControlName="question"
+      />
+    <label for="">Doğru Cevap
+      <input
+          class="w3-radio"
+          type="radio"
+          #answer1
+          name="answer"
+          [value]="answer_1.value !== '' ? answer_1.value: null"
+          formControlName="answer"
+        />    
+      </label>
+
+      <input
+        #answer_1
+        class="w3-input w3-border w3-margin-bottom"
+        type="text"
+        placeholder="1. şıkkı giriniz."
+        formControlName="answer_1"
+      />
+      <label for="">Doğru Cevap
+        <input
+            class="w3-radio"
+            type="radio"
+            name="answer"
+            #answer2
+            [value]="answer_2.value !== '' ? answer_2.value: null"
+            formControlName="answer"
+          />    
+        </label>
+      <input
+        #answer_2
+        class="w3-input w3-border w3-margin-bottom"
+        type="text"
+        placeholder="2. şıkkı giriniz."
+        formControlName="answer_2"
+      />
+      <label for="">Doğru Cevap
+        <input
+            class="w3-radio"
+            type="radio"
+            name="answer"
+            #answer3
+            [value]="answer_3.value !== '' ? answer_3.value: null"
+            formControlName="answer"
+          />    
+        </label>
+      <input
+        #answer_3
+        class="w3-input w3-border w3-margin-bottom"
+        type="text"
+        placeholder="3. şıkkı giriniz."
+        formControlName="answer_3"
+      />
+      <label for="">Doğru Cevap
+        <input
+            class="w3-radio"
+            type="radio"
+            name="answer"
+            #answer4
+            [value]="answer_4.value !== '' ? answer_4.value: null"
+            formControlName="answer"
+          />    
+        </label>
+      <input
+        #answer_4
+        class="w3-input w3-border w3-margin-bottom"
+        type="text"
+        placeholder="4. şıkkı giriniz."
+        formControlName="answer_4"
+      />
     </div>
+    <div class="w3-center">
+      <button
+        type="button"
+        class="btn btn-info"
+        style="margin-bottom: 2%"
+        onclick="document.getElementById('quizQuestion').style.display='none'"
+        (click)="save(addQuizQuestion.value);initiateQuestionForm()"
+        [disabled]="addQuizQuestion.invalid"
+      >
+        Kaydet
+      </button>
+    </div>
+  </form>
+</div>
