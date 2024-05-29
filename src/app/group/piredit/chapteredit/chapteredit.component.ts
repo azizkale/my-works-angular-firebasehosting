@@ -32,8 +32,8 @@ import { AlertsService } from 'src/app/services/alerts.service';
 export class ChaptereditComponent implements OnInit {
   @ViewChild(WordpaireditComponent)
   wordpaireditComponent: WordpaireditComponent;
+  @ViewChild('chapterContentToRead') chapterContentToRead: ElementRef;
   @ViewChild('chapterContent') chapterContent: ElementRef;
-  @ViewChild('chapterContentforEditor') chapterContentforEditor: ElementRef;
 
   //for mobile devices
   @HostListener('touchend', ['$event'])
@@ -133,8 +133,8 @@ export class ChaptereditComponent implements OnInit {
     this.updateChapterForm = this.fb.group({
       chapterId: ['', Validators.required],
       chapterName: ['', Validators.required],
+      chapterContentToRead: ['', Validators.required],
       chapterContent: ['', Validators.required],
-      chapterContentforEditor: ['', Validators.required],
       selectEditor: ['', Validators.required],
       allowed: [Validators.required],
     });
@@ -278,7 +278,7 @@ export class ChaptereditComponent implements OnInit {
               this.selectedChapterContentToEdit,
               Validators.required,
             ],
-            chapterContentforEditor: [
+            chapterContentToRead: [
               this.selectedChapterContentToEdit,
               Validators.required,
             ],

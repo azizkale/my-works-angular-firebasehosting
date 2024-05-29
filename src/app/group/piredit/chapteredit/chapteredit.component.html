@@ -185,12 +185,12 @@
           [style.line-height.px]="lineHeight * fontSize"
           [readOnly]="allowedToAdmin"
           *ngIf="allowedToAdminAndMentor"
-          #chapterContentforEditor
+          #chapterContent
           rows="15"
           class="w3-input w3-border w3-margin-bottom"
           type="text"
           placeholder="Bölüm içeriği giriniz"
-          formControlName="chapterContentforEditor"
+          formControlName="chapterContent"
         >
         </textarea>
         <!-- ======editor read book style====== -->
@@ -201,7 +201,7 @@
                 <p
                   [style.font-size.px]="fontSize"
                   [style.line-height.px]="lineHeight * fontSize"
-                  #chapterContent
+                  #chapterContentToRead
                   class="w3-input w3-border w3-margin-bottom"
                   placeholder="Bölüm içeriği giriniz"
                   [innerHTML]="selectedChapterContentToEdit"
