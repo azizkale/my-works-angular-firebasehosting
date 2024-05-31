@@ -398,6 +398,14 @@
         </button>
       </div>
       <div class="modal-body">
+        <div
+          class="d-flex justify-content-center spinnerai"
+          *ngIf="spinnerMultipleWordPairs"
+        >
+          <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
         <table class="table table-bordered mb-3" style="min-height: 325px">
           <tbody>
             <tr>
@@ -423,11 +431,17 @@
                         <button class="btn btn-success w-75">Kaydet</button>
                       </div>
                       <div class="col-sm">
-                        <button class="btn btn-danger w-75">Sil</button>
+                        <button
+                          (click)="
+                            removeWordPairFrom_listMultipleWordPair(wordpair)
+                          "
+                          class="btn btn-danger w-75"
+                        >
+                          Sil
+                        </button>
                       </div>
                     </div>
                   </div>
-
                   <hr
                     style="height: 5px; background-color: black; border: none"
                   />

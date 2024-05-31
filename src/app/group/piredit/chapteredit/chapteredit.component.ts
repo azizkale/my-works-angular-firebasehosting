@@ -58,6 +58,7 @@ export class ChaptereditComponent implements OnInit {
   users_createchapter: any[] = []; // fullfilling the select tag on FormGroup
   users_updateform: any[] = []; // fullfilling the select tag on FormGroup
   listMultipleWordPair: any[] = [];
+  spinnerMultipleWordPairs: boolean = false;
 
   fontSize: number;
   lineHeight: number;
@@ -462,8 +463,9 @@ export class ChaptereditComponent implements OnInit {
     this.readModeClass();
   }
 
+  // edit the wordpairs from chatgpt
   getMultipleWordPair(chapterContent: string) {
-    console.log('start...');
+    this.spinnerMultipleWordPairs = true;
     this.pireditservice
       .getMultipleWordPairs(chapterContent, this.listMultipleWordPair)
       .subscribe({
@@ -472,7 +474,15 @@ export class ChaptereditComponent implements OnInit {
           console.log(this.listMultipleWordPair);
         },
         error: () => {},
-        complete: () => console.log('end'),
+        complete: () => {
+          this.spinnerMultipleWordPairs = false;
+        },
       });
+  }
+
+  removeWordPairFrom_listMultipleWordPair(wp: any) {
+    this.listMultipleWordPair = this.listMultipleWordPair.filter(
+      (w) => w.word !== wp.word
+    );
   }
 }

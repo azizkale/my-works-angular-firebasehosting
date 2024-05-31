@@ -142,3 +142,9 @@ input[type="checkbox"] {
   width: 100%;
   margin-bottom: 10px;
 }
+
+.spinnerai {
+  position: absolute;
+  left: 50%;
+  top: 5%;
+}
