@@ -42,9 +42,6 @@
           </div>
         </form>
       </div>
-      <button class="btn btn-primary" (click)="getMultipleWordPair()">
-        get multiple word pairs
-      </button>
     </div>
   </div>
 </div>
@@ -258,12 +255,19 @@
           </button>
           <button
             type="button"
-            class="btn btn-primary"
             data-bs-toggle="modal"
             data-bs-target="#displayWordPairs"
             class="w3-button w3-green w3-section w3-padding"
           >
             Kelimeler
+          </button>
+          <button
+            type="button"
+            class="w3-button w3-green w3-section w3-padding mx-1"
+            data-bs-toggle="modal"
+            data-bs-target="#displayMultipleWordPairs"
+          >
+            Kelimeler - ChatGPT
           </button>
           <button
             onclick="document.getElementById('id_update_chapter').style.display='none'"
@@ -332,7 +336,6 @@
           Kaydet
         </button>
       </form>
-      <!-- adding multiple wordpair by chatGPT-->
       <app-lugat *ngIf="selectedWord" [receivedWord]="selectedWord"></app-lugat>
     </div>
   </div>
@@ -372,22 +375,100 @@
   </div>
 </div>
 
-<!-- ===============Popovers-Delete================= -->
-<ng-template #popDeleteContent>
-  <div class="text-center">
-    <h4>
-      Are you sure to delete
-      {{ updateChapterForm.controls["chapterName"].value }}
-    </h4>
-    <button
-      onclick="document.getElementById('id_update_chapter').style.display='none'"
-      (click)="deleteChapter()"
-      type="button"
-      class="btn btn-danger"
-      style="margin-right: 10px"
-    >
-      Sil
-    </button>
-    <button type="button" class="btn btn-info">Vazgeç</button>
+<!-- ===============Display Mulltiple WordPairs from ChatGPT(MODAL)================= -->
+<div
+  class="modal fade"
+  id="displayMultipleWordPairs"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content outer-div">
+      <div class="modal-header">
+        <h3 class="modal-title" id="exampleModalLabel">Tüm Kelimeler - AI</h3>
+        <button
+          type="button"
+          class="w3-button w3-xlarge w3-transparent w3-display-topright"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-bordered mb-3" style="min-height: 325px">
+          <tbody>
+            <tr>
+              <td>
+                <div *ngFor="let wordpair of this.listMultipleWordPair">
+                  <div class="row mx-2 outer-div">
+                    <label for="word" class="form-label">Kelime:</label>
+                    <input
+                      id="word"
+                      class="w3-input w3-border form-input"
+                      type="text"
+                      value="{{ wordpair.word }}"
+                    />
+                    <label for="meaning" class="form-label mt-2">Anlamı:</label>
+                    <input
+                      id="meaning"
+                      class="w3-input w3-border form-input"
+                      type="text"
+                      value="{{ wordpair.meaning }}"
+                    />
+                    <div class="row mt-2 text-center">
+                      <div class="col-sm">
+                        <button class="btn btn-success w-75">Kaydet</button>
+                      </div>
+                      <div class="col-sm">
+                        <button class="btn btn-danger w-75">Sil</button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <hr
+                    style="height: 5px; background-color: black; border: none"
+                  />
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="w3-button w3-green w3-section w3-padding"
+          (click)="getMultipleWordPair(this.selectedChapter.chapterContent)"
+        >
+          Kelimeleri Getir
+        </button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Kapat
+        </button>
+      </div>
+    </div>
   </div>
-</ng-template>
+
+  <!-- ===============Popovers-Delete================= -->
+  <ng-template #popDeleteContent>
+    <div class="text-center">
+      <h4>
+        Are you sure to delete
+        {{ updateChapterForm.controls["chapterName"].value }}
+      </h4>
+      <button
+        onclick="document.getElementById('id_update_chapter').style.display='none'"
+        (click)="deleteChapter()"
+        type="button"
+        class="btn btn-danger"
+        style="margin-right: 10px"
+      >
+        Sil
+      </button>
+      <button type="button" class="btn btn-info">Vazgeç</button>
+    </div>
+  </ng-template>
+</div>
