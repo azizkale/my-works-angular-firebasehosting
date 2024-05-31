@@ -42,6 +42,9 @@
           </div>
         </form>
       </div>
+      <button class="btn btn-primary" (click)="getMultipleWordPair()">
+        get multiple word pairs
+      </button>
     </div>
   </div>
 </div>
@@ -247,7 +250,7 @@
         </button>
         <div class="">
           <!-- these butttons are in toggle-menu-component -->
-          <!-- <button
+          <button
             onclick="document.getElementById('addWordPair').style.display='block'"
             class="w3-button w3-green w3-section w3-padding mx-1"
           >
@@ -270,7 +273,7 @@
             style="margin-right: 10px"
           >
             Kapat
-          </button> -->
+          </button>
           <button
             *ngIf="allowedToAdminAndMentor"
             type="button"
@@ -299,6 +302,7 @@
         title="Close Modal"
         >×</span
       >
+      <!-- adding single wordpair -->
       <form class="w3-container" [formGroup]="addWordForm">
         <div class="w3-section">
           <input
@@ -328,6 +332,7 @@
           Kaydet
         </button>
       </form>
+      <!-- adding multiple wordpair by chatGPT-->
       <app-lugat *ngIf="selectedWord" [receivedWord]="selectedWord"></app-lugat>
     </div>
   </div>
