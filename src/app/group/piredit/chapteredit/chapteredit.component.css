@@ -148,3 +148,13 @@ input[type="checkbox"] {
   left: 50%;
   top: 5%;
 }
+
+.word-count {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background-color: #93d07b;
+  color: white;
+  border: 1px solid #d6e9c6;
+  padding: 0.6rem;
+  border-radius: 0.25rem;
+  font-size: 18px;
+}

@@ -235,21 +235,24 @@
             {{ user.displayName }}
           </option>
         </select>
-        <button
-          *ngIf="allowedToAdminAndMentor"
-          onclick="document.getElementById('id_update_chapter').style.display='none'"
-          (click)="updateChapter()"
-          class="w3-button w3-block w3-green w3-section w3-padding"
-          type="submit"
-          [disabled]="updateChapterForm.pristine || updateChapterForm.invalid"
-        >
-          Güncelle
-        </button>
+        <div class="d-grid gap-2 my-2">
+          <button
+            *ngIf="allowedToAdminAndMentor"
+            onclick="document.getElementById('id_update_chapter').style.display='none'"
+            (click)="updateChapter()"
+            class="btn btn-success btn-lg"
+            type="submit"
+            [disabled]="updateChapterForm.pristine || updateChapterForm.invalid"
+          >
+            Güncelle
+          </button>
+        </div>
+
         <div class="">
           <!-- these butttons are in toggle-menu-component -->
           <button
             onclick="document.getElementById('addWordPair').style.display='block'"
-            class="w3-button w3-green w3-section w3-padding mx-1"
+            class="btn btn-success mx-1"
           >
             Yeni Kelime
           </button>
@@ -257,13 +260,13 @@
             type="button"
             data-bs-toggle="modal"
             data-bs-target="#displayWordPairs"
-            class="w3-button w3-green w3-section w3-padding"
+            class="btn btn-success"
           >
             Kelimeler
           </button>
           <button
             type="button"
-            class="w3-button w3-green w3-section w3-padding mx-1"
+            class="btn btn-success mx-1"
             data-bs-toggle="modal"
             data-bs-target="#displayMultipleWordPairs"
           >
@@ -272,7 +275,7 @@
           <button
             onclick="document.getElementById('id_update_chapter').style.display='none'"
             type="button"
-            class="w3-button w3-grey w3-section w3-padding mx-1"
+            class="btn btn-secondary mx-1"
             placement="top"
             style="margin-right: 10px"
           >
@@ -281,7 +284,7 @@
           <button
             *ngIf="allowedToAdminAndMentor"
             type="button"
-            class="w3-button w3-red w3-section w3-padding mx-1"
+            class="btn btn-danger mx-1"
             placement="top"
             [ngbPopover]="popDeleteContent"
             popoverTitle="Sil!"
@@ -387,7 +390,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content outer-div">
       <div class="modal-header">
-        <h3 class="modal-title" id="exampleModalLabel">Tüm Kelimeler - AI</h3>
+        <h2 class="modal-title" id="exampleModalLabel">Tüm Kelimeler - AI</h2>
         <button
           type="button"
           class="w3-button w3-xlarge w3-transparent w3-display-topright"
@@ -398,6 +401,11 @@
         </button>
       </div>
       <div class="modal-body">
+        <div class="word-count mb-3" *ngIf="this.listMultipleWordPair.length">
+          <span
+            >Toplam Kelime Sayısı: {{ this.listMultipleWordPair.length }}</span
+          >
+        </div>
         <div
           class="d-flex justify-content-center spinnerai"
           *ngIf="spinnerMultipleWordPairs"
@@ -459,9 +467,25 @@
         </table>
       </div>
       <div class="modal-footer">
+        <span class="word-count" *ngIf="this.listMultipleWordPair.length > 0">
+          Toplam Kelime Sayısı:{{ this.listMultipleWordPair.length }}
+        </span>
+        <!-- button für spinner -->
+        <button
+          class="w3-button w3-green"
+          type="button"
+          *ngIf="spinnerMultipleWordPairs"
+        >
+          <span
+            class="spinner-border spinner-border-sm"
+            role="status"
+            aria-hidden="true"
+          ></span>
+          <span class="visually-hidden">Loading...</span>
+        </button>
         <button
           type="button"
-          class="w3-button w3-green w3-section w3-padding"
+          class="btn btn-success"
           (click)="getMultipleWordPair()"
         >
           Kelimeleri Getir
