@@ -9,6 +9,7 @@
       <i class="fa fa-bars"></i>
     </button>
     <button
+      *ngIf="buttonControl"
       type="button"
       class="btn btn-sub btn-danger has-tooltip"
       data-placement="left"
@@ -24,9 +25,11 @@
       title="Yeni Kelime"
       onclick="document.getElementById('addWordPair').style.display='block'"
     >
-      <i class="fa fa-plus"></i>
+      <i *ngIf="buttonControl" class="fa fa-plus"></i>
+      <i *ngIf="!buttonControl" class="fa fa-search"></i>
     </button>
     <button
+      *ngIf="buttonControl"
       type="button"
       class="btn btn-sub btn-warning has-tooltip"
       data-placement="left"

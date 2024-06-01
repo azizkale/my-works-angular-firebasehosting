@@ -1,17 +1,20 @@
 <section class="container">
   <div class="todo-list box">
+    <h2>Lugat</h2>
+
     <ul>
       <input
         #manualWord
         class="w3-input w3-border w3-margin-bottom"
         type="text"
+        placeholder="Aramak istediğiniz kelimeyi giriniz."
       />
       <button
         (click)="getMeaningManuel()"
         class="btn btn-info"
         style="margin-bottom: 2%"
       >
-        Manuel Ara
+        Ara
       </button>
     </ul>
     <hr />

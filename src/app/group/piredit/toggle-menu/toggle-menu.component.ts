@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-toggle-menu',
@@ -7,10 +7,24 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 })
 export class ToggleMenuComponent implements OnInit {
   @ViewChild('btn_group_fab') btn_group_fab: ElementRef;
+  @Input() componentName: string;
 
+  buttonControl: Boolean = true;
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    switch (this.componentName) {
+      case 'pireEit':
+        this.buttonControl = true;
+        break;
+      case 'display':
+        this.buttonControl = false;
+        break;
+
+      default:
+        break;
+    }
+  }
 
   ngAfterViewInit() {
     this.btn_group_fab.nativeElement.addEventListener('click', () => {
