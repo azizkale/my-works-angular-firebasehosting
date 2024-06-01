@@ -106,8 +106,20 @@ export class PireditService {
     return this.http.patch(environment.url + `/pir/leavepirfromgroup`, body);
   }
 
-  getMultipleWordPairs(text: string, listWordPairs: any[]): Observable<any> {
-    const body = { text: text, listWordPairs: listWordPairs };
+  getMultipleWordPairs(
+    text: string,
+    listWordPairs: any[],
+    chapterId: any,
+    pirId: any,
+    editorId: any
+  ): Observable<any> {
+    const body = {
+      text: text,
+      listWordPairs: listWordPairs,
+      chapterId: chapterId,
+      pirId: pirId,
+      editorId: editorId,
+    };
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post(environment.url + `/getwordpairs`, body, { headers });
   }

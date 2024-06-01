@@ -57,7 +57,7 @@ export class ChaptereditComponent implements OnInit {
   selectedChapter: Chapter;
   users_createchapter: any[] = []; // fullfilling the select tag on FormGroup
   users_updateform: any[] = []; // fullfilling the select tag on FormGroup
-  listMultipleWordPair: any[] = [];
+  listMultipleWordPair: WordPair[] = [];
   spinnerMultipleWordPairs: boolean = false;
 
   fontSize: number;
@@ -463,15 +463,20 @@ export class ChaptereditComponent implements OnInit {
     this.readModeClass();
   }
 
-  // edit the wordpairs from chatgpt
-  getMultipleWordPair(chapterContent: string) {
+  // edit the wordpairs from chatgpt==================
+  getMultipleWordPair() {
     this.spinnerMultipleWordPairs = true;
     this.pireditservice
-      .getMultipleWordPairs(chapterContent, this.listMultipleWordPair)
+      .getMultipleWordPairs(
+        this.selectedChapter.chapterContent,
+        this.listMultipleWordPair,
+        this.selectedChapter.chapterId,
+        this.selectedChapter.pirId,
+        this.selectedChapter.editorId
+      )
       .subscribe({
         next: (data: any) => {
           this.listMultipleWordPair = [...data];
-          console.log(this.listMultipleWordPair);
         },
         error: () => {},
         complete: () => {
@@ -480,9 +485,32 @@ export class ChaptereditComponent implements OnInit {
       });
   }
 
-  removeWordPairFrom_listMultipleWordPair(wp: any) {
+  removeWordPairFrom_listMultipleWordPair(wp: WordPair) {
     this.listMultipleWordPair = this.listMultipleWordPair.filter(
-      (w) => w.word !== wp.word
+      (w: WordPair) => w.word !== wp.word
     );
   }
+
+  saveSingleWordPairOf_listMultipleWordPair(
+    singleWordPairOf_listMultipleWordPair: WordPair
+  ) {
+    this.pireditservice
+      .createWordPair(singleWordPairOf_listMultipleWordPair)
+      .subscribe({
+        next: (ress) => {
+          console.log(ress);
+          this.alertservice.showSuccess(
+            ress + ' kelimesi başarı ile kaydedildi!'
+          );
+          this.updateChapter(); // to save (as updated) the word that be made bold
+        },
+        complete: () => {
+          this.createAddWordPairForm(); // to clear the form
+          this.retrieveChapters();
+          this.wordpaireditComponent.retrieveAllWordPairsOfSinglePir();
+          this.getChapterByChapterId();
+        },
+      });
+  }
+  //edit the wordpairs from chatgpt END============
 }

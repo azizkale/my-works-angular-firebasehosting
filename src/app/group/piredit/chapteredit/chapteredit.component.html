@@ -428,7 +428,14 @@
                     />
                     <div class="row mt-2 text-center">
                       <div class="col-sm">
-                        <button class="btn btn-success w-75">Kaydet</button>
+                        <button
+                          (click)="
+                            saveSingleWordPairOf_listMultipleWordPair(wordpair)
+                          "
+                          class="btn btn-success w-75"
+                        >
+                          Kaydet
+                        </button>
                       </div>
                       <div class="col-sm">
                         <button
@@ -455,7 +462,7 @@
         <button
           type="button"
           class="w3-button w3-green w3-section w3-padding"
-          (click)="getMultipleWordPair(this.selectedChapter.chapterContent)"
+          (click)="getMultipleWordPair()"
         >
           Kelimeleri Getir
         </button>
