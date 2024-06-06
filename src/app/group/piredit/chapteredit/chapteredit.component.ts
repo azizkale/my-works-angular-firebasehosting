@@ -33,7 +33,7 @@ import { WordpairService } from '../../../services/wordpair.service';
 export class ChaptereditComponent implements OnInit {
   @ViewChild(WordpaireditComponent)
   wordpaireditComponent: WordpaireditComponent;
-  @ViewChild('chapterContentToRead') chapterContentToRead: ElementRef;
+  // @ViewChild('chapterContentToRead') chapterContentToRead: ElementRef;
   @ViewChild('chapterContent') chapterContent: ElementRef;
 
   //for mobile devices
@@ -138,7 +138,7 @@ export class ChaptereditComponent implements OnInit {
     this.updateChapterForm = this.fb.group({
       chapterId: ['', Validators.required],
       chapterName: ['', Validators.required],
-      chapterContentToRead: ['', Validators.required],
+      // chapterContentToRead: ['', Validators.required],
       chapterContent: ['', Validators.required],
       selectEditor: ['', Validators.required],
       allowed: [Validators.required],
@@ -283,10 +283,10 @@ export class ChaptereditComponent implements OnInit {
               this.selectedChapterContentToEdit,
               Validators.required,
             ],
-            chapterContentToRead: [
-              this.selectedChapterContentToEdit,
-              Validators.required,
-            ],
+            // chapterContentToRead: [
+            //   this.selectedChapterContentToEdit,
+            //   Validators.required,
+            // ],
             pirId: [chapter.pirId, Validators.required],
             editorId: [chapter.editorId, Validators.required],
             createDate: [chapter.createDate, Validators.required],
