@@ -12,14 +12,13 @@ import { AuthInterceptor } from './auth.interceptor';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
-import { MatIconModule } from '@angular/material/icon'
-import { MatGridListModule } from '@angular/material/grid-list'
+import { MatIconModule } from '@angular/material/icon';
+import { MatGridListModule } from '@angular/material/grid-list';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
-
 
 //================ng-bootstrap (https://ng-bootstrap.github.io/)
 import { NgbPopoverModule } from '@ng-bootstrap/ng-bootstrap';
@@ -54,7 +53,6 @@ import { GroupsidebarComponent } from './groupsidebar/groupsidebar.component';
 import { GroupinfoComponent } from './group/groupinfo/groupinfo.component';
 import { GroupsettingsComponent } from './settings/adminsettings/groupsettings/groupsettings.component';
 import { UsersettingsComponent } from './settings/adminsettings/usersettings/usersettings.component';
-import { MarkdownPipe } from './group/piredit/chapteredit/marddown.pipe';
 import { ToggleMenuComponent } from './group/piredit/toggle-menu/toggle-menu.component';
 import { LugatComponent } from './group/piredit/lugat/lugat.component';
 import { BonusReadComponent } from './group/bonus-read/bonus-read.component';
@@ -89,12 +87,11 @@ import { QuizComponent } from './group/piredit/quiz/quiz.component';
     GroupinfoComponent,
     GroupsettingsComponent,
     UsersettingsComponent,
-    MarkdownPipe,
     ToggleMenuComponent,
     LugatComponent,
     BonusReadComponent,
     CreateBookComponent,
-    QuizComponent
+    QuizComponent,
   ],
   imports: [
     BrowserModule,
@@ -114,7 +111,7 @@ import { QuizComponent } from './group/piredit/quiz/quiz.component';
     MatProgressSpinnerModule,
     MatButtonModule,
     MatDialogModule,
-    NgbModule
+    NgbModule,
   ],
   providers: [
     AuthGuard,
@@ -122,9 +119,9 @@ import { QuizComponent } from './group/piredit/quiz/quiz.component';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
-      multi: true
-    }
+      multi: true,
+    },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

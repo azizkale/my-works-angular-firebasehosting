@@ -531,10 +531,17 @@ export class ChaptereditComponent implements OnInit {
         next: (data: any) => {
           this.listWordPairsFromChatGPT = [...data];
 
-          //remove the wordpairs of the chapter already exists in the db
+          //remove the wordpairs of the chapter that already exists in the db (frontend)
           this.listWordPairsFromChatGPT = this.listWordPairsFromChatGPT.filter(
             (mwp: WordPair) =>
-              !this.listWordPairs.some((wp: WordPair) => wp.word === mwp.word)
+              !this.listWordPairs.some(
+                (wp: WordPair) =>
+                  wp.word.toLowerCase() === mwp.word.toLowerCase()
+              )
+          );
+          //
+          this.listWordPairsFromChatGPT = this.removeDuplicateWords(
+            this.listWordPairsFromChatGPT
           );
         },
         error: () => {},
@@ -580,6 +587,22 @@ export class ChaptereditComponent implements OnInit {
         this.saveSingleWordPairOf_listWordPairsFromChatGPT(wp);
       });
     }
+  }
+
+  removeDuplicateWords(list: WordPair[]): WordPair[] {
+    const uniqueWords = new Set<string>();
+    if (list != undefined) {
+      list.filter((pair) => {
+        if (uniqueWords.has(pair.word.toLowerCase())) {
+          console.log(pair.word + ' removed');
+          return false;
+        } else {
+          uniqueWords.add(pair.word.toLowerCase());
+          return true;
+        }
+      });
+    }
+    return list;
   }
   //edit the wordpairs from chatgpt END============
 }
