@@ -1,15 +1,10 @@
 <div id="idWordPairs" class="container" #idWordPairs>
   <div class="row">
-    <input
-      type="button"
-      value="Kelimeler"
-      (click)="retrieveAllWordPairsOfSinglePir()"
-    />
     <table class="table table-bordered mb-3" style="min-height: 325px">
       <tbody>
         <tr>
           <td>
-            <div *ngFor="let wordpair of wordPairs">
+            <div *ngFor="let wordpair of listwordpairs">
               <div class="row mx-2">
                 <div style="width: 65%; float: none" class="col-sm-10">
                   <button

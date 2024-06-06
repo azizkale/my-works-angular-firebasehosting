@@ -261,6 +261,7 @@
             data-bs-toggle="modal"
             data-bs-target="#displayWordPairs"
             class="btn btn-success"
+            (click)="retrieveAllWordPairsOfTheChapter()"
           >
             Kelimeler
           </button>
@@ -367,7 +368,10 @@
         </button>
       </div>
       <div class="modal-body">
-        <wordpairedit [pirId]="selectedPirId"></wordpairedit>
+        <wordpairedit
+          [pirId]="selectedPirId"
+          [listwordpairs]="listWordPairs"
+        ></wordpairedit>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">

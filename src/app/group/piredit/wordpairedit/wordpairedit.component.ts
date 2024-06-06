@@ -5,7 +5,7 @@ import { RolesService } from 'src/app/services/roles.service';
 import { UserService } from 'src/app/services/user.service';
 import { Roles } from 'src/models/Roles';
 import { WordPair } from 'src/models/WordPair';
-import { WordpairService } from './wordpair.service';
+import { WordpairService } from '../../../services/wordpair.service';
 
 @Component({
   selector: 'wordpairedit',
@@ -15,6 +15,7 @@ import { WordpairService } from './wordpair.service';
 export class WordpaireditComponent implements OnInit {
   // this component is displayed by directive --> <wordpairedit></wordpairedit>
   @Input() pirId: any;
+  @Input() listwordpairs: WordPair[] | any;
   wordPairs: any[] = [];
   retrieveWordPairs: FormGroup;
   editWordPairForm: FormGroup;
@@ -34,7 +35,7 @@ export class WordpaireditComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.retrieveAllWordPairsOfSinglePir();
+    // this.retrieveAllWordPairsOfSinglePir();
     this.retrieveWordPairEditForm();
     this.createEditWordPairForm();
     this.roleControll(this.selectedGroupId, this.uid);
@@ -55,45 +56,6 @@ export class WordpaireditComponent implements OnInit {
     });
   }
 
-  retrieveAllWordPairsOfSinglePir() {
-    this.wordPairs = [];
-    console.log(this.wordPairService.selectedChapterFromChapterEdit.chapterId);
-    this.pireditservice
-      .retrieveAllWordPairsOfSinglePir(
-        this.pirId,
-        this.wordPairService.selectedChapterFromChapterEdit.chapterId
-      )
-      .subscribe({
-        next: async (wordpairs: WordPair[]) => {
-          //role controle
-          await this.roleservice
-            .getUserRolesInTheGroup(this.selectedGroupId, this.uid)
-            .subscribe({
-              next: async (roles) => {
-                //if the user is not the mentor, he can see just his wordpairs
-                if (!roles.includes(Roles[2])) {
-                  this.wordPairs = wordpairs.filter(
-                    (wp: WordPair) => wp.editorId === this.uid
-                  ); // Array of wordPairs
-                } else {
-                  //if he is mentor, he can see all wordpairs
-                  this.wordPairs = wordpairs;
-                }
-                await this.wordPairs.map(async (wp: any) => {
-                  this.userservice
-                    .retrieveEditorbyEditorId(wp.editorId)
-                    .subscribe({
-                      next: (val: any) => {
-                        wp.editorname = val.displayName;
-                      },
-                    });
-                });
-              },
-            });
-        },
-      });
-  }
-
   getWordPairToEdit(selectedWordPair: WordPair) {
     this.selectedWordPairToEdit = selectedWordPair;
     this.editWordPairForm.patchValue({
@@ -108,18 +70,14 @@ export class WordpaireditComponent implements OnInit {
     this.selectedWordPairToEdit.meaning =
       this.editWordPairForm.get('meaning')?.value;
     this.pireditservice.updateWordPair(this.selectedWordPairToEdit).subscribe({
-      next: (ress) => {
-        this.retrieveAllWordPairsOfSinglePir();
-      },
+      next: (ress) => {},
     });
   }
 
   async deleteWordpair() {
     //deleting word from db
     this.pireditservice.deleteWordPair(this.selectedWordPairToEdit).subscribe({
-      next: (ress) => {
-        this.retrieveAllWordPairsOfSinglePir();
-      },
+      next: (ress) => {},
     });
   }
 

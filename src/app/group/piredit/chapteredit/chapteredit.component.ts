@@ -23,7 +23,7 @@ import { DisplaypirService } from 'src/app/services/displaypir.service';
 import { map, of, switchMap } from 'rxjs';
 import { NgZone } from '@angular/core';
 import { AlertsService } from 'src/app/services/alerts.service';
-import { WordpairService } from '../wordpairedit/wordpair.service';
+import { WordpairService } from '../../../services/wordpair.service';
 
 @Component({
   selector: 'app-chapteredit',
@@ -60,6 +60,7 @@ export class ChaptereditComponent implements OnInit {
   users_updateform: any[] = []; // fullfilling the select tag on FormGroup
   listMultipleWordPair: WordPair[] = [];
   spinnerMultipleWordPairs: boolean = false;
+  listWordPairs: WordPair[];
 
   fontSize: number;
   lineHeight: number;
@@ -249,7 +250,6 @@ export class ChaptereditComponent implements OnInit {
       .pipe(
         map((chapter) => {
           this.selectedChapter = chapter;
-          this.wordPairService.selectedChapterFromChapterEdit = chapter;
           return chapter;
         }),
         switchMap((chapter) => {
@@ -369,7 +369,7 @@ export class ChaptereditComponent implements OnInit {
       complete: () => {
         this.createAddWordPairForm(); // to clear the form
         this.retrieveChapters();
-        this.wordpaireditComponent.retrieveAllWordPairsOfSinglePir();
+        this.retrieveAllWordPairsOfTheChapter();
         this.getChapterByChapterId();
       },
     });
@@ -409,6 +409,45 @@ export class ChaptereditComponent implements OnInit {
       });
   }
 
+  retrieveAllWordPairsOfTheChapter() {
+    this.listWordPairs = [];
+    this.pireditservice
+      .retrieveAllWordPairsOfSinglePir(
+        this.selectedPirId,
+        this.selectedChapter.chapterId
+      )
+      .subscribe({
+        next: async (wordpairs: WordPair[]) => {
+          //role controle
+          await this.roleservice
+            .getUserRolesInTheGroup(this.selectedGroupId, this.uid)
+            .subscribe({
+              next: async (roles) => {
+                //if the user is not the mentor, he can see just his wordpairs
+                if (!roles.includes(Roles[2])) {
+                  this.listWordPairs = wordpairs.filter(
+                    (wp: WordPair) => wp.editorId === this.uid
+                  ); // Array of wordPairs
+                } else {
+                  //if he is mentor, he can see all wordpairs
+                  this.listWordPairs = wordpairs;
+                }
+                await this.listWordPairs.map(async (wp: any) => {
+                  this.userservice
+                    .retrieveEditorbyEditorId(wp.editorId)
+                    .subscribe({
+                      next: (val: any) => {
+                        wp.editorname = val.displayName;
+                      },
+                    });
+                });
+              },
+            });
+        },
+      });
+  }
+
+  // read settings========================
   increaseFontSize() {
     this.fontSize += 1;
     this.lineHeight += 0.03;
@@ -510,7 +549,7 @@ export class ChaptereditComponent implements OnInit {
         complete: () => {
           this.createAddWordPairForm(); // to clear the form
           this.retrieveChapters();
-          this.wordpaireditComponent.retrieveAllWordPairsOfSinglePir();
+          this.retrieveAllWordPairsOfTheChapter();
           this.getChapterByChapterId();
         },
       });
