@@ -553,7 +553,13 @@ export class ChaptereditComponent implements OnInit {
       .subscribe({
         next: (wordpair: WordPair) => {
           this.alertservice.showSuccess(
-            wordpair + ' kelimesi başarı ile kaydedildi!'
+            wordpair.word + ' kelimesi başarı ile kaydedildi!'
+          );
+          //remove saved wordpair from list
+          this.listMultipleWordPair = this.listMultipleWordPair.filter(
+            (wp: WordPair) =>
+              wp.wordPairId !==
+              singleWordPair_Of_listMultipleWordPair.wordPairId
           );
           this.updateChapter(); // to save (as updated) the word that be made bold
         },

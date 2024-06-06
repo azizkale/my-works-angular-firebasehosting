@@ -77,7 +77,12 @@ export class WordpaireditComponent implements OnInit {
   async deleteWordpair() {
     //deleting word from db
     this.pireditservice.deleteWordPair(this.selectedWordPairToEdit).subscribe({
-      next: (ress) => {},
+      next: (ress) => {
+        this.listwordpairs = this.listwordpairs.filter(
+          (wp: WordPair) =>
+            wp.wordPairId !== this.selectedWordPairToEdit.wordPairId
+        );
+      },
     });
   }
 

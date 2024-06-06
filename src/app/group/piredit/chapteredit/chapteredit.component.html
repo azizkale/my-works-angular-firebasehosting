@@ -264,15 +264,7 @@
           >
             Kelimeler
           </button>
-          <button
-            type="button"
-            class="btn btn-success mx-1"
-            data-bs-toggle="modal"
-            data-bs-target="#displayMultipleWordPairs"
-            (click)="retrieveAllWordPairsOfTheChapter()"
-          >
-            Kelimeler - ChatGPT
-          </button>
+
           <button
             onclick="document.getElementById('id_update_chapter').style.display='none'"
             type="button"
@@ -367,65 +359,43 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
+      <!-- <div class="modal-body">
         <wordpairedit
           [pirId]="selectedPirId"
           [listwordpairs]="listWordPairs"
         ></wordpairedit>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Kapat
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ===============Display Mulltiple WordPairs from ChatGPT(MODAL)================= -->
-<div
-  class="modal fade"
-  id="displayMultipleWordPairs"
-  tabindex="-1"
-  role="dialog"
-  aria-labelledby="exampleModalLabel"
-  aria-hidden="true"
->
-  <div class="modal-dialog" role="document">
-    <div class="modal-content outer-div">
-      <div class="modal-header">
-        <h2 class="modal-title" id="exampleModalLabel">Mevcut Kelimeler</h2>
-        <button
-          type="button"
-          class="w3-button w3-xlarge w3-transparent w3-display-topright"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        >
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
+      </div> -->
       <div class="modal-body">
-        <div class="word-count mb-3" *ngIf="this.listMultipleWordPair.length">
-          <span
-            >Gelen Kelime Sayısı: {{ this.listMultipleWordPair.length }}</span
-          >
-        </div>
-        <div
-          class="d-flex justify-content-center spinnerai"
-          *ngIf="spinnerMultipleWordPairs"
-        >
-          <div class="spinner-border" role="status">
-            <span class="visually-hidden">Loading...</span>
-          </div>
-        </div>
         <wordpairedit
           [pirId]="selectedPirId"
           [listwordpairs]="listWordPairs"
         ></wordpairedit>
         <hr />
         <h2>ChatGPT'den Gelen Kelimeler</h2>
+
         <table class="table table-bordered mb-3" style="min-height: 325px">
           <tbody>
+            <tr>
+              <div
+                class="d-flex justify-content-center spinnerai"
+                *ngIf="spinnerMultipleWordPairs"
+              >
+                <div class="spinner-border" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+              </div>
+            </tr>
+            <tr>
+              <div
+                class="word-count mb-3"
+                *ngIf="this.listMultipleWordPair.length"
+              >
+                <span
+                  >Gelen Kelime Sayısı:
+                  {{ this.listMultipleWordPair.length }}</span
+                >
+              </div>
+            </tr>
             <tr>
               <td>
                 <div
@@ -513,24 +483,26 @@
       </div>
     </div>
   </div>
-
-  <!-- ===============Popovers-Delete================= -->
-  <ng-template #popDeleteContent>
-    <div class="text-center">
-      <h4>
-        Are you sure to delete
-        {{ updateChapterForm.controls["chapterName"].value }}
-      </h4>
-      <button
-        onclick="document.getElementById('id_update_chapter').style.display='none'"
-        (click)="deleteChapter()"
-        type="button"
-        class="btn btn-danger"
-        style="margin-right: 10px"
-      >
-        Sil
-      </button>
-      <button type="button" class="btn btn-info">Vazgeç</button>
-    </div>
-  </ng-template>
 </div>
+
+<!-- ===============Display Mulltiple WordPairs from ChatGPT(MODAL)================= -->
+
+<!-- ===============Popovers-Delete================= -->
+<ng-template #popDeleteContent>
+  <div class="text-center">
+    <h4>
+      Are you sure to delete
+      {{ updateChapterForm.controls["chapterName"].value }}
+    </h4>
+    <button
+      onclick="document.getElementById('id_update_chapter').style.display='none'"
+      (click)="deleteChapter()"
+      type="button"
+      class="btn btn-danger"
+      style="margin-right: 10px"
+    >
+      Sil
+    </button>
+    <button type="button" class="btn btn-info">Vazgeç</button>
+  </div>
+</ng-template>
