@@ -412,7 +412,7 @@ export class ChaptereditComponent implements OnInit {
   retrieveAllWordPairsOfTheChapter() {
     this.listWordPairs = [];
     this.pireditservice
-      .retrieveAllWordPairsOfSinglePir(
+      .retrieveAllWordPairsOfTheChapter(
         this.selectedPirId,
         this.selectedChapter.chapterId
       )
