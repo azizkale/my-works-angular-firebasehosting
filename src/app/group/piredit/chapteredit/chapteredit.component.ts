@@ -258,6 +258,7 @@ export class ChaptereditComponent implements OnInit {
             chapter.chapterContent !== undefined
           ) {
             if (chapter.wordPairs !== undefined) {
+              //making bold the wordpairs' word field for html-side
               for (const wordpair of Object.values(chapter.wordPairs)) {
                 this.selectedChapterContentToEdit =
                   chapter.chapterContent.replace(
@@ -283,10 +284,6 @@ export class ChaptereditComponent implements OnInit {
               this.selectedChapterContentToEdit,
               Validators.required,
             ],
-            // chapterContentToRead: [
-            //   this.selectedChapterContentToEdit,
-            //   Validators.required,
-            // ],
             pirId: [chapter.pirId, Validators.required],
             editorId: [chapter.editorId, Validators.required],
             createDate: [chapter.createDate, Validators.required],
@@ -302,6 +299,15 @@ export class ChaptereditComponent implements OnInit {
     this.updateChapterForm
       .get('editorId')
       ?.setValue(this.updateChapterForm.get('selectEditor')?.value);
+
+    //remove <b></b> tags from chapterContent when saving it in the db
+    this.updateChapterForm
+      .get('chapterContent')
+      ?.setValue(
+        this.updateChapterForm
+          .get('chapterContent')
+          ?.value.replace(/<\/?b>/g, '')
+      );
 
     if (this.updateChapterForm.get('editorId')?.value !== '') {
       this.pireditservice

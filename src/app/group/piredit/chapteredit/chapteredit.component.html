@@ -394,7 +394,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content outer-div">
       <div class="modal-header">
-        <h2 class="modal-title" id="exampleModalLabel">Tüm Kelimeler - AI</h2>
+        <h2 class="modal-title" id="exampleModalLabel">Mevcut Kelimeler</h2>
         <button
           type="button"
           class="w3-button w3-xlarge w3-transparent w3-display-topright"
@@ -407,7 +407,7 @@
       <div class="modal-body">
         <div class="word-count mb-3" *ngIf="this.listMultipleWordPair.length">
           <span
-            >Toplam Kelime Sayısı: {{ this.listMultipleWordPair.length }}</span
+            >Gelen Kelime Sayısı: {{ this.listMultipleWordPair.length }}</span
           >
         </div>
         <div
@@ -422,12 +422,20 @@
           [pirId]="selectedPirId"
           [listwordpairs]="listWordPairs"
         ></wordpairedit>
+        <hr />
+        <h2>ChatGPT'den Gelen Kelimeler</h2>
         <table class="table table-bordered mb-3" style="min-height: 325px">
           <tbody>
             <tr>
               <td>
-                <div *ngFor="let wordpair of this.listMultipleWordPair">
+                <div
+                  *ngFor="
+                    let wordpair of this.listMultipleWordPair;
+                    let i = index
+                  "
+                >
                   <div class="row mx-2 outer-div">
+                    <label for="word" class="form-label">{{ i + 1 }}.</label>
                     <label for="word" class="form-label">Kelime:</label>
                     <input
                       readonly
@@ -477,7 +485,7 @@
       </div>
       <div class="modal-footer">
         <span class="word-count" *ngIf="this.listMultipleWordPair.length > 0">
-          Toplam Kelime Sayısı:{{ this.listMultipleWordPair.length }}
+          Gelen Kelime Sayısı:{{ this.listMultipleWordPair.length }}
         </span>
         <!-- button für spinner -->
         <button
