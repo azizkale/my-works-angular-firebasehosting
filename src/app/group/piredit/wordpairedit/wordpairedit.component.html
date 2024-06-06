@@ -1,4 +1,4 @@
-<div id="idWordPairs" class="container" #idWordPairs>
+<!-- <div id="idWordPairs" class="container" #idWordPairs>
   <div class="row">
     <table class="table table-bordered mb-3" style="min-height: 325px">
       <tbody>
@@ -26,7 +26,41 @@
       </tbody>
     </table>
   </div>
-</div>
+</div> -->
+
+<table class="table table-bordered mb-3" style="min-height: 325px">
+  <tbody>
+    <tr *ngFor="let wordpair of this.listwordpairs; let i = index">
+      <td>
+        <div class="row mx-2 outer-div">
+          <label for="word" class="form-label">{{ i + 1 }}.</label>
+          <label for="word" class="form-label">Kelime:</label>
+          <input
+            readonly
+            id="word"
+            class="w3-input w3-border form-input"
+            type="text"
+            value="{{ wordpair.word }}"
+          />
+          <label for="meaning" class="form-label mt-2">Anlamı:</label>
+          <input
+            id="meaning"
+            class="w3-input w3-border form-input"
+            type="text"
+            value="{{ wordpair.meaning }}"
+          />
+          <input
+            class="btn btn-info"
+            type="button"
+            value="Düzenle"
+            onclick="document.getElementById('editWord').style.display='block'"
+            (click)="getWordPairToEdit(wordpair)"
+          />
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 <!-- ===============Edit WordPair (MODAL)================= -->
 <div id="editWord" class="w3-modal" #editWord>

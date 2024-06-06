@@ -4,5 +4,22 @@ td,
 th,
 tbody,
 thead {
-    border: none
+  border: none;
+}
+
+.outer-div {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.form-label {
+  display: block;
+  padding-left: 0;
+}
+
+.form-input {
+  width: 100%;
+  margin-bottom: 10px;
 }

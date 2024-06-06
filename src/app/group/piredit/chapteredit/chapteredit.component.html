@@ -270,6 +270,7 @@
             class="btn btn-success mx-1"
             data-bs-toggle="modal"
             data-bs-target="#displayMultipleWordPairs"
+            (click)="retrieveAllWordPairsOfTheChapter()"
           >
             Kelimeler - ChatGPT
           </button>
@@ -418,6 +419,10 @@
             <span class="visually-hidden">Loading...</span>
           </div>
         </div>
+        <wordpairedit
+          [pirId]="selectedPirId"
+          [listwordpairs]="listWordPairs"
+        ></wordpairedit>
         <table class="table table-bordered mb-3" style="min-height: 325px">
           <tbody>
             <tr>
@@ -426,6 +431,7 @@
                   <div class="row mx-2 outer-div">
                     <label for="word" class="form-label">Kelime:</label>
                     <input
+                      readonly
                       id="word"
                       class="w3-input w3-border form-input"
                       type="text"

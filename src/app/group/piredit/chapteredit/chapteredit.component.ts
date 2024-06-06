@@ -519,6 +519,12 @@ export class ChaptereditComponent implements OnInit {
       .subscribe({
         next: (data: any) => {
           this.listMultipleWordPair = [...data];
+
+          //remove the wordpairs of the chapter already exists in the db
+          this.listMultipleWordPair = this.listMultipleWordPair.filter(
+            (mwp: WordPair) =>
+              !this.listWordPairs.some((wp: WordPair) => wp.word === mwp.word)
+          );
         },
         error: () => {},
         complete: () => {
@@ -534,23 +540,19 @@ export class ChaptereditComponent implements OnInit {
   }
 
   saveSingleWordPairOf_listMultipleWordPair(
-    singleWordPairOf_listMultipleWordPair: WordPair
+    singleWordPair_Of_listMultipleWordPair: WordPair
   ) {
     this.pireditservice
-      .createWordPair(singleWordPairOf_listMultipleWordPair)
+      .createWordPair(singleWordPair_Of_listMultipleWordPair)
       .subscribe({
-        next: (ress) => {
-          console.log(ress);
+        next: (wordpair: WordPair) => {
           this.alertservice.showSuccess(
-            ress + ' kelimesi başarı ile kaydedildi!'
+            wordpair + ' kelimesi başarı ile kaydedildi!'
           );
           this.updateChapter(); // to save (as updated) the word that be made bold
         },
         complete: () => {
-          this.createAddWordPairForm(); // to clear the form
-          this.retrieveChapters();
           this.retrieveAllWordPairsOfTheChapter();
-          this.getChapterByChapterId();
         },
       });
   }
