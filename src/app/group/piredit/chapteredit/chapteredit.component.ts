@@ -604,5 +604,9 @@ export class ChaptereditComponent implements OnInit {
     }
     return list;
   }
+
+  selectedWordForChatGPTWordPairs(word: string) {
+    this.selectedWord = word;
+  }
   //edit the wordpairs from chatgpt END============
 }
