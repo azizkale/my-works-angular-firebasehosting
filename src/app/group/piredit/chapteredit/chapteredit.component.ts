@@ -23,6 +23,7 @@ import { DisplaypirService } from 'src/app/services/displaypir.service';
 import { map, of, switchMap } from 'rxjs';
 import { NgZone } from '@angular/core';
 import { AlertsService } from 'src/app/services/alerts.service';
+import { WordpairService } from '../wordpairedit/wordpair.service';
 
 @Component({
   selector: 'app-chapteredit',
@@ -72,7 +73,8 @@ export class ChaptereditComponent implements OnInit {
     public roleservice: RolesService,
     private displayService: DisplaypirService,
     private zone: NgZone,
-    private alertservice: AlertsService
+    private alertservice: AlertsService,
+    private wordPairService: WordpairService
   ) {}
 
   ngOnInit(): void {
@@ -247,6 +249,7 @@ export class ChaptereditComponent implements OnInit {
       .pipe(
         map((chapter) => {
           this.selectedChapter = chapter;
+          this.wordPairService.selectedChapterFromChapterEdit = chapter;
           return chapter;
         }),
         switchMap((chapter) => {

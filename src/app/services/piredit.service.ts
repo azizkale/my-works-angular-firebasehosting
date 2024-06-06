@@ -80,9 +80,10 @@ export class PireditService {
     );
   }
 
-  retrieveAllWordPairsOfSinglePir(pirId: any): Observable<any> {
+  retrieveAllWordPairsOfSinglePir(pirId: any, chapterId: any): Observable<any> {
     return this.http.get(
-      environment.url + `/pir/getallwordpairsofsinglepir?pirId=${pirId}`
+      environment.url +
+        `/pir/getallwordpairsofsinglepir?pirId=${pirId}&chapterId=${chapterId}`
     );
   }
 
