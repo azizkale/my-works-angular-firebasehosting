@@ -370,7 +370,7 @@ export class ChaptereditComponent implements OnInit {
         this.alertservice.showSuccess(
           this.selectedWord + ' kelimesi başarı ile kaydedildi!'
         );
-        this.updateChapter(); // to save (as updated) the word that be made bold
+        //this.updateChapter(); // to save (as updated) the word that be made bold
       },
       complete: () => {
         this.createAddWordPairForm(); // to clear the form
@@ -447,6 +447,11 @@ export class ChaptereditComponent implements OnInit {
                       },
                     });
                 });
+              },
+              complete: () => {
+                this.listWordPairs = this.wordPairService.removeDuplicateWords(
+                  this.listWordPairs
+                );
               },
             });
         },

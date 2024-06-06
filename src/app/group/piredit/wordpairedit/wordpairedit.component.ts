@@ -2,10 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PireditService } from 'src/app/services/piredit.service';
 import { RolesService } from 'src/app/services/roles.service';
-import { UserService } from 'src/app/services/user.service';
 import { Roles } from 'src/models/Roles';
 import { WordPair } from 'src/models/WordPair';
-import { WordpairService } from '../../../services/wordpair.service';
 
 @Component({
   selector: 'wordpairedit',
@@ -16,6 +14,7 @@ export class WordpaireditComponent implements OnInit {
   // this component is displayed by directive --> <wordpairedit></wordpairedit>
   @Input() pirId: any;
   @Input() listwordpairs: WordPair[] | any;
+
   wordPairs: any[] = [];
   retrieveWordPairs: FormGroup;
   editWordPairForm: FormGroup;
@@ -27,9 +26,7 @@ export class WordpaireditComponent implements OnInit {
   constructor(
     public fb: FormBuilder,
     private pireditservice: PireditService,
-    private userservice: UserService,
-    private roleservice: RolesService,
-    private wordPairService: WordpairService
+    private roleservice: RolesService
   ) {
     this.selectedGroupId = localStorage.getItem('groupId');
   }
@@ -78,6 +75,7 @@ export class WordpaireditComponent implements OnInit {
     //deleting word from db
     this.pireditservice.deleteWordPair(this.selectedWordPairToEdit).subscribe({
       next: (ress) => {
+        //remove from the list on frontend
         this.listwordpairs = this.listwordpairs.filter(
           (wp: WordPair) =>
             wp.wordPairId !== this.selectedWordPairToEdit.wordPairId
