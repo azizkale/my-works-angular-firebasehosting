@@ -568,5 +568,13 @@ export class ChaptereditComponent implements OnInit {
         },
       });
   }
+
+  saveAllWordPairsFromChatGPT() {
+    if (this.listMultipleWordPair.length > 0) {
+      this.listMultipleWordPair.forEach((wp: WordPair) => {
+        this.saveSingleWordPairOf_listMultipleWordPair(wp);
+      });
+    }
+  }
   //edit the wordpairs from chatgpt END============
 }

@@ -452,6 +452,16 @@
             </tr>
           </tbody>
         </table>
+        <div class="text-center">
+          <button
+            *ngIf="this.listMultipleWordPair.length > 0"
+            type="button"
+            class="btn btn-success"
+            (click)="saveAllWordPairsFromChatGPT()"
+          >
+            Gelen Kelimeleri Kaydet
+          </button>
+        </div>
       </div>
       <div class="modal-footer">
         <span class="word-count" *ngIf="this.listMultipleWordPair.length > 0">
@@ -477,6 +487,7 @@
         >
           Kelimeleri Getir
         </button>
+
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Kapat
         </button>
