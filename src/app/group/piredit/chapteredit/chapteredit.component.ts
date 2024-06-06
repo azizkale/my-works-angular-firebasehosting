@@ -58,7 +58,7 @@ export class ChaptereditComponent implements OnInit {
   selectedChapter: Chapter;
   users_createchapter: any[] = []; // fullfilling the select tag on FormGroup
   users_updateform: any[] = []; // fullfilling the select tag on FormGroup
-  listMultipleWordPair: WordPair[] = [];
+  listWordPairsFromChatGPT: WordPair[] = [];
   spinnerMultipleWordPairs: boolean = false;
   listWordPairs: WordPair[];
 
@@ -517,17 +517,17 @@ export class ChaptereditComponent implements OnInit {
     this.pireditservice
       .getMultipleWordPairs(
         this.selectedChapter.chapterContent,
-        this.listMultipleWordPair,
+        this.listWordPairsFromChatGPT,
         this.selectedChapter.chapterId,
         this.selectedChapter.pirId,
         this.selectedChapter.editorId
       )
       .subscribe({
         next: (data: any) => {
-          this.listMultipleWordPair = [...data];
+          this.listWordPairsFromChatGPT = [...data];
 
           //remove the wordpairs of the chapter already exists in the db
-          this.listMultipleWordPair = this.listMultipleWordPair.filter(
+          this.listWordPairsFromChatGPT = this.listWordPairsFromChatGPT.filter(
             (mwp: WordPair) =>
               !this.listWordPairs.some((wp: WordPair) => wp.word === mwp.word)
           );
@@ -539,27 +539,27 @@ export class ChaptereditComponent implements OnInit {
       });
   }
 
-  removeWordPairFrom_listMultipleWordPair(wp: WordPair) {
-    this.listMultipleWordPair = this.listMultipleWordPair.filter(
+  removeWordPairFrom_listWordPairsFromChatGPT(wp: WordPair) {
+    this.listWordPairsFromChatGPT = this.listWordPairsFromChatGPT.filter(
       (w: WordPair) => w.word !== wp.word
     );
   }
 
-  saveSingleWordPairOf_listMultipleWordPair(
-    singleWordPair_Of_listMultipleWordPair: WordPair
+  saveSingleWordPairOf_listWordPairsFromChatGPT(
+    singleWordPair_Of_listWordPairsFromChatGPT: WordPair
   ) {
     this.pireditservice
-      .createWordPair(singleWordPair_Of_listMultipleWordPair)
+      .createWordPair(singleWordPair_Of_listWordPairsFromChatGPT)
       .subscribe({
         next: (wordpair: WordPair) => {
           this.alertservice.showSuccess(
             wordpair.word + ' kelimesi başarı ile kaydedildi!'
           );
           //remove saved wordpair from list
-          this.listMultipleWordPair = this.listMultipleWordPair.filter(
+          this.listWordPairsFromChatGPT = this.listWordPairsFromChatGPT.filter(
             (wp: WordPair) =>
               wp.wordPairId !==
-              singleWordPair_Of_listMultipleWordPair.wordPairId
+              singleWordPair_Of_listWordPairsFromChatGPT.wordPairId
           );
           this.updateChapter(); // to save (as updated) the word that be made bold
         },
@@ -570,9 +570,9 @@ export class ChaptereditComponent implements OnInit {
   }
 
   saveAllWordPairsFromChatGPT() {
-    if (this.listMultipleWordPair.length > 0) {
-      this.listMultipleWordPair.forEach((wp: WordPair) => {
-        this.saveSingleWordPairOf_listMultipleWordPair(wp);
+    if (this.listWordPairsFromChatGPT.length > 0) {
+      this.listWordPairsFromChatGPT.forEach((wp: WordPair) => {
+        this.saveSingleWordPairOf_listWordPairsFromChatGPT(wp);
       });
     }
   }
