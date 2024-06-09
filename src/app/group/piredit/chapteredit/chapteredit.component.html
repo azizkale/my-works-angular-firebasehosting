@@ -136,7 +136,10 @@
         >×</span
       >
     </div>
-    <app-toggle-menu [componentName]="'pirEdit'"></app-toggle-menu>
+    <app-toggle-menu
+      [componentName]="'pirEdit'"
+      [selectedWord]="selectedWord"
+    ></app-toggle-menu>
     <div class="col multi-button text-center">
       <button (click)="decreaseFontSize()">
         <span class="material-symbols-outlined"> text_decrease </span>

@@ -1,4 +1,5 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { LugatService } from 'src/app/services/lugat.service';
 
 @Component({
   selector: 'app-toggle-menu',
@@ -8,9 +9,10 @@ import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 export class ToggleMenuComponent implements OnInit {
   @ViewChild('btn_group_fab') btn_group_fab: ElementRef;
   @Input() componentName: string;
+  @Input() selectedWord: string;
 
   buttonControl: Boolean = true;
-  constructor() {}
+  constructor(public lugatService: LugatService) {}
 
   ngOnInit(): void {
     switch (this.componentName) {
