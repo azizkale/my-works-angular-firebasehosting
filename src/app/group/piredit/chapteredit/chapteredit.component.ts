@@ -24,6 +24,7 @@ import { map, of, switchMap } from 'rxjs';
 import { NgZone } from '@angular/core';
 import { AlertsService } from 'src/app/services/alerts.service';
 import { WordpairService } from '../../../services/wordpair.service';
+import { LugatService } from 'src/app/services/lugat.service';
 
 @Component({
   selector: 'app-chapteredit',
@@ -75,7 +76,8 @@ export class ChaptereditComponent implements OnInit {
     private displayService: DisplaypirService,
     private zone: NgZone,
     private alertservice: AlertsService,
-    private wordPairService: WordpairService
+    private wordPairService: WordpairService,
+    public lugatService: LugatService
   ) {}
 
   ngOnInit(): void {

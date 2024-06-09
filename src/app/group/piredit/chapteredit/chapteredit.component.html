@@ -295,12 +295,12 @@
   <div class="w3-modal-content w3-card-4 w3-animate-zoom">
     <div class="w3-center">
       <br />
-      <span
+      <!-- <span
         onclick="document.getElementById('addWordPair').style.display='none'"
         class="w3-button w3-xlarge w3-transparent w3-display-topright"
         title="Close Modal"
         >×</span
-      >
+      > -->
       <!-- adding single wordpair -->
       <form class="w3-container" [formGroup]="addWordForm">
         <div class="w3-section">
@@ -423,7 +423,10 @@
                     <div class="col-sm">
                       <button
                         onclick="document.getElementById('addWordPair').style.display='block'"
-                        (click)="selectedWordForChatGPTWordPairs(wordpair.word)"
+                        (click)="
+                          selectedWordForChatGPTWordPairs(wordpair.word);
+                          this.lugatService.getWordsMeaning(this.selectedWord)
+                        "
                         class="btn btn-info w-75"
                       >
                         Lugat
@@ -492,6 +495,7 @@
           type="button"
           class="btn btn-secondary"
           onclick="document.getElementById('exampleModalLabel').style.display='none'"
+          (click)="this.listWordPairsFromChatGPT = []"
         >
           Kapat
         </button>

@@ -1,5 +1,12 @@
 <section class="container">
   <div class="todo-list box">
+    <span
+      onclick="document.getElementById('addWordPair').style.display='none';"
+      class="w3-button w3-xlarge w3-transparent w3-display-topright"
+      title="Close Modal"
+      (click)="reset()"
+      >×</span
+    >
     <h2>Lugat</h2>
 
     <ul>
@@ -7,6 +14,7 @@
         #manualWord
         class="w3-input w3-border w3-margin-bottom"
         type="text"
+        value="{{ receivedWord }}"
         placeholder="Aramak istediğiniz kelimeyi giriniz."
       />
       <button
@@ -18,8 +26,8 @@
       </button>
     </ul>
     <hr />
-    <ul class="text-start" *ngFor="let item of listWords">
-      <li [innerHTML]="item.meaning"></li>
+    <ul class="text-start" *ngFor="let item of this.lugatService.listWords">
+      <li>{{ item.meaning }}</li>
     </ul>
   </div>
 </section>
