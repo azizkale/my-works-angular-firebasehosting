@@ -8,11 +8,11 @@ import { from, map, of, tap } from 'rxjs';
 @Component({
   selector: 'signin',
   templateUrl: './signin.component.html',
-  styleUrls: ['./signin.component.css']
+  styleUrls: ['./signin.component.css'],
 })
 export class SigninComponent implements OnInit {
   signInForm: FormGroup;
-  @ViewChild('alertParent', { static: true }) alertParent: ElementRef
+  @ViewChild('alertParent', { static: true }) alertParent: ElementRef;
 
   constructor(
     public fb: FormBuilder,
@@ -23,8 +23,7 @@ export class SigninComponent implements OnInit {
     this.createForm();
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   createForm() {
     this.signInForm = this.fb.group({
@@ -34,45 +33,56 @@ export class SigninComponent implements OnInit {
   }
 
   signin(email: string, password: any) {
-    this.authservice.signin(email, password)
-      .subscribe({
-        next: async (response) => {
+    this.authservice.signin(email, password).subscribe({
+      next: async (response) => {
+        if (response.status === 200) {
+          from(
+            (async () => {
+              await localStorage.setItem('token', response.token);
+              await localStorage.setItem('refreshToken', response.refreshToken);
+              await localStorage.setItem('displayName', response.displayName);
+              await localStorage.setItem('uid', response.uid);
+              await localStorage.setItem('photoURL', response.photoURL);
+              await localStorage.setItem(
+                'roles',
+                JSON.stringify(response.roles)
+              );
 
-          if (response.status === 200) {
-            from(
-              (async () => {
-                await localStorage.setItem('token', response.token);
-                await localStorage.setItem('displayName', response.displayName);
-                await localStorage.setItem('uid', response.uid);
-                await localStorage.setItem('photoURL', response.photoURL);
-                await localStorage.setItem('roles', JSON.stringify(response.roles));
-
-                return true;
-              })()
-            ).pipe(
-              tap(isSuccess => {
+              return true;
+            })()
+          )
+            .pipe(
+              tap((isSuccess) => {
                 if (isSuccess) {
                   this.router.navigate(['me']);
                 }
               })
-            ).subscribe(
-              error => {
-                this.alertservice.alert(`Error processing response!`, 'alert-danger', this.alertParent.nativeElement);
-              }
-            );
-          }
-
-
-          if (response.status === 404) {
-            this.alertservice.alert(`Email or password incorrect!`, 'alert-danger', this.alertParent.nativeElement);
-          }
-        },
-        error: (err) => {
-          this.alertservice.alert(`Email or password incorrect!`, 'alert-danger', this.alertParent.nativeElement);
-        },
-        complete: () => {
+            )
+            .subscribe((error) => {
+              this.alertservice.alert(
+                `Error processing response!`,
+                'alert-danger',
+                this.alertParent.nativeElement
+              );
+            });
         }
-      });
-  }
 
+        if (response.status === 404) {
+          this.alertservice.alert(
+            `Email or password incorrect!`,
+            'alert-danger',
+            this.alertParent.nativeElement
+          );
+        }
+      },
+      error: (err) => {
+        this.alertservice.alert(
+          `Email or password incorrect!`,
+          'alert-danger',
+          this.alertParent.nativeElement
+        );
+      },
+      complete: () => {},
+    });
+  }
 }
