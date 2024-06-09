@@ -157,3 +157,13 @@ input[type="checkbox"] {
   border-radius: 0.25rem;
   font-size: 18px;
 }
+
+.w3-teal {
+  background-color: transparent !important;
+}
+
+.footer-right {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}

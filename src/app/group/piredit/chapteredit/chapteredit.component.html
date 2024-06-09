@@ -340,21 +340,24 @@
 
 <div id="exampleModalLabel" class="w3-modal" #exampleModalLabel>
   <div class="w3-modal-content w3-card-4 w3-animate-zoom">
-    <div class="w3-center">
-      <header>
-        <span
-          onclick="document.getElementById('exampleModalLabel').style.display='none'"
-          class="w3-button w3-xlarge w3-transparent w3-display-topright"
-          title="Close Modal"
-          >×</span
-        >
-      </header>
+    <header class="w3-container">
+      <span
+        onclick="document.getElementById('exampleModalLabel').style.display='none'"
+        class="w3-button w3-xlarge w3-transparent w3-display-topright close-btn"
+        title="Close Modal"
+        >×</span
+      >
+      <h2>{{ this.selectedChapter?.chapterName }}</h2>
+    </header>
+    <div>
       <wordpairedit
         [pirId]="selectedPirId"
         [listwordpairs]="listWordPairs"
       ></wordpairedit>
       <hr />
-      <h2>ChatGPT'den Gelen Kelimeler</h2>
+      <div class="text-center">
+        <h2>ChatGPT'den Gelen Kelimeler</h2>
+      </div>
 
       <table class="table table-bordered mb-3" style="min-height: 325px">
         <tbody>
@@ -370,7 +373,7 @@
           </tr>
           <tr>
             <div
-              class="word-count mb-3"
+              class="word-count m-2"
               *ngIf="this.listWordPairsFromChatGPT.length"
             >
               <span
@@ -450,15 +453,17 @@
         <button
           *ngIf="this.listWordPairsFromChatGPT.length > 0"
           type="button"
-          class="btn btn-success"
+          class="btn btn-success mb-2"
           (click)="saveAllWordPairsFromChatGPT()"
         >
           Gelen Kelimeleri Kaydet
         </button>
       </div>
-      <footer>
+    </div>
+    <footer class="w3-container w3-teal footer-right">
+      <div class="my-2">
         <span
-          class="word-count"
+          class="word-count m-2"
           *ngIf="this.listWordPairsFromChatGPT.length > 0"
         >
           Gelen Kelime Sayısı:{{ this.listWordPairsFromChatGPT.length }}
@@ -478,17 +483,20 @@
         </button>
         <button
           type="button"
-          class="btn btn-success"
+          class="btn btn-success mx-1"
           (click)="getMultipleWordPair()"
         >
           Kelimeleri Getir
         </button>
-
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          onclick="document.getElementById('exampleModalLabel').style.display='none'"
+        >
           Kapat
         </button>
-      </footer>
-    </div>
+      </div>
+    </footer>
   </div>
 </div>
 
