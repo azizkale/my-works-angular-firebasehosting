@@ -24,6 +24,7 @@
       data-placement="left"
       title="Yeni Kelime"
       onclick="document.getElementById('addWordPair').style.display='block'"
+      (click)="this.lugatService.getWordsMeaning(this.selectedWord)"
     >
       <i *ngIf="buttonControl" class="fa fa-plus"></i>
       <i *ngIf="!buttonControl" class="fa fa-search"></i>

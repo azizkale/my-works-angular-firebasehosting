@@ -27,7 +27,7 @@
     </ul>
     <hr />
     <ul class="text-start" *ngFor="let item of this.lugatService.listWords">
-      <li>{{ item.meaning }}</li>
+      <li [innerHTML]="item.meaning"></li>
     </ul>
   </div>
 </section>
