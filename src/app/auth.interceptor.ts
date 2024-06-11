@@ -54,12 +54,14 @@ export class AuthInterceptor implements HttpInterceptor {
 
       return this.authService.refreshToken().pipe(
         switchMap((token: any) => {
+          console.log(token);
           this.isRefreshing = false;
           this.refreshTokenSubject.next(token);
           return next.handle(this.addToken(request, token));
         }),
         catchError((err) => {
           this.isRefreshing = false;
+          this.authService.signOut(); // Kullanıcıyı çıkış yap
           return throwError(err);
         })
       );
