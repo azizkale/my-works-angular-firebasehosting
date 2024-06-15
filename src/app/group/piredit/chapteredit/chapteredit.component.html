@@ -350,7 +350,12 @@
         title="Close Modal"
         >×</span
       >
-      <h2>{{ this.selectedChapter?.chapterName }}</h2>
+      <div class="m-2">
+        <h2>{{ this.selectedChapter?.chapterName }}</h2>
+        <h4>
+          Bu bölümdeki toplam kelime sayısı: {{ this.listWordPairs?.length }}
+        </h4>
+      </div>
     </header>
     <div class="text-center">
       <h2>ChatGPT'den Gelen Kelimeler</h2>
@@ -389,22 +394,9 @@
             >
               <div class="row mx-2 outer-div">
                 <label for="word" class="form-label">{{ i + 1 }}.</label>
-                <label for="word" class="form-label">Kelime:</label>
-                <input
-                  readonly
-                  id="word"
-                  class="w3-input w3-border form-input"
-                  type="text"
-                  value="{{ wordpair.word }}"
-                />
-                <label for="meaning" class="form-label mt-2">Anlamı:</label>
-                <input
-                  readonly
-                  id="meaning"
-                  class="w3-input w3-border form-input"
-                  type="text"
-                  value="{{ wordpair.meaning }}"
-                />
+                <b>{{ wordpair.word }}:</b>
+                <p>{{ wordpair.meaning }}</p>
+
                 <div class="row mt-2 text-center">
                   <div class="col-sm">
                     <button
