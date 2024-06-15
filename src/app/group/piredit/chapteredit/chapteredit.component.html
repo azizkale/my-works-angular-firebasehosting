@@ -352,149 +352,155 @@
       >
       <h2>{{ this.selectedChapter?.chapterName }}</h2>
     </header>
+    <div class="text-center">
+      <h2>ChatGPT'den Gelen Kelimeler</h2>
+    </div>
+
+    <table class="table table-bordered mb-3" style="min-height: 325px">
+      <tbody>
+        <tr>
+          <div
+            class="d-flex justify-content-center spinnerai"
+            *ngIf="spinnerMultipleWordPairs"
+          >
+            <div class="spinner-border" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        </tr>
+        <tr>
+          <div
+            class="word-count m-2"
+            *ngIf="this.listWordPairsFromChatGPT.length"
+          >
+            <span
+              >Gelen Kelime Sayısı:
+              {{ this.listWordPairsFromChatGPT.length }}</span
+            >
+          </div>
+        </tr>
+        <tr>
+          <td>
+            <div
+              *ngFor="
+                let wordpair of this.listWordPairsFromChatGPT;
+                let i = index
+              "
+            >
+              <div class="row mx-2 outer-div">
+                <label for="word" class="form-label">{{ i + 1 }}.</label>
+                <label for="word" class="form-label">Kelime:</label>
+                <input
+                  readonly
+                  id="word"
+                  class="w3-input w3-border form-input"
+                  type="text"
+                  value="{{ wordpair.word }}"
+                />
+                <label for="meaning" class="form-label mt-2">Anlamı:</label>
+                <input
+                  readonly
+                  id="meaning"
+                  class="w3-input w3-border form-input"
+                  type="text"
+                  value="{{ wordpair.meaning }}"
+                />
+                <div class="row mt-2 text-center">
+                  <div class="col-sm">
+                    <button
+                      (click)="
+                        saveSingleWordPairOf_listWordPairsFromChatGPT(wordpair)
+                      "
+                      class="btn btn-success w-75"
+                    >
+                      Kaydet
+                    </button>
+                  </div>
+                  <div class="col-sm">
+                    <button
+                      onclick="document.getElementById('addWordPair').style.display='block'"
+                      (click)="
+                        selectedWordForChatGPTWordPairs(wordpair.word);
+                        this.lugatService.getWordsMeaning(this.selectedWord)
+                      "
+                      class="btn btn-info w-75"
+                    >
+                      Lugat
+                    </button>
+                  </div>
+                  <div class="col-sm">
+                    <button
+                      (click)="
+                        removeWordPairFrom_listWordPairsFromChatGPT(wordpair)
+                      "
+                      class="btn btn-danger w-75"
+                    >
+                      Sil
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <hr style="height: 5px; background-color: black; border: none" />
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="text-center">
+      <button
+        *ngIf="this.listWordPairsFromChatGPT.length > 0"
+        type="button"
+        class="btn btn-success mb-2"
+        (click)="saveAllWordPairsFromChatGPT()"
+      >
+        Gelen Kelimeleri Kaydet
+      </button>
+    </div>
+    <div class="m-2 w3-teal footer-right">
+      <span
+        class="word-count m-2"
+        *ngIf="this.listWordPairsFromChatGPT.length > 0"
+      >
+        Gelen Kelime Sayısı:{{ this.listWordPairsFromChatGPT.length }}
+      </span>
+      <!-- button für spinner -->
+      <button
+        class="w3-button w3-green"
+        type="button"
+        *ngIf="spinnerMultipleWordPairs"
+      >
+        <span
+          class="spinner-border spinner-border-sm"
+          role="status"
+          aria-hidden="true"
+        ></span>
+        <span class="visually-hidden">Loading...</span>
+      </button>
+      <button
+        type="button"
+        class="btn btn-success mx-1"
+        (click)="getMultipleWordPair()"
+      >
+        Kelimeleri Getir
+      </button>
+      <button
+        type="button"
+        class="btn btn-secondary"
+        onclick="document.getElementById('exampleModalLabel').style.display='none'"
+        (click)="this.listWordPairsFromChatGPT = []"
+      >
+        Kapat
+      </button>
+    </div>
     <div>
       <wordpairedit
         [pirId]="selectedPirId"
         [listwordpairs]="listWordPairs"
       ></wordpairedit>
       <hr />
-      <div class="text-center">
-        <h2>ChatGPT'den Gelen Kelimeler</h2>
-      </div>
-
-      <table class="table table-bordered mb-3" style="min-height: 325px">
-        <tbody>
-          <tr>
-            <div
-              class="d-flex justify-content-center spinnerai"
-              *ngIf="spinnerMultipleWordPairs"
-            >
-              <div class="spinner-border" role="status">
-                <span class="visually-hidden">Loading...</span>
-              </div>
-            </div>
-          </tr>
-          <tr>
-            <div
-              class="word-count m-2"
-              *ngIf="this.listWordPairsFromChatGPT.length"
-            >
-              <span
-                >Gelen Kelime Sayısı:
-                {{ this.listWordPairsFromChatGPT.length }}</span
-              >
-            </div>
-          </tr>
-          <tr>
-            <td>
-              <div
-                *ngFor="
-                  let wordpair of this.listWordPairsFromChatGPT;
-                  let i = index
-                "
-              >
-                <div class="row mx-2 outer-div">
-                  <label for="word" class="form-label">{{ i + 1 }}.</label>
-                  <label for="word" class="form-label">Kelime:</label>
-                  <input
-                    readonly
-                    id="word"
-                    class="w3-input w3-border form-input"
-                    type="text"
-                    value="{{ wordpair.word }}"
-                  />
-                  <label for="meaning" class="form-label mt-2">Anlamı:</label>
-                  <input
-                    readonly
-                    id="meaning"
-                    class="w3-input w3-border form-input"
-                    type="text"
-                    value="{{ wordpair.meaning }}"
-                  />
-                  <div class="row mt-2 text-center">
-                    <div class="col-sm">
-                      <button
-                        (click)="
-                          saveSingleWordPairOf_listWordPairsFromChatGPT(
-                            wordpair
-                          )
-                        "
-                        class="btn btn-success w-75"
-                      >
-                        Kaydet
-                      </button>
-                    </div>
-                    <div class="col-sm">
-                      <button
-                        onclick="document.getElementById('addWordPair').style.display='block'"
-                        (click)="
-                          selectedWordForChatGPTWordPairs(wordpair.word);
-                          this.lugatService.getWordsMeaning(this.selectedWord)
-                        "
-                        class="btn btn-info w-75"
-                      >
-                        Lugat
-                      </button>
-                    </div>
-                    <div class="col-sm">
-                      <button
-                        (click)="
-                          removeWordPairFrom_listWordPairsFromChatGPT(wordpair)
-                        "
-                        class="btn btn-danger w-75"
-                      >
-                        Sil
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                <hr
-                  style="height: 5px; background-color: black; border: none"
-                />
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="text-center">
-        <button
-          *ngIf="this.listWordPairsFromChatGPT.length > 0"
-          type="button"
-          class="btn btn-success mb-2"
-          (click)="saveAllWordPairsFromChatGPT()"
-        >
-          Gelen Kelimeleri Kaydet
-        </button>
-      </div>
     </div>
     <footer class="w3-container w3-teal footer-right">
       <div class="my-2">
-        <span
-          class="word-count m-2"
-          *ngIf="this.listWordPairsFromChatGPT.length > 0"
-        >
-          Gelen Kelime Sayısı:{{ this.listWordPairsFromChatGPT.length }}
-        </span>
-        <!-- button für spinner -->
-        <button
-          class="w3-button w3-green"
-          type="button"
-          *ngIf="spinnerMultipleWordPairs"
-        >
-          <span
-            class="spinner-border spinner-border-sm"
-            role="status"
-            aria-hidden="true"
-          ></span>
-          <span class="visually-hidden">Loading...</span>
-        </button>
-        <button
-          type="button"
-          class="btn btn-success mx-1"
-          (click)="getMultipleWordPair()"
-        >
-          Kelimeleri Getir
-        </button>
         <button
           type="button"
           class="btn btn-secondary"
