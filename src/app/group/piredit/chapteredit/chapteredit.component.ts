@@ -556,7 +556,9 @@ export class ChaptereditComponent implements OnInit {
             this.listWordPairsFromChatGPT
           );
         },
-        error: () => {},
+        error: () => {
+          this.spinnerMultipleWordPairs = false;
+        },
         complete: () => {
           this.spinnerMultipleWordPairs = false;
         },
