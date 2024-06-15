@@ -521,10 +521,19 @@ export class ChaptereditComponent implements OnInit {
   // edit the wordpairs from chatgpt==================
   getMultipleWordPair() {
     this.spinnerMultipleWordPairs = true;
+
+    //this code runs only at the first request
+    //but this list is sent in every request not to get the same wordpairs
+    let listToControlNotToGetWordPairsTheChapterAlreadyHas: WordPair[] | any;
+    if (this.listWordPairsFromChatGPT.length == 0) {
+      listToControlNotToGetWordPairsTheChapterAlreadyHas = [
+        ...this.listWordPairs,
+      ];
+    }
     this.pireditservice
       .getMultipleWordPairs(
         this.selectedChapter.chapterContent,
-        this.listWordPairsFromChatGPT,
+        listToControlNotToGetWordPairsTheChapterAlreadyHas,
         this.selectedChapter.chapterId,
         this.selectedChapter.pirId,
         this.selectedChapter.editorId
@@ -532,8 +541,9 @@ export class ChaptereditComponent implements OnInit {
       .subscribe({
         next: (data: any) => {
           this.listWordPairsFromChatGPT = [...data];
+          listToControlNotToGetWordPairsTheChapterAlreadyHas = [...data];
 
-          //remove the wordpairs of the chapter that already exists in the db (frontend)
+          //remove the wordpairs that already exists in the db (frontend)
           this.listWordPairsFromChatGPT = this.listWordPairsFromChatGPT.filter(
             (mwp: WordPair) =>
               !this.listWordPairs.some(

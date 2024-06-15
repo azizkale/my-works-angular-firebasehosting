@@ -298,12 +298,12 @@
   <div class="w3-modal-content w3-card-4 w3-animate-zoom">
     <div class="w3-center">
       <br />
-      <!-- <span
+      <span
         onclick="document.getElementById('addWordPair').style.display='none'"
         class="w3-button w3-xlarge w3-transparent w3-display-topright"
         title="Close Modal"
         >×</span
-      > -->
+      >
       <!-- adding single wordpair -->
       <form class="w3-container" [formGroup]="addWordForm">
         <div class="w3-section">
@@ -405,6 +405,7 @@
                   />
                   <label for="meaning" class="form-label mt-2">Anlamı:</label>
                   <input
+                    readonly
                     id="meaning"
                     class="w3-input w3-border form-input"
                     type="text"
@@ -526,162 +527,3 @@
     <button type="button" class="btn btn-info">Vazgeç</button>
   </div>
 </ng-template>
-
-<!-- <div
-  class="modal fade"
-  id="displayWordPairs"
-  tabindex="-1"
-  role="dialog"
-  aria-labelledby="exampleModalLabel1"
-  aria-hidden="true"
->
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3 class="modal-title" id="exampleModalLabel1">Tüm Kelimeler</h3>
-        <button
-          type="button"
-          class="w3-button w3-xlarge w3-transparent w3-display-topright"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        >
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <wordpairedit
-          [pirId]="selectedPirId"
-          [listwordpairs]="listWordPairs"
-        ></wordpairedit>
-        <hr />
-        <h2>ChatGPT'den Gelen Kelimeler</h2>
-
-        <table class="table table-bordered mb-3" style="min-height: 325px">
-          <tbody>
-            <tr>
-              <div
-                class="d-flex justify-content-center spinnerai"
-                *ngIf="spinnerMultipleWordPairs"
-              >
-                <div class="spinner-border" role="status">
-                  <span class="visually-hidden">Loading...</span>
-                </div>
-              </div>
-            </tr>
-            <tr>
-              <div
-                class="word-count mb-3"
-                *ngIf="this.listWordPairsFromChatGPT.length"
-              >
-                <span
-                  >Gelen Kelime Sayısı:
-                  {{ this.listWordPairsFromChatGPT.length }}</span
-                >
-              </div>
-            </tr>
-            <tr>
-              <td>
-                <div
-                  *ngFor="
-                    let wordpair of this.listWordPairsFromChatGPT;
-                    let i = index
-                  "
-                >
-                  <div class="row mx-2 outer-div">
-                    <label for="word" class="form-label">{{ i + 1 }}.</label>
-                    <label for="word" class="form-label">Kelime:</label>
-                    <input
-                      readonly
-                      id="word"
-                      class="w3-input w3-border form-input"
-                      type="text"
-                      value="{{ wordpair.word }}"
-                    />
-                    <label for="meaning" class="form-label mt-2">Anlamı:</label>
-                    <input
-                      id="meaning"
-                      class="w3-input w3-border form-input"
-                      type="text"
-                      value="{{ wordpair.meaning }}"
-                    />
-                    <div class="row mt-2 text-center">
-                      <div class="col-sm">
-                        <button
-                          (click)="
-                            saveSingleWordPairOf_listWordPairsFromChatGPT(
-                              wordpair
-                            )
-                          "
-                          class="btn btn-success w-75"
-                        >
-                          Kaydet
-                        </button>
-                      </div>
-                      <div class="col-sm">
-                        <button
-                          (click)="
-                            removeWordPairFrom_listWordPairsFromChatGPT(
-                              wordpair
-                            )
-                          "
-                          class="btn btn-danger w-75"
-                        >
-                          Sil
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                  <hr
-                    style="height: 5px; background-color: black; border: none"
-                  />
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="text-center">
-          <button
-            *ngIf="this.listWordPairsFromChatGPT.length > 0"
-            type="button"
-            class="btn btn-success"
-            (click)="saveAllWordPairsFromChatGPT()"
-          >
-            Gelen Kelimeleri Kaydet
-          </button>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <span
-          class="word-count"
-          *ngIf="this.listWordPairsFromChatGPT.length > 0"
-        >
-          Gelen Kelime Sayısı:{{ this.listWordPairsFromChatGPT.length }}
-        </span>
-        <!-- button für spinner -->
-<!-- <button
-          class="w3-button w3-green"
-          type="button"
-          *ngIf="spinnerMultipleWordPairs"
-        >
-          <span
-            class="spinner-border spinner-border-sm"
-            role="status"
-            aria-hidden="true"
-          ></span>
-          <span class="visually-hidden">Loading...</span>
-        </button>
-        <button
-          type="button"
-          class="btn btn-success"
-          (click)="getMultipleWordPair()"
-        >
-          Kelimeleri Getir
-        </button>
-
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Kapat
-        </button>
-      </div>
-    </div>
-  </div>
-</div> -->
