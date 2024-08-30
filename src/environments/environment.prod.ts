@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  url: 'https://angry-turtleneck-shirt-bee.cyclic.app',
+  url: 'http://51.8.14.46',
 };
