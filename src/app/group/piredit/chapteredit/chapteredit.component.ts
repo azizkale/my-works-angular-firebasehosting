@@ -32,8 +32,8 @@ import { AlertsService } from 'src/app/services/alerts.service';
 export class ChaptereditComponent implements OnInit {
   @ViewChild(WordpaireditComponent)
   wordpaireditComponent: WordpaireditComponent;
+  @ViewChild('chapterContentToRead') chapterContentToRead: ElementRef;
   @ViewChild('chapterContent') chapterContent: ElementRef;
-  @ViewChild('chapterContentforEditor') chapterContentforEditor: ElementRef;
 
   //for mobile devices
   @HostListener('touchend', ['$event'])
@@ -57,6 +57,7 @@ export class ChaptereditComponent implements OnInit {
   selectedChapter: Chapter;
   users_createchapter: any[] = []; // fullfilling the select tag on FormGroup
   users_updateform: any[] = []; // fullfilling the select tag on FormGroup
+  listMultipleWordPair: any[] = [];
 
   fontSize: number;
   lineHeight: number;
@@ -133,8 +134,8 @@ export class ChaptereditComponent implements OnInit {
     this.updateChapterForm = this.fb.group({
       chapterId: ['', Validators.required],
       chapterName: ['', Validators.required],
+      chapterContentToRead: ['', Validators.required],
       chapterContent: ['', Validators.required],
-      chapterContentforEditor: ['', Validators.required],
       selectEditor: ['', Validators.required],
       allowed: [Validators.required],
     });
@@ -278,7 +279,7 @@ export class ChaptereditComponent implements OnInit {
               this.selectedChapterContentToEdit,
               Validators.required,
             ],
-            chapterContentforEditor: [
+            chapterContentToRead: [
               this.selectedChapterContentToEdit,
               Validators.required,
             ],
@@ -459,5 +460,24 @@ export class ChaptereditComponent implements OnInit {
       this.isNightMode ? 'night-mode' : 'light-mode'
     );
     this.readModeClass();
+  }
+
+  getMultipleWordPair() {
+    console.log('start...');
+    this.pireditservice
+      .getMultipleWordPairs(
+        `
+    Zât-ı Ulûhiyet’e ait bütün isimler birer esmâ-i sıfât, “Allah” lafzı ise bir ism-i Zât’tır ve bütün ilâhî isimleri ya bililtizam veya bittazammun ihtiva etmektedir. Şöyle ki, bir insan, “Lâ ilâhe ille’l-Kuddûs.. ille’r-Rahîm.. ille’l-Azîz... ilâ âhir.” gibi cümlelerle imanını ilan etse, bu cümleler esmâ-i hüsnâsıyla mâlum, sıfât-ı sübhaniyesiyle mâruf ve muhât o Zât’ı tam ifade edemediğinden maksat hâsıl olmaz. Zira böyle diyen biri, farkına varsın varmasın, daire-i ulûhiyet ve rubûbiyeti “Kuddûs”, “Rahîm” ve “Azîz” isimlerinin tecellî alanlarına inhisar ettirerek muhîti muhât hâline getirmiş ve bir mânâda daire-i ulûhiyeti tahdit etmiş olur.
+    `,
+        this.listMultipleWordPair
+      )
+      .subscribe({
+        next: (data: any) => {
+          this.listMultipleWordPair = [...data];
+          console.log(this.listMultipleWordPair);
+        },
+        error: () => {},
+        complete: () => console.log('end'),
+      });
   }
 }
