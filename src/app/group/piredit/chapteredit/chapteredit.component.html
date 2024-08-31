@@ -42,6 +42,9 @@
           </div>
         </form>
       </div>
+      <button class="btn btn-primary" (click)="getMultipleWordPair()">
+        get multiple word pairs
+      </button>
     </div>
   </div>
 </div>
@@ -185,12 +188,12 @@
           [style.line-height.px]="lineHeight * fontSize"
           [readOnly]="allowedToAdmin"
           *ngIf="allowedToAdminAndMentor"
-          #chapterContentforEditor
+          #chapterContent
           rows="15"
           class="w3-input w3-border w3-margin-bottom"
           type="text"
           placeholder="Bölüm içeriği giriniz"
-          formControlName="chapterContentforEditor"
+          formControlName="chapterContent"
         >
         </textarea>
         <!-- ======editor read book style====== -->
@@ -201,7 +204,7 @@
                 <p
                   [style.font-size.px]="fontSize"
                   [style.line-height.px]="lineHeight * fontSize"
-                  #chapterContent
+                  #chapterContentToRead
                   class="w3-input w3-border w3-margin-bottom"
                   placeholder="Bölüm içeriği giriniz"
                   [innerHTML]="selectedChapterContentToEdit"
@@ -246,6 +249,34 @@
           Güncelle
         </button>
         <div class="">
+<<<<<<< HEAD
+=======
+          <!-- these butttons are in toggle-menu-component -->
+          <button
+            onclick="document.getElementById('addWordPair').style.display='block'"
+            class="w3-button w3-green w3-section w3-padding mx-1"
+          >
+            Yeni Kelime
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#displayWordPairs"
+            class="w3-button w3-green w3-section w3-padding"
+          >
+            Kelimeler
+          </button>
+          <button
+            onclick="document.getElementById('id_update_chapter').style.display='none'"
+            type="button"
+            class="w3-button w3-grey w3-section w3-padding mx-1"
+            placement="top"
+            style="margin-right: 10px"
+          >
+            Kapat
+          </button>
+>>>>>>> 4ea7db68e8c7b9a94f6d926c12ecc7a7ba178f10
           <button
             *ngIf="allowedToAdminAndMentor"
             type="button"
@@ -287,6 +318,7 @@
         title="Close Modal"
         >×</span
       >
+      <!-- adding single wordpair -->
       <form class="w3-container" [formGroup]="addWordForm">
         <div class="w3-section">
           <input
@@ -316,6 +348,7 @@
           Kaydet
         </button>
       </form>
+      <!-- adding multiple wordpair by chatGPT-->
       <app-lugat *ngIf="selectedWord" [receivedWord]="selectedWord"></app-lugat>
     </div>
   </div>
