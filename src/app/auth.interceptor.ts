@@ -16,14 +16,7 @@ export class AuthInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<any> {
     const token: any = localStorage.getItem('token');
 
-    // URL'deki 'http' protokolünü 'https' ile değiştirme
-    let secureUrl = request.url;
-    if (secureUrl.startsWith('http://')) {
-      secureUrl = secureUrl.replace('http://', 'https://');
-    }
-
     const modifiedRequest = request.clone({
-      url: secureUrl, // Güncellenmiş URL
       headers: request.headers.set('Authorization', `Bearer ${token}`),
     });
 
@@ -32,7 +25,7 @@ export class AuthInterceptor implements HttpInterceptor {
       request.url.includes('/display/retrievepirs') ||
       request.url.includes('/display/retrievechaptersbypirid')
     ) {
-      return next.handle(modifiedRequest);
+      return next.handle(request);
     } else {
       return next.handle(modifiedRequest).pipe(
         catchError((error) => {
