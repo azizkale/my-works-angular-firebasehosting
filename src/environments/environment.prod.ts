@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  url: 'http://51.8.14.46',
+  url: 'https://easy-read-rest-api-server-typescript.onrender.com',
 };
