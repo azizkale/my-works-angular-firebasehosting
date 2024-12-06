@@ -127,4 +127,24 @@ export class PireditService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post(environment.url + `/getwordpairs`, body, { headers });
   }
+
+  getMultipleWordPairsFromAzureGpt(
+    text: string,
+    listWordPairs: any[],
+    chapterId: any,
+    pirId: any,
+    editorId: any
+  ): Observable<any> {
+    const body = {
+      text: text,
+      listWordPairs: listWordPairs,
+      chapterId: chapterId,
+      pirId: pirId,
+      editorId: editorId,
+    };
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post(environment.url + `/getwordpairsfromazuregpt`, body, {
+      headers,
+    });
+  }
 }

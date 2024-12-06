@@ -7,13 +7,13 @@ import { Pir } from 'src/models/Pir';
 @Component({
   selector: 'app-chapters',
   templateUrl: './chapters.component.html',
-  styleUrls: ['./chapters.component.css']
+  styleUrls: ['./chapters.component.css'],
 })
 export class ChaptersComponent implements OnInit {
-  retrieveChaptersNamesForm: FormGroup
+  retrieveChaptersNamesForm: FormGroup;
   selectedPirId: any;
-  pir: Pir
-  chaptersNames: any[]
+  pir: Pir;
+  chaptersNames: any[];
 
   constructor(
     public fb: FormBuilder,
@@ -31,21 +31,26 @@ export class ChaptersComponent implements OnInit {
 
   formChaptersNames() {
     this.retrieveChaptersNamesForm = this.fb.group({
-      chapterName: this.fb.array([])
+      chapterName: this.fb.array([]),
     });
     //formname array is fullfilled in the retrievePirs function (below)
   }
 
-
-
   async retrieveChaptersNamesByPirId() {
-    await this.displaypirservice.retrieveChaptersNamesByPirId(this.selectedPirId).subscribe({
-      next: async (data) => {
-        this.chaptersNames = data
-        this.chaptersNames.forEach((chapter) => {
-          this.retrieveChaptersNamesForm.addControl(chapter.chapterName, new FormControl(chapter.chapterName));
-        });
-      }
-    })
+    await this.displaypirservice
+      .retrieveChaptersNamesByPirId(this.selectedPirId)
+      .subscribe({
+        next: async (data) => {
+          this.chaptersNames = data.sort((a: any, b: any) =>
+            a.chapterName.localeCompare(b.chapterName)
+          );
+          this.chaptersNames.forEach((chapter) => {
+            this.retrieveChaptersNamesForm.addControl(
+              chapter.chapterName,
+              new FormControl(chapter.chapterName)
+            );
+          });
+        },
+      });
   }
 }

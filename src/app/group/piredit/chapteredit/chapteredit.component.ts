@@ -176,14 +176,25 @@ export class ChaptereditComponent implements OnInit {
               .subscribe({
                 next: (ress) => {
                   if (ress !== undefined && ress !== null) {
+                    // API'den gelen verileri al ve Object.values ile bir dizi oluştur
                     this.chapters = Object.values(ress);
-                    this.chapters.forEach((chapter, index) => {
+
+                    // Harf sırasına göre sıralama
+                    this.chapters.sort((a: any, b: any) =>
+                      a.chapterName.localeCompare(b.chapterName)
+                    );
+
+                    // Form kontrollerini ekle
+                    this.chapters.forEach((chapter: any) => {
                       this.retrieveChapterForm.addControl(
                         chapter.chapterName,
                         new FormControl(chapter.chapterName)
                       );
                     });
                   }
+                },
+                error: (err) => {
+                  console.error('Error retrieving chapters:', err);
                 },
               });
           } else {
@@ -531,7 +542,7 @@ export class ChaptereditComponent implements OnInit {
       ];
     }
     this.pireditservice
-      .getMultipleWordPairs(
+      .getMultipleWordPairsFromAzureGpt(
         this.selectedChapter.chapterContent,
         listToControlNotToGetWordPairsTheChapterAlreadyHas,
         this.selectedChapter.chapterId,
